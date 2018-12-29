@@ -1,6 +1,7 @@
 import React from 'react'
 import Image1 from '../assets/images/japanfisherman.jpg'
 import '../assets/css/ExperienceDetails.css'
+import Calendar from 'react-calendar'
 
 export default ()=>{
     return(
@@ -10,28 +11,25 @@ export default ()=>{
               <img src={Image1}/>
           </div>
         {/* </div> */}
-          <div className="ui container">
-            <h1 className = 'ui header'>Cy's Magical Mystery Tour</h1>
-          </div>
-          <div className="ui relaxed list container">
+            <div className="ui relaxed list container">
               <div className = "item">
-                <i className= 'map marker alternate icon large'></i>
+                <i className= 'icon map marker alternate large' id = 'detailsIcon'></i>
                 Mexico
               </div>
               <div className="item">
-                <i className="icon dollar sign large"></i>
+                <i className="icon dollar sign large" id = 'detailsIcon'></i>
                 1 billion dollars
               </div>
               <div className="item">
-                <i className="icon clock outline large"></i>
+                <i className="icon clock outline large" id = 'detailsIcon'></i>
                 Whenever you want, baby!
               </div>
               <div className="item">
-                <i className="icon users large"></i>
+                <i className="icon users large" id = 'detailsIcon'></i>
                 As many as you want!
               </div>
               <div className="item">
-                <i className="icon id badge large"></i>
+                <i className="icon id badge large" id = 'detailsIcon'></i>
                 Cy Bae
               </div>
           </div>
@@ -45,6 +43,10 @@ export default ()=>{
             </h2>
             <p>Making people change their code from whatever CSS library they were using before over to some new obscure library.</p>
           </div>
+          <div>
+          <Calendar/>
+          </div>
         </div>
+        
     )
 }

@@ -2,3 +2,12 @@
     margin-top: 0;
     margin-bottom: 0;
 }
+
+.react-calendar{
+    margin: auto;
+    margin-top: 1em;
+}
+
+#detailsIcon{
+    margin-right: 5px;
+}
