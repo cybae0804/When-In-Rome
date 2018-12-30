@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, Route } from 'react-router-dom';
-import './experience_preview.css';
+import '../assets/css/experience_preview.css';
 
 export default props => {
   const { id, image, activity, occupation, price, duration, averageRating, totalRatings } = props;
