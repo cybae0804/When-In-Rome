@@ -27,20 +27,8 @@ const experiences = [
   },
 ]
 
-// const { id, image, activity, occupation, price, duration, averageRating, totalRatings } = experience;
-
 const App = () => (
   <div>
-    {/* <ExperiencePreview 
-      id={id}
-      image={image}
-      activity={activity}
-      occupation={occupation}
-      price={price}
-      duration={duration}
-      averageRating={averageRating}
-      totalRatings={totalRatings}
-    /> */}
     <ExperiencePreviewContainer
       heading="explore"
       experiences={experiences}

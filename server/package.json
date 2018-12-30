@@ -4,8 +4,17 @@
   "description": "Server for When In Rome",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
+    "dev:server": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Cy Bae, Ben Levine, Erick Brownfield",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  }
 }
