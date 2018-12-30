@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
+import axios from 'axios';
 import ExperiencePreviewContainer from './experience_preview_container';
 import ExperiencePreview from './experience_preview';
 import images from './dummyImages';
@@ -25,16 +26,37 @@ const experiences = [
     averageRating: 4.2,
     totalRatings: 25,
   },
-]
+];
 
-const App = () => (
-  <div>
-    <ExperiencePreviewContainer
-      heading="explore"
-      experiences={experiences}
-    />
-    <Route path={'experience/:' } component={ExperiencePreview}/>
-  </div>
-);
+
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+
+    };
+  }
+
+  render() {
+    axios.get('http://localhost:9000/api/experiences')
+      .then(res => {
+        console.log(res);
+    }).catch(err => {
+      console.log(err);
+    });
+
+    return (
+      <div>
+        <ExperiencePreviewContainer
+          heading="explore"
+          experiences={experiences}
+        />
+        <Route path={'experience/:'} component={ExperiencePreview} />
+      </div>
+    );
+  }
+}
 
 export default App;
