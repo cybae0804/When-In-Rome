@@ -1,0 +1,15 @@
+a {
+  color: black;
+}
+
+.experience-preview * {
+  font-size: 1rem;
+}
+
+.content > p {
+  margin-bottom: 0px;
+}
+
+i {
+  color: orange;
+}

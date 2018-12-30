@@ -28,8 +28,6 @@ const experiences = [
   },
 ];
 
-
-
 class App extends Component {
   constructor(props) {
     super(props);
