@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import axios from 'axios';
 import ExperiencePreviewContainer from './experience_preview_container';
 import ExperiencePreview from './experience_preview';
+import Search from './search';
 import images from './dummyImages';
 
 const experiences = [
@@ -47,6 +48,7 @@ class App extends Component {
 
     return (
       <div>
+        <Search/>
         <ExperiencePreviewContainer
           heading="explore"
           experiences={experiences}
