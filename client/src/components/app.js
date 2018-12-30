@@ -25,27 +25,34 @@ const experiences = [
     averageRating: 4.2,
     totalRatings: 25,
   },
-]
+  {
+    id: 3,
+    image: images.a,
+    activity: 'Fishing',
+    occupation: 'fisherman',
+    price: 25,
+    duration: 'Full Day',
+    averageRating: 4.8,
+    totalRatings: 12,
+  },
+  {
+    id: 4,
+    image: images.b,
+    activity: 'Hunting',
+    occupation: 'huntsman',
+    price: 80,
+    duration: 'Full Day',
+    averageRating: 4.2,
+    totalRatings: 25,
+  },
 
-// const { id, image, activity, occupation, price, duration, averageRating, totalRatings } = experience;
+]
 
 const App = () => (
   <div>
-    {/* <ExperiencePreview 
-      id={id}
-      image={image}
-      activity={activity}
-      occupation={occupation}
-      price={price}
-      duration={duration}
-      averageRating={averageRating}
-      totalRatings={totalRatings}
-    /> */}
-    <ExperiencePreviewContainer
-      heading="explore"
-      experiences={experiences}
-    />
-    <Route path={'experience/:' } component={ExperiencePreview}/>
+    <Route path="/" render={props => {
+      return <ExperiencePreviewContainer {...props} heading="Explore" experiences={experiences} />;
+    }} />
   </div>
 );
 
