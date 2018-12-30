@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import '../assets/css/search.css';
 
 class Search extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   landing = (
     <form className="ui form container">
       <div className="field">
@@ -43,7 +47,7 @@ class Search extends Component {
   )
 
   render() {
-    return this.filter;
+    return this.props.landing ? this.landing : this.props.filter ? this.filter : this.default;
   }
 }
 
