@@ -1,6 +1,6 @@
 import React from 'react';
 import ExperiencePreview from './experience_preview';
-import './experience_preview_container.css'
+import '../assets/css/experience_preview_container.css'
 
 export default props => {
   const { heading, experiences } = props;

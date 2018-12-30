@@ -1,6 +1,6 @@
 import React from 'react'
 import Image1 from '../assets/images/japanfisherman.jpg'
-import '../assets/css/ExperienceDetails.css'
+import '../assets/css/experience_details.css'
 import Calendar from 'react-calendar'
 
 export default ()=>{

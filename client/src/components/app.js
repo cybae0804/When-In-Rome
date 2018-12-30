@@ -1,10 +1,13 @@
+// vendor
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import axios from 'axios';
+
+// components
 import ExperiencePreviewContainer from './experience_preview_container';
 import ExperiencePreview from './experience_preview';
-import Search from './search';
 import images from './dummyImages';
+import Search from './search';
 
 const experiences = [
   {  
