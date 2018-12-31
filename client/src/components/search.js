@@ -33,21 +33,43 @@ class Search extends Component {
     </div>
   )
 
-  filter = (
+  search = (
     <div className='ui container'>
       <div className="ui fluid left icon input">
         <i className="search link icon"/>
         <input type="text" placeholder="Osaka, Japan"/>
       </div>
       <div>
-        <button className="ui inverted green button filterButtn">Filter</button>
+        <button className="ui inverted green button filterButton">Filter</button>
         <button className="ui inverted green button sortButton">Sort by Date</button>
       </div>
     </div>
   )
 
+  filter = (
+    <div className='ui container'>
+      <div className="ui fluid left icon input">
+        <i className="search link icon" />
+        <input type="text" placeholder="Osaka, Japan" />
+      </div>
+      <div>
+        <button className="ui inverted green button filterButton">Apply</button>
+        <button className="ui inverted green button sortButton">Cancel</button>
+      </div>
+    </div>
+  )
+
   render() {
-    return this.props.landing ? this.landing : this.props.filter ? this.filter : this.default;
+    switch(this.props.version) {
+      case 'landing':
+        return this.landing;
+      case 'search':
+        return this.search;
+      case 'filter':
+        return this.filter;
+      default:
+        return this.default;
+    }
   }
 }
 
