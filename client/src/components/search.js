@@ -24,14 +24,14 @@ class Search extends Component {
       </div>
       <button className="fluid ui button positive" type="submit">Search</button>
     </form>
-  )
+  );
 
   default = (
-    <div className="ui fluid left icon input container">
-      <i className="search link icon"/>
-      <input type="text" placeholder="Osaka, Japan"/>
+    <div className="ui left icon input container">
+      <i className="search link icon" />
+      <input type="text" placeholder="Osaka, Japan" />
     </div>
-  )
+  );
 
   search = (
     <div className='ui container'>
@@ -44,7 +44,7 @@ class Search extends Component {
         <button className="ui inverted green button sortButton">Sort by Date</button>
       </div>
     </div>
-  )
+  );
 
   filter = (
     <div className='ui container'>
@@ -57,7 +57,7 @@ class Search extends Component {
         <button className="ui inverted green button sortButton">Cancel</button>
       </div>
     </div>
-  )
+  );
 
   render() {
     switch(this.props.version) {

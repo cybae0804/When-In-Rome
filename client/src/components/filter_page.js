@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Calendar from 'react-calendar'
 import Search from './search';
+import Header from './header';
 
 class FilterPage extends Component {
   constructor(props) {
@@ -10,7 +11,7 @@ class FilterPage extends Component {
   render() {
     return (
       <div>
-        <Search version="filter" />
+        <Header version="filter" />
         <div className="ui form container">
           <label>Group Size</label>
           <div className="fields">
