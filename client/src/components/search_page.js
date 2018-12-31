@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Search from './search';
 import ExperiencePreviewContainer from './experience_preview_container';
+import Header from './header';
 
 class SearchPage extends Component {
 
@@ -30,7 +31,7 @@ class SearchPage extends Component {
 	render() {
 		return (
 			<div>
-				<Search filter/>
+        <Header version="search" />
 				<ExperiencePreviewContainer
 					experiences={this.experiences}
 				/>

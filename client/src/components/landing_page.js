@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Search from './search';
 import ExperiencePreviewContainer from './experience_preview_container';
+import Header from './header';
 
 class LandingPage extends Component {
 
@@ -30,7 +31,7 @@ class LandingPage extends Component {
 	render() {
 		return (
 			<div>
-				<Search version="landing" />
+				<Header version="landing" title="When in Rome..." />
 				<ExperiencePreviewContainer
 					heading='explore'
 					experiences={this.experiences}
