@@ -7,7 +7,7 @@ import axios from 'axios';
 import LandingPage from './landing_page';
 import SearchPage from './search_page';
 import ExperiencePage from './experience_page';
-
+import FilterPage from './filter_page';
 
 class App extends Component {
   constructor(props) {
@@ -27,6 +27,7 @@ class App extends Component {
         <Route path={'/'} component={LandingPage} exact />
         <Route path={'/search'} component={SearchPage} />
         <Route path={'/experience/'} component={ExperiencePage} />
+        <Route path={'/filter/'} component={FilterPage} />
       </div>
     );
   }

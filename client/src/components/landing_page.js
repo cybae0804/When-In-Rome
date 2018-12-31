@@ -30,7 +30,7 @@ class LandingPage extends Component {
 	render() {
 		return (
 			<div>
-				<Search landing/>
+				<Search version="landing" />
 				<ExperiencePreviewContainer
 					heading='explore'
 					experiences={this.experiences}
