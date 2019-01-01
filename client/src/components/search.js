@@ -7,7 +7,7 @@ class Search extends Component {
   }
 
   landing = (
-    <form className="ui form container">
+    <form className="ui form">
       <div className="field">
         <label>City or Job</label>
         <input type="text" name="cityjob" placeholder="Tokyo, Japan"/>
