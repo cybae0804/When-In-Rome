@@ -8,6 +8,7 @@ import LandingPage from './landing_page';
 import SearchPage from './search_page';
 import ExperiencePage from './experience_page';
 import FilterPage from './filter_page';
+import HamburgerMenu from './hamburger_menu';
 
 class App extends Component {
   constructor(props) {
@@ -24,10 +25,11 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Route path={'/'} component={LandingPage} exact />
+        <Route exact path={'/'} component={LandingPage} />
         <Route path={'/search'} component={SearchPage} />
         <Route path={'/experience/'} component={ExperiencePage} />
         <Route path={'/filter/'} component={FilterPage} />
+        <Route path={'/hamburger/'} component={HamburgerMenu} />
       </div>
     );
   }

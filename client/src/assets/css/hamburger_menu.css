@@ -1,0 +1,15 @@
+.menu {
+  background-color: #6FCF97 !important;
+  height: 100vh;
+  padding: 2rem;
+}
+
+.menu * {
+  color: white !important;
+  font-size: 1.5rem !important;
+}
+
+.close {
+  float: right;
+  color: black !important;
+}
