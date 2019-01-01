@@ -27,19 +27,19 @@ class Search extends Component {
   );
 
   default = (
-    <div className="ui left icon input container">
+    <div className="ui left icon input topMargin" id='searchBar'>
       <i className="search link icon" />
       <input type="text" placeholder="Osaka, Japan" />
     </div>
   );
 
   search = (
-    <div className='ui container'>
-      <div className="ui fluid left icon input">
+    <div className='ui topMargin'>
+      <div id='searchBar' className="ui fluid left icon input">
         <i className="search link icon"/>
         <input type="text" placeholder="Osaka, Japan"/>
       </div>
-      <div>
+      <div className='topMargin'>
         <button className="ui inverted green button filterButton">Filter</button>
         <button className="ui inverted green button sortButton">Sort by Date</button>
       </div>
@@ -47,12 +47,12 @@ class Search extends Component {
   );
 
   filter = (
-    <div className='ui container'>
-      <div className="ui fluid left icon input">
+    <div className='ui topMargin'>
+      <div id='searchBar' className="ui fluid left icon input topMargin">
         <i className="search link icon" />
         <input type="text" placeholder="Osaka, Japan" />
       </div>
-      <div>
+      <div className='topMargin'>
         <button className="ui inverted green button filterButton">Apply</button>
         <button className="ui inverted green button sortButton">Cancel</button>
       </div>

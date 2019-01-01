@@ -5,7 +5,7 @@ import Calendar from 'react-calendar'
 
 export default ()=>{
     return(
-      <div>
+      <div className='topMargin'>
         {/* <div className="ui grid container"> */}
           <div className="ui image rounded container">
               <img src={Image1}/>

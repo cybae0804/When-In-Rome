@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import Search from './search';
+import Header from './header';
 import ExperienceDetails from './experience_details';
 
 class ExperiencePage extends Component {
 	render() {
 		return (
 			<div>
-				<Search/>
+				<Header />
 				<ExperienceDetails/>
 			</div>
 		);
