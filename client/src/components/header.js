@@ -4,12 +4,10 @@ import Search from './search';
 
 export default props => {
   return (
-    <div className="header ui container">
-      <h1>{props.title}</h1>
-      {/* <div className="fifteen wide column"> */}
-        <Search version={props.version}/>
-      {/* </div> */}
+    <div className="ui container">
+      {props.title ? <h1 className='headerText'>{props.title}</h1> : undefined}
       <HamburgerButton />
+      <Search version={props.version} />
     </div>
   );
 }

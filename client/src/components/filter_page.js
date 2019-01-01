@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Calendar from 'react-calendar'
-import Search from './search';
 import Header from './header';
 
 class FilterPage extends Component {

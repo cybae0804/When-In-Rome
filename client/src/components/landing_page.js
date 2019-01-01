@@ -3,12 +3,16 @@ import Search from './search';
 import ExperiencePreviewContainer from './experience_preview_container';
 import Header from './header';
 
+//dummy images
+import image1 from '../assets/images/japanfisherman.jpg';
+import image2 from '../assets/images/2.jpg';
+
 class LandingPage extends Component {
 
 	experiences = [
 		{  
 			id: 1,
-			// image: images.a,
+			image: image1,
 			activity: 'Fishing',
 			occupation: 'fisherman',
 			price: 25,
@@ -18,7 +22,7 @@ class LandingPage extends Component {
 		},
 		{
 			id: 2,
-			// image: images.b,
+			image: image2,
 			activity: 'Hunting',
 			occupation: 'huntsman',
 			price: 80,

@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import Search from './search';
 import ExperiencePreviewContainer from './experience_preview_container';
 import Header from './header';
+
+//dummy 
+import images from './dummyImages';
 
 class SearchPage extends Component {
 
 	experiences = [
 		{  
 			id: 1,
-			// image: images.a,
+			image: images.a,
 			activity: 'Fishing',
 			occupation: 'fisherman',
 			price: 25,
@@ -18,7 +20,7 @@ class SearchPage extends Component {
 		},
 		{
 			id: 2,
-			// image: images.b,
+			image: images.b,
 			activity: 'Hunting',
 			occupation: 'huntsman',
 			price: 80,
@@ -31,7 +33,7 @@ class SearchPage extends Component {
 	render() {
 		return (
 			<div>
-        <Header version="search" />
+        		<Header version="search" />
 				<ExperiencePreviewContainer
 					experiences={this.experiences}
 				/>
