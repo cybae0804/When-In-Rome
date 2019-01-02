@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import ExperiencePreviewContainer from './experience_preview_container';
+import ExperiencePreviewContainer from './experience_preview_container/experience_preview_container';
 import Header from './header';
 
 class LandingPage extends Component {
@@ -15,7 +15,6 @@ class LandingPage extends Component {
   componentDidMount() {
     axios.get('http://localhost:9000/api/experiences')
       .then(res => {
-        console.log(res.data);
         this.setState({
           experiences: res.data,
         });

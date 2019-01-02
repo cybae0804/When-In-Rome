@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../assets/css/hamburger_menu.css';
+import './hamburger_menu.css';
 
 class HamburgerMenu extends Component {
   constructor(props) {

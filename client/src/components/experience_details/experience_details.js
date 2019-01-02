@@ -1,6 +1,6 @@
 import React from 'react';
 const { resolve } = require('path');
-import '../assets/css/experience_details.css';
+import './experience_details.css';
 import Calendar from 'react-calendar';
 
 export default props => {
