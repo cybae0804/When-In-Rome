@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, Route } from 'react-router-dom';
 const { resolve } = require('path');
-import '../assets/css/experience_preview.css';
+import './experience_preview.css';
 
 export default props => {
   const { id, image_url, activity, occupation, price, duration, average_rating, total_ratings } = props;

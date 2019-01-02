@@ -4,11 +4,11 @@ import { Route } from 'react-router-dom';
 import axios from 'axios';
 
 // components
-import LandingPage from './landing_page';
-import SearchPage from './search_page';
-import ExperiencePage from './experience_page';
-import FilterPage from './filter_page';
-import HamburgerMenu from './hamburger_menu';
+import LandingPage from '../landing_page';
+import SearchPage from '../search_page';
+import ExperiencePage from '../experience_page';
+import FilterPage from '../filter_page';
+import HamburgerMenu from '../hamburger_menu/hamburger_menu';
 
 class App extends Component {
   constructor(props) {

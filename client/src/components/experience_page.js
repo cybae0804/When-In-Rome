@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Header from './header';
-import ExperienceDetails from './experience_details';
+import ExperienceDetails from './experience_details/experience_details';
 
 class ExperiencePage extends Component {
   constructor(props) {
@@ -24,7 +24,6 @@ class ExperiencePage extends Component {
   }
 
 	render() {
-    console.log(this.state.experience);
 		return (
 			<div>
 				<Header />
