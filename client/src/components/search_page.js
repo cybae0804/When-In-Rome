@@ -1,41 +1,35 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import ExperiencePreviewContainer from './experience_preview_container';
 import Header from './header';
 
-//dummy 
-import images from './dummyImages';
-
 class SearchPage extends Component {
+  constructor(props) {
+    super(props);
 
-	experiences = [
-		{  
-			id: 1,
-			image: images.a,
-			activity: 'Fishing',
-			occupation: 'fisherman',
-			price: 25,
-			duration: 'Full Day',
-			averageRating: 4.8,
-			totalRatings: 12,
-		},
-		{
-			id: 2,
-			image: images.b,
-			activity: 'Hunting',
-			occupation: 'huntsman',
-			price: 80,
-			duration: 'Full Day',
-			averageRating: 4.2,
-			totalRatings: 25,
-		},
-	];
+    this.state = {
+      experiences: [],
+    }
+  }
+
+  componentDidMount() {
+    axios.get('http://localhost:9000/api/experiences')
+      .then(res => {
+        console.log(res.data);
+        this.setState({
+          experiences: res.data,
+        });
+      }).catch(err => {
+        console.log(err);
+      });
+  }
 
 	render() {
 		return (
 			<div>
-        		<Header version="search" />
+        <Header version="search" />
 				<ExperiencePreviewContainer
-					experiences={this.experiences}
+					experiences={this.state.experiences}
 				/>
 			</div>
 		);

@@ -6,19 +6,13 @@ export default props => {
   const { heading, experiences } = props;
   const headingText = heading ? <h2>{heading}</h2> : '';
   const experienceList = experiences.map(experience => {
-    const { id, image, activity, occupation, price, duration, averageRating, totalRatings } = experience;
+    const { id } = experience;
 
     return (
       <ExperiencePreview 
         key={id}
         id={id}
-        image={image}
-        activity={activity}
-        occupation={occupation}
-        price={price}
-        duration={duration}
-        averageRating={averageRating}
-        totalRatings={totalRatings}
+        {...experience}
       />
     );
   });
