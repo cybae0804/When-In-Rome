@@ -33,18 +33,33 @@ connection.connect(err => {
 // Experiences
 
 app.get('/api/experiences/:experience_id', (req, res) => {
-  const results = experiences.filter(experience => experience.ID === req.params.experience_id)[0];
-  const newReviews = reviews.filter(review => review.Experience_ID === req.params.experience_id)
-                            .map(review => ({ Date: review.Date, Rating: review.Rating, Description: review.Description }));
-  const averageRating = newReviews.reduce((accum, current) => +accum.Rating + +current.Rating) / newReviews.length;
+  const query = `SELECT e.*, 
+                  COUNT(r.rating) AS total_ratings, 
+                  AVG(r.rating) AS average_rating
+                  FROM experiences AS e
+                  LEFT JOIN reviews AS r
+                  ON e.id = r.experience_id
+                  WHERE e.id = 1
+                  GROUP BY e.id`
 
-  results.reviews = newReviews;
-  results.averageRating = averageRating;
-  res.send(results);
+  connection.query(query, (err, results) => {
+    if (err) {
+      console.log(err);
+      return res.send('Database query error');
+    }
+
+    return res.send(results);
+  });
 });
 
 app.get('/api/experiences', async (req, res) => {
-  const query = 'SELECT * FROM experiences';
+  const query = `SELECT e.*, 
+                  COUNT(r.rating) AS total_ratings, 
+                  AVG(r.rating) AS average_rating
+                  FROM experiences AS e
+                  LEFT JOIN reviews AS r
+                  ON e.id = r.experience_id
+                  GROUP BY e.id`
 
   connection.query(query, (err, results) => {
     if (err) {

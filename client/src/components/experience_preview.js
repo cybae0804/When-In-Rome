@@ -4,11 +4,11 @@ const { resolve } = require('path');
 import '../assets/css/experience_preview.css';
 
 export default props => {
-  const { id, image_url, activity, occupation, price, duration, averageRating, totalRatings } = props;
+  const { id, image_url, activity, occupation, price, duration, average_rating, total_ratings } = props;
   const title = `${activity} with a ${occupation}`;
   let starsDisplay = [];
-  const averageRatingInteger = Math.floor(averageRating);
-  const averageRatingDecimal = averageRating - averageRatingInteger;
+  const averageRatingInteger = Math.floor(average_rating);
+  const averageRatingDecimal = average_rating - averageRatingInteger;
 
   for (let i = 0; i < averageRatingInteger; i++) {
     starsDisplay.push(<i key={i} className="star icon"></i>);
@@ -37,7 +37,7 @@ export default props => {
         <p>{duration}</p>
         <p>
           {starsDisplay}
-          <span>{totalRatings}</span>
+          <span>{total_ratings}</span>
         </p>
       </div>
     </div>
