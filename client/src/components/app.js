@@ -13,13 +13,6 @@ import HamburgerMenu from './hamburger_menu';
 class App extends Component {
   constructor(props) {
     super(props);
-
-    axios.get('http://localhost:9000/api/experiences')
-      .then(res => {
-        console.log(res);
-    }).catch(err => {
-      console.log(err);
-    });
   }
 
   render() {

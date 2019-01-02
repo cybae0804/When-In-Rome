@@ -1,12 +1,17 @@
 const express = require('express');
 const cors = require('cors');
-const PORT = process.env.PORT || 9000;
+const mysql = require('mysql');
+
 const { resolve } = require('path');
+const db = require('./config/db.json');
+const PORT = process.env.PORT || 9000;
+
 const experiences = require('./dummy_data/experiences.js');
 const dates = require('./dummy_data/dates.js');
 const reviews = require('./dummy_data/reviews');
 
 const app = express();
+const connection = mysql.createConnection(db);
 
 const corsOptions = {
   origin: 'http://localhost:3000',
@@ -17,6 +22,12 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(resolve(__dirname, 'client', 'dist')));
+
+connection.connect(err => {
+  if (err) throw err;
+
+  console.log('MySql connected...');
+});
 
 
 // Experiences
@@ -32,8 +43,17 @@ app.get('/api/experiences/:experience_id', (req, res) => {
   res.send(results);
 });
 
-app.get('/api/experiences', (req, res) => {
-  res.send(experiences);
+app.get('/api/experiences', async (req, res) => {
+  const query = 'SELECT * FROM experiences';
+
+  connection.query(query, (err, results) => {
+    if (err) {
+      console.log(err);
+      return res.send('Database query error');
+    }
+
+    return res.send(results);
+  });
 });
 
 app.post('/api/experiences', (req, res) => {

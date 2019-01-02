@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link, Route } from 'react-router-dom';
+const { resolve } = require('path');
 import '../assets/css/experience_preview.css';
 
 export default props => {
-  const { id, image, activity, occupation, price, duration, averageRating, totalRatings } = props;
+  const { id, image_url, activity, occupation, price, duration, averageRating, totalRatings } = props;
   const title = `${activity} with a ${occupation}`;
   let starsDisplay = [];
   const averageRatingInteger = Math.floor(averageRating);
@@ -14,9 +15,11 @@ export default props => {
   }
 
   if (averageRatingDecimal >= 0.5) {
-    starsDisplay.push(<i className="star half icon"></i>);
+    starsDisplay.push(<i key={5} className="star half icon"></i>);
   }
 
+  const image = resolve('assets', 'images') + '/' + image_url;
+  
   return (
     <div className="experience-preview column">
       <div className="image">
@@ -37,7 +40,6 @@ export default props => {
           <span>{totalRatings}</span>
         </p>
       </div>
-      {/* <Route path={'experience/:' } component={ExperiencePreview}/> */}
     </div>
   );
 }

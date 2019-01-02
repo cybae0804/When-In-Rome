@@ -64,3 +64,6 @@ typings/
 .idea
 .DS_Store
 .vscode
+
+# Server config
+db.json
