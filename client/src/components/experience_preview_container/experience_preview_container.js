@@ -18,7 +18,7 @@ export default props => {
   });
 
   return (
-    <div className="experience-preview-container container">
+    <div className="experience-preview-container ui container">
       <div className="experience-preview-container-header">
         {headingText}
       </div>
