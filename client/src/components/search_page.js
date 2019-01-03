@@ -12,15 +12,16 @@ class SearchPage extends Component {
     }
   }
 
-  componentDidMount() {
-    axios.get('http://localhost:9000/api/experiences')
-      .then(res => {
-        this.setState({
-          experiences: res.data,
-        });
-      }).catch(err => {
-        console.log(err);
+  async componentDidMount() {
+    try {
+      const { data: { experiences } } = await axios.get('api/experiences');
+
+      this.setState({
+        experiences,
       });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
 	render() {

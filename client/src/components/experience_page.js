@@ -12,15 +12,16 @@ class ExperiencePage extends Component {
     };
   }
 
-  componentDidMount() {
-    axios.get('http://localhost:9000/api/experiences/1')
-      .then(res => {
-        this.setState({
-          experience: res.data[0],
-        })
-      }).catch(err => {
-        console.log(err);
-      })
+  async componentDidMount() {
+    try {
+      const { data: { experience } } = await axios.get('api/experiences/1');
+
+      this.setState({
+        experience,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
 	render() {

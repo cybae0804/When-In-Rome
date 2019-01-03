@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `experiences` (
   `guests` int(3) unsigned NOT NULL,
   `date` date NOT NULL,
   `host` varchar(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `host_Info` varchar(300) CHARACTER SET utf32 COLLATE utf32_unicode_ci NOT NULL,
+  `host_info` varchar(300) CHARACTER SET utf32 COLLATE utf32_unicode_ci NOT NULL,
   `activity_info` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `image_url` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `experiences` (
 -- Dumping data for table `experiences`
 --
 
-INSERT INTO `experiences` (`id`, `activity`, `occupation`, `city`, `country`, `price`, `guests`, `date`, `host`, `host_Info`, `activity_info`, `image_url`) VALUES
+INSERT INTO `experiences` (`id`, `activity`, `occupation`, `city`, `country`, `price`, `guests`, `date`, `host`, `host_info`, `activity_info`, `image_url`) VALUES
 (1, 'Fishing', 'Commercial Fisherman', 'Tokyo', 'Japan', 150, 5, '2019-01-17', 'Sakuragi Hanamichi', 'Sakuragi comes from a long line of commercial fisherman in Japan and has been fishing for over 25 years. Fishing is his livelihood and passion.', 'Meet at the dock at 4am. Load up the boat and head out to the fishing grounds. Fish until the holds are full or the light goes down. Head back to the dock and unload the catch. Clean the boat and call it a day.', 'fishing.jpg'),
 (2, 'Manual Labor', 'Ranch Hand', 'Corpus Christi, Texas', 'U.S.', 250, 10, '2019-01-09', 'Burnett Ranches', 'Currently owned by Anne Marion, the great-granddaughter of the four sixes hunting ranch founder Samuel Burnett, the Burnett ranches have been operational since 1868. The ranch has two locations, one in Guthrie and one in the panhandle, and the family breeds horses and black Angus cattle.', 'Meet at the stable at 6am. Shovel out the horse stables. Put fresh hay in the stables.  Lunch at noon.  Feed the animals.  General manual labor', 'ranch.jpg'),
 (3, 'Stock Trading', 'NYSE Floor Broker', 'Manhattan, NY', 'U.S.', 300, 2, '2019-09-12', 'Patrick Bateman', 'I have been a floor trader on Wall Street for 5 years.  I consider myself to be the eyes and ears for my clients and their portfolios.', 'Meet outside the NYSE building at 8, grab some coffee.  Hit the floor of the exchange by 9am. opening bell is rung at 930am and closing bell is at 4pm.  We stay on the floor the whole time, except to use the restroom.', 'stock.jpg'),
