@@ -3,7 +3,8 @@ const { experiences } = require('../../controllers');
 
 router.get('/', experiences.getAll);
 router.get('/:experience_id', experiences.getOne);
-router.get('/:experience_id/reviews', experiences.getReviews);
+
+// route.post('/', experiences.postOne);
 
 module.exports = router;
 
