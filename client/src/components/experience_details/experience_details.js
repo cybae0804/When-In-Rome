@@ -2,7 +2,8 @@ import React from 'react';
 const { resolve } = require('path');
 import './experience_details.css';
 import Calendar from 'react-calendar';
-import Reviews from '../reviews'
+import Reviews from '../reviews/reviews'
+import Review from '../reviews/review'
 
 export default props => {
   const { id, 
@@ -38,7 +39,7 @@ export default props => {
   return (
     <div className="topMargin">
       <div className="rounded container">
-        <img className = "ui image centered" src={image} />
+        <img className="ui image centered" src={image} />
       </div>
       <div className="ui relaxed list container">
         <div className="item">
@@ -76,6 +77,7 @@ export default props => {
         <Calendar/>
       </div>
         <Reviews avg = {average_rating} total = {total_ratings}/>
+        <Review/>
     </div>
   )
 }
