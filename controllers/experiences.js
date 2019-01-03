@@ -29,7 +29,7 @@ exports.getOne = async (req, res) => {
       throw new Error('experience_id missing');
     }
 
-    const sql = `SELECT e.*, 
+    let sql = `SELECT e.*,
                   COUNT(r.rating) AS total_ratings, 
                   AVG(r.rating) AS average_rating
                   FROM experiences AS e
@@ -38,8 +38,14 @@ exports.getOne = async (req, res) => {
                   WHERE e.id = ?
                   GROUP BY e.id`;
     const inserts = [experience_id];
-    const query = mysql.format(sql, inserts);
+    let query = mysql.format(sql, inserts);
     const [experience] = await db.query(query);
+
+    sql = `SELECT * 
+            FROM reviews 
+            WHERE experience_id = ?`;
+    query = mysql.format(sql, inserts);
+    experience.reviews = await db.query(query);
 
     if (!experience) {
       throw new Error('No experience with provided experience_id');
@@ -54,13 +60,12 @@ exports.getOne = async (req, res) => {
   }
 };
 
-exports.getReviews = async (req, res) => {
+exports.postOne = async (req, res) => {
   try {
-    const { experience_id } = req.params;
-    console.log(req);
-    const sql = `SELECT * 
-                  FROM reviews 
-                  WHERE experience_id = ?`;
+    const sql = `INSERT INTO experiences (activity, occupation, city, country, 
+                                          price, guests, date, host, host_info, 
+                                          activity_info)
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
     const inserts = [experience_id];
     const query = mysql.format(sql, inserts);
     const reviews = await db.query(query);
@@ -70,6 +75,6 @@ exports.getReviews = async (req, res) => {
       reviews,
     });
   } catch (err) {
-    res.status(422).send('Error getting reviews');
+    res.status(422).send('Error posting an experience');
   }
 };
