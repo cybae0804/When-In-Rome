@@ -13,3 +13,7 @@
 .topMargin {
     margin-top: 5px;
 }
+
+#overrideColumns {
+    width: 50% !important;
+}

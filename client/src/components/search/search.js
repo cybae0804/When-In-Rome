@@ -13,11 +13,11 @@ class Search extends Component {
         <input type="text" name="cityjob" placeholder="Tokyo, Japan"/>
       </div>
       <div className='two fields'>
-        <div className="field small">
+        <div className="field small" id="overrideColumns">
           <label>Dates</label>
           <input type="text" name="date" placeholder="mm/dd/yyyy"/>
         </div>
-        <div className="field small">
+        <div className="field small" id="overrideColumns">
           <label>Guests</label>
           <input type="text" name="guests" placeholder="1 guest"/>
         </div>
