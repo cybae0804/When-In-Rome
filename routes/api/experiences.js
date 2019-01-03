@@ -3,6 +3,9 @@ const { experiences } = require('../../controllers');
 
 router.get('/', experiences.getAll);
 router.get('/:experience_id', experiences.getOne);
+router.get('/:experience_id/reviews', experiences.getReviews);
+
+module.exports = router;
 
 // app.post('/api/experiences', (req, res) => {
 // });
@@ -24,5 +27,3 @@ router.get('/:experience_id', experiences.getOne);
 // });
 // app.delete('/api/experiences/:experience_id/dates/:date_id', (req, res) => {
 // });
-
-module.exports = router;
