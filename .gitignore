@@ -66,4 +66,3 @@ typings/
 .vscode
 
 # Server config
-db.json
