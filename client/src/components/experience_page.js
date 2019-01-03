@@ -3,6 +3,7 @@ import axios from 'axios';
 import Header from './header';
 import ExperienceDetails from './experience_details/experience_details';
 
+
 class ExperiencePage extends Component {
   constructor(props) {
     super(props);
@@ -18,15 +19,17 @@ class ExperiencePage extends Component {
         this.setState({
           experience: res.data[0],
         })
+        console.log(this.state)
       }).catch(err => {
         console.log(err);
       })
   }
 
 	render() {
+    console.log('render', this.state)
 		return (
 			<div>
-				<Header />
+				<Header/>
 				<ExperienceDetails 
           {...this.state.experience}
         />
