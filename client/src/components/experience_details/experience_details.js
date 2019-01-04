@@ -5,7 +5,7 @@ import Calendar from 'react-calendar';
 
 export default props => {
   const { id, 
-          image_url, 
+          image, 
           activity, 
           occupation, 
           city, 
@@ -32,12 +32,12 @@ export default props => {
     starsDisplay.push(<i key={5} className="star half icon"></i>);
   }
 
-  const image = resolve('assets', 'images') + '/' + image_url;
+  const image_url = resolve('assets', 'images') + '/' + image;
 
   return (
     <div className="topMargin">
       <div className="ui image rounded container">
-        <img src={image} />
+        <img src={image_url} />
       </div>
       <div className="ui relaxed list container">
         <div className="item">
