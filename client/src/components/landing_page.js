@@ -12,15 +12,16 @@ class LandingPage extends Component {
     };
   }
   
-  componentDidMount() {
-    axios.get('http://localhost:9000/api/experiences')
-      .then(res => {
-        this.setState({
-          experiences: res.data,
-        });
-      }).catch(err => {
-        console.log(err);
+  async componentDidMount() {
+    try {
+      const { data: { experiences } } = await axios.get('api/experiences');
+
+      this.setState({
+        experiences,
       });
+    } catch(err) {
+      console.log(err);
+    }
   }
 
 	render() {
@@ -28,7 +29,7 @@ class LandingPage extends Component {
 			<div>
 				<Header version="landing" title="When in Rome..." />
 				<ExperiencePreviewContainer
-					heading='explore'
+					heading='Explore'
 					experiences={this.state.experiences}
 				/>
 			</div>
