@@ -1,5 +1,5 @@
 import React from 'react'
-import User from '../../../dist/assets/images/user.jpg';
+// import User from '../../../dist/assets/images/user.jpg';
 
 export default props=>{
   return (

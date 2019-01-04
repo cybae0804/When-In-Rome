@@ -3,7 +3,7 @@ const { resolve } = require('path');
 import './experience_details.css';
 import Calendar from 'react-calendar';
 import Reviews from '../reviews/reviews'
-import Review from '../reviews/review'
+import Review from '../single_review/single_review'
 
 export default props => {
   console.log('experience details props', props)
