@@ -7,7 +7,7 @@ export default props => {
     <div className="ui container">
       {props.title ? <h1 className='headerText'>{props.title}</h1> : undefined}
       <HamburgerButton />
-      <Search version={props.version} />
+      <Search version={props.version} submit={props.submit}/>
     </div>
   );
 }
