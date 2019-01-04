@@ -2,8 +2,8 @@ import React from 'react';
 const { resolve } = require('path');
 import './experience_details.css';
 import Calendar from 'react-calendar';
-import Reviews from '../reviews/reviews'
-import Review from '../single_review/single_review'
+import ReviewsContainer from '../reviews_container/reviews_container'
+
 
 export default props => {
   console.log('experience details props', props)
@@ -19,9 +19,9 @@ export default props => {
           host_Info,
           activity_info,
           duration, 
+          reviews,
           average_rating, 
           total_ratings } = props;
-
   const title = `${activity} with a ${occupation}`;
   let starsDisplay = [];
   const averageRatingInteger = Math.floor(average_rating);
@@ -36,7 +36,6 @@ export default props => {
   }
 
   const image = resolve('assets', 'images') + '/' + image_url;
-
   return (
     <div className="topMargin">
       <div className="rounded container">
@@ -77,8 +76,7 @@ export default props => {
       <div>
         <Calendar/>
       </div>
-        <Reviews avg = {average_rating} total = {total_ratings}/>
-        <Review/>
+        <ReviewsContainer avg = {average_rating} total = {total_ratings} reviews = {reviews}/>
     </div>
   )
 }

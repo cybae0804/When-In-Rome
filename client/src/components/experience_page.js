@@ -26,7 +26,7 @@ class ExperiencePage extends Component {
   }
 
 	render() {
-    console.log('render', this.state)
+    // console.log('render', this.state)
 		return (
 			<div>
 				<Header/>
