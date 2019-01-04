@@ -6,6 +6,7 @@ import Reviews from '../reviews/reviews'
 import Review from '../reviews/review'
 
 export default props => {
+  console.log('experience details props', props)
   const { id, 
           image_url, 
           activity, 
@@ -15,7 +16,7 @@ export default props => {
           price, 
           guests, 
           host, 
-          host_info,
+          host_Info,
           activity_info,
           duration, 
           average_rating, 
@@ -65,9 +66,9 @@ export default props => {
       </div>
       <div className="ui container">
         <h2 className="host">
-          Host
+          Host Info
         </h2>
-        <p>{host_info}</p>
+        <p>{host_Info}</p>
         <h2 className="host">
           Activity
         </h2>

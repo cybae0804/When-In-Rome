@@ -6,7 +6,7 @@ export default props=>{
       <div className="ui divided items container">
         <div className="item">
           <div className="content">
-            <img className="ui avatar image" src={User}/>
+            {/* <img className="ui avatar image" src={User}/> */}
             <a className="header">Reviewer Name</a>
             <div className="meta">
               <span>

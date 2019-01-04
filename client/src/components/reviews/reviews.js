@@ -1,4 +1,5 @@
 import React from 'react'
+import './reviews.css'
 
 export default props => {
   const{avg, total} = props
