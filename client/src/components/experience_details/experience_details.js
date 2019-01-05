@@ -2,8 +2,11 @@ import React from 'react';
 const { resolve } = require('path');
 import './experience_details.css';
 import Calendar from 'react-calendar';
+import ReviewsContainer from '../reviews_container/reviews_container'
+
 
 export default props => {
+  console.log('experience details props', props)
   const { id, 
           image, 
           activity, 
@@ -13,12 +16,12 @@ export default props => {
           price, 
           guests, 
           host, 
-          host_info,
+          host_Info,
           activity_info,
           duration, 
+          reviews,
           average_rating, 
           total_ratings } = props;
-
   const title = `${activity} with a ${occupation}`;
   let starsDisplay = [];
   const averageRatingInteger = Math.floor(average_rating);
@@ -33,11 +36,10 @@ export default props => {
   }
 
   const image_url = resolve('assets', 'images') + '/' + image;
-
   return (
     <div className="topMargin">
-      <div className="ui image rounded container">
-        <img src={image_url} />
+      <div className="rounded container">
+        <img className="ui image centered" src={image} />
       </div>
       <div className="ui relaxed list container">
         <div className="item">
@@ -63,9 +65,9 @@ export default props => {
       </div>
       <div className="ui container">
         <h2 className="host">
-          Host
+          Host Info
         </h2>
-        <p>{host_info}</p>
+        <p>{host_Info}</p>
         <h2 className="host">
           Activity
         </h2>
@@ -74,6 +76,7 @@ export default props => {
       <div>
         <Calendar/>
       </div>
+        <ReviewsContainer avg = {average_rating} total = {total_ratings} reviews = {reviews}/>
     </div>
   )
 }
