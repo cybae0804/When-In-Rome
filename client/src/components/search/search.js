@@ -4,22 +4,52 @@ import './search.css';
 class Search extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      form: {
+        cityjob: '',
+        date: '',
+        guests: ''
+      }
+    }
+  }
+
+  changeHandler = e => {
+    this.setState({
+      form: {
+        ...this.state.form,
+        [e.target.name]: e.target.value
+      }
+    });
+  }
+
+  submitBtnHandler = e => {
+    e.preventDefault();
+    
+    if (this.inputValidation()){
+      this.props.submit(this.state.form);
+    }
+  }
+
+  inputValidation = () => {
+    //validate this.state.form
+    return true;
   }
 
   landing = (
-    <form className="ui form">
+    <form className="ui form" onSubmit={this.submitBtnHandler}>
       <div className="field">
         <label>City or Job</label>
-        <input type="text" name="cityjob" placeholder="Tokyo, Japan"/>
+        <input type="text" name="cityjob" placeholder="Tokyo, Japan" onChange={this.changeHandler} />
       </div>
       <div className='two fields'>
         <div className="field small" id="overrideColumns">
           <label>Dates</label>
-          <input type="text" name="date" placeholder="mm/dd/yyyy"/>
+          <input type="text" name="date" placeholder="mm/dd/yyyy" onChange={this.changeHandler} />
         </div>
         <div className="field small" id="overrideColumns">
           <label>Guests</label>
-          <input type="text" name="guests" placeholder="1 guest"/>
+          <input type="text" name="guests" placeholder="1 guest" onChange={this.changeHandler} />
         </div>
       </div>
       <button className="fluid ui button positive" type="submit">Search</button>
@@ -27,36 +57,36 @@ class Search extends Component {
   );
 
   default = (
-    <div className="ui left icon input topMargin" id='searchBar'>
+    <form className="ui left icon input topMargin" id='searchBar' onSubmit={this.submitBtnHandler}>
       <i className="search link icon" />
-      <input type="text" placeholder="Osaka, Japan" />
-    </div>
+      <input type="text" name="cityjob" placeholder="Osaka, Japan" onChange={this.changeHandler} />
+    </form>
   );
 
   search = (
-    <div className='ui topMargin'>
-      <div id='searchBar' className="ui fluid left icon input">
+    <form className='ui topMargin'>
+      <div id='searchBar' className="ui fluid left icon input" onSubmit={this.submitBtnHandler}>
         <i className="search link icon"/>
-        <input type="text" placeholder="Osaka, Japan"/>
+        <input type="text" name="cityjob" placeholder="Osaka, Japan" onChange={this.changeHandler} />
       </div>
       <div className='topMargin'>
         <button className="ui inverted green button filterButton">Filter</button>
         <button className="ui inverted green button sortButton">Sort by Date</button>
       </div>
-    </div>
+    </form>
   );
 
   filter = (
-    <div className='ui topMargin'>
-      <div id='searchBar' className="ui fluid left icon input topMargin">
+    <form className='ui topMargin'>
+      <div id='searchBar' className="ui fluid left icon input topMargin" onSubmit={this.submitBtnHandler}>
         <i className="search link icon" />
-        <input type="text" placeholder="Osaka, Japan" />
+        <input type="text" name="cityjob" placeholder="Osaka, Japan" onChange={this.changeHandler} />
       </div>
       <div className='topMargin'>
         <button className="ui inverted green button filterButton">Apply</button>
         <button className="ui inverted green button sortButton">Cancel</button>
       </div>
-    </div>
+    </form>
   );
 
   render() {

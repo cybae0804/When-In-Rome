@@ -8,7 +8,7 @@ import ReviewsContainer from '../reviews_container/reviews_container'
 export default props => {
   console.log('experience details props', props)
   const { id, 
-          image_url, 
+          image, 
           activity, 
           occupation, 
           city, 
@@ -35,7 +35,7 @@ export default props => {
     starsDisplay.push(<i key={5} className="star half icon"></i>);
   }
 
-  const image = resolve('assets', 'images') + '/' + image_url;
+  const image_url = resolve('assets', 'images') + '/' + image;
   return (
     <div className="topMargin">
       <div className="rounded container">

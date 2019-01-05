@@ -62,19 +62,19 @@ exports.getOne = async (req, res) => {
 
 exports.postOne = async (req, res) => {
   try {
+    const fields = { activity, occupation, city, country, price, guests, date, host, host_info, activity_info } = req.body;
     const sql = `INSERT INTO experiences (activity, occupation, city, country, 
                                           price, guests, date, host, host_info, 
-                                          activity_info)
-                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-    const inserts = [experience_id];
+                                          activity_info, image)
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    const inserts = [...Object.values(fields)];
     const query = mysql.format(sql, inserts);
-    const reviews = await db.query(query);
 
+    await db.query(query);
     res.send({
       success: true,
-      reviews,
     });
   } catch (err) {
-    res.status(422).send('Error posting an experience');
+    res.status(422).send('Error posting experience');
   }
 };
