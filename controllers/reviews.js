@@ -34,8 +34,8 @@ exports.postOne = async (req, res) => {
     } = req.params;
 
     const sql = `INSERT INTO reviews
-      (experience_id, user_id, rating, description)
-      VALUES (?, ?, ?, ?)`;
+      (experience_id, user_id, rating, description, date)
+      VALUES (?, ?, ?, ?, CURDATE())`;
 
     const inserts = [experience_id, user_id, rating, description];
     const query = mysql.format(sql, inserts);
