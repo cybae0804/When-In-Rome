@@ -61,6 +61,7 @@ exports.getOne = async (req, res) => {
 };
 
 exports.postOne = async (req, res) => {
+  // S3 stuff...
   try {
     const fields = { activity, occupation, city, country, price, guests, date, host, host_info, activity_info } = req.body;
     const sql = `INSERT INTO experiences (activity, occupation, city, country, 

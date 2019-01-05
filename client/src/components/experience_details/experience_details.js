@@ -1,12 +1,11 @@
 import React from 'react';
 const { resolve } = require('path');
-import './experience_details.css';
 import Calendar from 'react-calendar';
+import { connect } from 'react-redux';
+import './experience_details.css';
 import ReviewsContainer from '../reviews_container/reviews_container'
 
-
-export default props => {
-  console.log('experience details props', props)
+const ExperienceDetails = props => {
   const { id, 
           image, 
           activity, 
@@ -32,7 +31,7 @@ export default props => {
   }
 
   if (averageRatingDecimal >= 0.5) {
-    starsDisplay.push(<i key={5} className="star half icon"></i>);
+    starsDisplay.push(<i key={4} className="star half icon"></i>);
   }
 
   const image_url = resolve('assets', 'images') + '/' + image;
@@ -80,3 +79,13 @@ export default props => {
     </div>
   )
 }
+
+function mapStateToProps(state) {
+  return {
+
+  };
+}
+
+export default connect(mapStateToProps, {
+
+})(ExperienceDetails);
