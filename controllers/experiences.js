@@ -61,12 +61,15 @@ exports.getOne = async (req, res) => {
 };
 
 exports.postOne = async (req, res) => {
+  // S3 stuff...
   try {
+    const { body } = req;
     const sql = `INSERT INTO experiences (activity, occupation, city, country, 
                                           price, guests, date, host, host_info, 
-                                          activity_info)
+                                          activity_info, image_name)
                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
     const inserts = [experience_id];
+    // inserts = [a, b, c, d ]
     const query = mysql.format(sql, inserts);
     const reviews = await db.query(query);
 

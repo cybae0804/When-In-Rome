@@ -18,8 +18,9 @@ module.exports = router;
 // // Reviews
 // app.post('/api/experiences/:experience_id/reviews', (req, res) => {
 // });
-
+// router.use('/:experience_id/dates', require('./dates'));
 // // Dates
+
 // app.get('/api/experiences/:experience_id/dates', (req, res) => {
 // });
 // app.post('/api/experiences/:experience_id/dates', (req, res) => {
