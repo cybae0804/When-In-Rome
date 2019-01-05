@@ -3,9 +3,10 @@ const { experiences } = require('../../controllers');
 
 router.get('/', experiences.getAll);
 router.get('/:experience_id', experiences.getOne);
+router.post('/', experiences.postOne);
 
-// route.post('/', experiences.postOne);
 
+// router.use('/:experience_id',  )
 module.exports = router;
 
 // app.post('/api/experiences', (req, res) => {
