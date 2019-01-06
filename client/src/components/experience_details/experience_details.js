@@ -35,10 +35,11 @@ const ExperienceDetails = props => {
   }
 
   const image_url = resolve('assets', 'images') + '/' + image;
+
   return (
     <div className="topMargin">
       <div className="rounded container">
-        <img className="ui image centered" src={image} />
+        <img className="ui image centered" src={image_url} />
       </div>
       <div className="ui relaxed list container">
         <div className="item">

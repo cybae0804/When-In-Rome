@@ -1,13 +1,15 @@
-const router = require('express').Router();
+const experiencesRouter = require('express').Router();
 const { experiences } = require('../../controllers');
+const reviewsRouter = require('./reviews');
 
-router.get('/', experiences.getAll);
-router.get('/:experience_id', experiences.getOne);
-router.post('/', experiences.postOne);
+experiencesRouter.route('/')
+  .get(experiences.getAll)
+  .post(experiences.postOne);
+experiencesRouter.route('/:experience_id')
+  .get(experiences.getOne);
+experiencesRouter.use('/:experience_id/reviews', reviewsRouter);
 
-
-// router.use('/:experience_id',  )
-module.exports = router;
+module.exports = experiencesRouter;
 
 // app.post('/api/experiences', (req, res) => {
 // });
