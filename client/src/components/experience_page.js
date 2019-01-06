@@ -3,7 +3,6 @@ import axios from 'axios';
 import Header from './header';
 import ExperienceDetails from './experience_details/experience_details';
 
-
 class ExperiencePage extends Component {
   constructor(props) {
     super(props);
@@ -11,10 +10,6 @@ class ExperiencePage extends Component {
     this.state = {
       experience: null,
     };
-  }
-
-  submit = form => {
-    this.props.history.push(`/search?cityjob=${form.cityjob}`);
   }
 
   async componentDidMount() {
@@ -32,7 +27,7 @@ class ExperiencePage extends Component {
 	render() {
 		return (
 			<div>
-				<Header submit={this.submit}/>
+				<Header />
 				<ExperienceDetails 
           {...this.state.experience}
         />

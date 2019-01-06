@@ -7,14 +7,10 @@ class FilterPage extends Component {
     super(props);
   }
 
-  submit = form => {
-    this.props.history.push(`/search?cityjob=${form.cityjob}`);
-  }
-
   render() {
     return (
       <div>
-        <Header version="filter" submit={this.submit}/>
+        <Header version="filter" />
         <div className="ui form container">
           <label>Group Size</label>
           <div className="fields">

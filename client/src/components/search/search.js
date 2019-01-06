@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './search.css';
+import history from '../../history';
 
 class Search extends Component {
   constructor(props) {
@@ -25,9 +26,10 @@ class Search extends Component {
 
   submitBtnHandler = e => {
     e.preventDefault();
-    
+
     if (this.inputValidation()){
-      this.props.submit(this.state.form);
+      const { form } = this.state;
+      history.push(`/search?cityjob=${form.cityjob}&dates=${form.dates}&guests=${form.guests}`);
     }
   }
 

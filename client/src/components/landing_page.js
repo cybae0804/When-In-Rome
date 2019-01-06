@@ -11,10 +11,6 @@ class LandingPage extends Component {
       experiences: [],
     };
   }
-
-  submit = form => {
-    this.props.history.push(`/search?cityjob=${form.cityjob}&dates=${form.dates}&guests=${form.guests}`);
-  }
   
   async componentDidMount() {
     try {
@@ -31,7 +27,7 @@ class LandingPage extends Component {
 	render() {
 		return (
 			<div>
-				<Header version="landing" title="When in Rome..." submit={this.submit}/>
+				<Header version="landing" title="When in Rome..." />
 				<ExperiencePreviewContainer
 					heading='Explore'
 					experiences={this.state.experiences}
