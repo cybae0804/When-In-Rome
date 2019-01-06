@@ -30,13 +30,13 @@ exports.getOne = async (req, res) => {
     }
 
     let sql = `SELECT e.*,
-                  COUNT(r.rating) AS total_ratings, 
-                  AVG(r.rating) AS average_rating
-                  FROM experiences AS e
-                  LEFT JOIN reviews AS r
-                  ON e.id = r.experience_id
-                  WHERE e.id = ?
-                  GROUP BY e.id`;
+                COUNT(r.rating) AS total_ratings, 
+                AVG(r.rating) AS average_rating
+                FROM experiences AS e
+                LEFT JOIN reviews AS r
+                ON e.id = r.experience_id
+                WHERE e.id = ?
+                GROUP BY e.id`;
     const inserts = [experience_id];
     let query = mysql.format(sql, inserts);
     const [experience] = await db.query(query);
