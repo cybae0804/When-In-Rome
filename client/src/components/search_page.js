@@ -27,7 +27,7 @@ class SearchPage extends Component {
 	render() {
 		return (
 			<div>
-        <Header version="search"/>
+        <Header version="search" />
 				<ExperiencePreviewContainer
 					experiences={this.state.experiences}
 				/>

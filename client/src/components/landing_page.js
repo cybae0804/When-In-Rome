@@ -27,7 +27,7 @@ class LandingPage extends Component {
 	render() {
 		return (
 			<div>
-				<Header version="landing" title="When in Rome..."/>
+				<Header version="landing" title="When in Rome..." />
 				<ExperiencePreviewContainer
 					heading='Explore'
 					experiences={this.state.experiences}
