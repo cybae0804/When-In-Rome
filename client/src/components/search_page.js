@@ -12,10 +12,6 @@ class SearchPage extends Component {
     }
   }
 
-  submit = form => {
-    this.props.history.push(`/search?cityjob=${form.cityjob}`);
-  }
-
   async componentDidMount() {
     try {
       const { data: { experiences } } = await axios.get('api/experiences');
@@ -31,7 +27,7 @@ class SearchPage extends Component {
 	render() {
 		return (
 			<div>
-        <Header version="search" submit={this.submit}/>
+        <Header version="search"/>
 				<ExperiencePreviewContainer
 					experiences={this.state.experiences}
 				/>
