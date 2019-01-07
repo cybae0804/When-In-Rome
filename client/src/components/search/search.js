@@ -39,7 +39,7 @@ class Search extends Component {
 
     if (this.inputValidation()){
       const { form } = this.state;
-      const datesString = !form.dates ? '' : `&dates=${form.dates}`;
+      const datesString = form.date === '' ? '' : `&date=${form.date}`;
       const guestsString = form.guests === '' ? '' : `&guests=${form.guests}`;
       this.props.history.push(`/search?cityjob=${form.cityjob}${datesString}${guestsString}`);
     }
