@@ -7,7 +7,6 @@ import rootReducer from './reducers';
 import { Router } from 'react-router-dom';
 import history from './history';
 
-import ScrollToTop from './components/scroll_to_top';
 import App from './components/app/app';
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
@@ -15,9 +14,7 @@ const store = createStore(rootReducer, applyMiddleware(thunk));
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <ScrollToTop>
-        <App />
-      </ScrollToTop>
+      <App />
     </Router>
   </Provider>,
   document.getElementById('root')
