@@ -1,6 +1,5 @@
 import React from 'react';
 import Calendar from 'react-calendar';
-import { connect } from 'react-redux';
 import './experience_details.css';
 import ReviewsContainer from '../reviews_container/reviews_container'
 const { resolve } = require('path');
