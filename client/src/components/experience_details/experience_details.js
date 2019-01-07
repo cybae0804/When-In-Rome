@@ -34,7 +34,7 @@ const ExperienceDetails = props => {
     starsDisplay.push(<i key={4} className="star half icon"></i>);
   }
 
-  const image_url = resolve('assets', 'images') + '/' + image;
+  const image_url = `${resolve('assets', 'images')}/${image}`;
   
   return (
     <div className="topMargin">
