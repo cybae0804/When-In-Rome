@@ -1,7 +1,6 @@
 // vendor
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import axios from 'axios';
 
 // components
 import LandingPage from '../landing_page';
