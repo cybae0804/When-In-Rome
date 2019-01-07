@@ -3,7 +3,7 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import Header from './header';
 import ExperienceDetails from './experience_details/experience_details';
-import { getExperience } from '../actions';
+import { getExperienceDetails } from '../actions';
 
 class ExperiencePage extends Component {
   submit = form => {
@@ -11,7 +11,7 @@ class ExperiencePage extends Component {
   }
 
   componentDidMount() {
-    this.props.getExperience();
+    this.props.getExperienceDetails();
   }
 
 	render() {
@@ -33,5 +33,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
-  getExperience,
+  getExperienceDetails,
 })(ExperiencePage);

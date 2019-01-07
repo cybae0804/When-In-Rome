@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import { getExperiences } from '../actions';
 import ExperiencePreviewContainer from './experience_preview_container/experience_preview_container';
 import Header from './header';
 
@@ -8,20 +9,11 @@ class LandingPage extends Component {
     super(props);
 
     this.state = {
-      experiences: [],
     };
   }
   
   async componentDidMount() {
-    try {
-      const { data: { experiences } } = await axios.get('api/experiences');
-
-      this.setState({
-        experiences,
-      });
-    } catch(err) {
-      console.log(err);
-    }
+    this.props.getExperiences();
   }
 
 	render() {
@@ -30,11 +22,19 @@ class LandingPage extends Component {
 				<Header version="landing" title="When in Rome..." />
 				<ExperiencePreviewContainer
 					heading='Explore'
-					experiences={this.state.experiences}
+					experiences={this.props.experiences}
 				/>
 			</div>
 		);
 	}
 }
 
-export default LandingPage;
+function mapStateToProps(state) {
+  return {
+    experiences: state.experience.experiences,
+  };
+}
+
+export default connect(mapStateToProps, {
+  getExperiences,
+})(LandingPage);
