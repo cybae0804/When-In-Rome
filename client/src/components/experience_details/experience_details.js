@@ -15,7 +15,7 @@ const ExperienceDetails = props => {
           price, 
           guests, 
           host, 
-          host_Info,
+          host_info,
           activity_info,
           duration, 
           reviews,
@@ -68,7 +68,7 @@ const ExperienceDetails = props => {
         <h2 className="host">
           Host Info
         </h2>
-        <p>{host_Info}</p>
+        <p>{host_info}</p>
         <h2 className="host">
           Activity
         </h2>
