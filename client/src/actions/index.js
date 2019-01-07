@@ -1,13 +1,13 @@
 import axios from 'axios';
 import types from './types';
 
-const GET_EXPERIENCES = 'api/experiences';
+const GET_EXPERIENCES = '/api/experiences';
 
 export function getExperienceDetails(id) {
   return async dispatch => {
     try {
       const { data: { experience } } = await axios.get(GET_EXPERIENCES + '/' + id);
-      console.log('a');
+
       dispatch({
         type: types.GET_EXPERIENCE_DETAILS,
         payload: experience,
