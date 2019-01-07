@@ -1,6 +1,5 @@
 import React from 'react';
 import Calendar from 'react-calendar';
-import { connect } from 'react-redux';
 import './experience_details.css';
 import ReviewsContainer from '../reviews_container/reviews_container'
 const { resolve } = require('path');
@@ -15,7 +14,7 @@ const ExperienceDetails = props => {
           price, 
           guests, 
           host, 
-          host_Info,
+          host_info,
           activity_info,
           duration, 
           reviews,
@@ -34,7 +33,7 @@ const ExperienceDetails = props => {
     starsDisplay.push(<i key={4} className="star half icon"></i>);
   }
 
-  const image_url = resolve('assets', 'images') + '/' + image;
+  const image_url = `${resolve('assets', 'images')}/${image}`;
   
   return (
     <div className="topMargin">
@@ -68,7 +67,7 @@ const ExperienceDetails = props => {
         <h2 className="host">
           Host Info
         </h2>
-        <p>{host_Info}</p>
+        <p>{host_info}</p>
         <h2 className="host">
           Activity
         </h2>
