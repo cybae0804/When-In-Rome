@@ -1,3 +1,5 @@
 export default {
-  // string: string,
+  GET_EXPERIENCE: 'GET_EXPERIENCE',
 };
+
+

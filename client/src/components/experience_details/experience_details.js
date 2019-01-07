@@ -6,6 +6,7 @@ import './experience_details.css';
 import ReviewsContainer from '../reviews_container/reviews_container'
 
 const ExperienceDetails = props => {
+  console.log('exp details:', props);
   const { id, 
           image, 
           activity, 
@@ -42,6 +43,7 @@ const ExperienceDetails = props => {
         <img className="ui image centered" src={image_url} />
       </div>
       <div className="ui relaxed list container">
+        <h1>{title}</h1>
         <div className="item">
           <i className= "icon map marker alternate large" id="detailsIcon"></i>
           {`${city}, ${country}`}
@@ -81,12 +83,4 @@ const ExperienceDetails = props => {
   )
 }
 
-function mapStateToProps(state) {
-  return {
-
-  };
-}
-
-export default connect(mapStateToProps, {
-
-})(ExperienceDetails);
+export default ExperienceDetails;
