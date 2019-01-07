@@ -6,7 +6,6 @@ import ReviewsContainer from '../reviews_container/reviews_container'
 const { resolve } = require('path');
 
 const ExperienceDetails = props => {
-  console.log('exp details:', props);
   const { id, 
           image, 
           activity, 
@@ -23,7 +22,7 @@ const ExperienceDetails = props => {
           average_rating, 
           total_ratings } = props;
   const title = `${activity} with a ${occupation}`;
-  let starsDisplay = [];
+  const starsDisplay = [];
   const averageRatingInteger = Math.floor(average_rating);
   const averageRatingDecimal = average_rating - averageRatingInteger;
 

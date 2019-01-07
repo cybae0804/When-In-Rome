@@ -18,15 +18,15 @@ const DEFAULT_STATE = {
     average_rating: '', 
     total_ratings: '',
   },
+  experiences: [],
 };
 
 function experienceReducer(state = DEFAULT_STATE, action) {
   switch(action.type) {
-    case types.GET_EXPERIENCE:
-      return { 
-        ...state, 
-        details: action.payload,
-      };
+    case types.GET_EXPERIENCE_DETAILS:
+      return { ...state, details: action.payload };
+    case types.GET_EXPERIENCES:
+      return { ...state, experiences: action.payload };
     default:
       return state;
   }
