@@ -1,27 +1,17 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
 import Header from './header';
 import ExperienceDetails from './experience_details/experience_details';
+import { getExperience } from '../actions';
 
 class ExperiencePage extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      experience: null,
-    };
+  submit = form => {
+    this.props.history.push(`/search?cityjob=${form.cityjob}`);
   }
 
-  async componentDidMount() {
-    try {
-      const { data: { experience } } = await axios.get('api/experiences/1');
-
-      this.setState({
-        experience,
-      });
-    } catch (err) {
-      console.log(err);
-    }
+  componentDidMount() {
+    this.props.getExperience();
   }
 
 	render() {
@@ -29,11 +19,19 @@ class ExperiencePage extends Component {
 			<div>
 				<Header />
 				<ExperienceDetails 
-          {...this.state.experience}
+          {...this.props.details}
         />
 			</div>
 		);
 	}
 }
 
-export default ExperiencePage;
+function mapStateToProps(state) {
+  return {
+    details: state.experience.details,
+  };
+}
+
+export default connect(mapStateToProps, {
+  getExperience,
+})(ExperiencePage);

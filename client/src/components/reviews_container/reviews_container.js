@@ -3,7 +3,6 @@ import './reviews_container.css'
 import Review from '../review/review'
 
 export default props => {
-  console.log(props)
   const{avg, total, reviews} = props
   const avgRating = Math.floor(avg);
   const remainder = avg - avgRating;

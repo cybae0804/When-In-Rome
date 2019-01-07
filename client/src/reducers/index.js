@@ -3,7 +3,7 @@ import experienceReducer from './experience_reducer';
 import searchReducer from './search_reducer';
 
 const rootReducer = combineReducers({
-  // experience: experienceReducer,
+  experience: experienceReducer,
   // search: searchReducer,
 });
 
