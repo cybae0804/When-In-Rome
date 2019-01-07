@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 import './search.css';
-import history from '../../history';
+import { queryString } from '../../helper';
 
 class Search extends Component {
   constructor(props) {
@@ -13,6 +14,15 @@ class Search extends Component {
         guests: ''
       }
     }
+  }
+
+  componentDidMount = () => {
+    this.setState({
+      form: {
+        ...this.state.form,
+        ...queryString(this.props.location.search)
+      }
+    });
   }
 
   changeHandler = e => {
@@ -29,7 +39,9 @@ class Search extends Component {
 
     if (this.inputValidation()){
       const { form } = this.state;
-      history.push(`/search?cityjob=${form.cityjob}&dates=${form.dates}&guests=${form.guests}`);
+      const datesString = !form.dates ? '' : `&dates=${form.dates}`;
+      const guestsString = form.guests === '' ? '' : `&guests=${form.guests}`;
+      this.props.history.push(`/search?cityjob=${form.cityjob}${datesString}${guestsString}`);
     }
   }
 
@@ -38,38 +50,38 @@ class Search extends Component {
     return true;
   }
 
-  landing = (
+  landing = () => (
     <form className="ui form" onSubmit={this.submitBtnHandler}>
       <div className="field">
         <label>City or Job</label>
-        <input type="text" name="cityjob" placeholder="Tokyo, Japan" onChange={this.changeHandler} />
+        <input type="text" name="cityjob" placeholder="Tokyo, Japan" onChange={this.changeHandler} value={this.state.form.cityjob}/>
       </div>
       <div className='two fields'>
         <div className="field small" id="overrideColumns">
           <label>Dates</label>
-          <input type="text" name="date" placeholder="mm/dd/yyyy" onChange={this.changeHandler} />
+          <input type="text" name="date" placeholder="mm/dd/yyyy" onChange={this.changeHandler} value={this.state.form.date}/>
         </div>
         <div className="field small" id="overrideColumns">
           <label>Guests</label>
-          <input type="text" name="guests" placeholder="1 guest" onChange={this.changeHandler} />
+          <input type="text" name="guests" placeholder="1 guest" onChange={this.changeHandler} value={this.state.form.guests}/>
         </div>
       </div>
       <button className="fluid ui button positive" type="submit">Search</button>
     </form>
   );
 
-  default = (
+  default = () => (
     <form className="ui left icon input topMargin" id='searchBar' onSubmit={this.submitBtnHandler}>
       <i className="search link icon" />
-      <input type="text" name="cityjob" placeholder="Osaka, Japan" onChange={this.changeHandler} />
+      <input type="text" name="cityjob" placeholder="Osaka, Japan" onChange={this.changeHandler} value={this.state.form.cityjob}/>
     </form>
   );
 
-  search = (
+  search = () => (
     <form className='ui topMargin'>
       <div id='searchBar' className="ui fluid left icon input" onSubmit={this.submitBtnHandler}>
         <i className="search link icon"/>
-        <input type="text" name="cityjob" placeholder="Osaka, Japan" onChange={this.changeHandler} />
+        <input type="text" name="cityjob" placeholder="Osaka, Japan" onChange={this.changeHandler} value={this.state.form.cityjob}/>
       </div>
       <div className='topMargin'>
         <button className="ui inverted green button filterButton">Filter</button>
@@ -78,11 +90,11 @@ class Search extends Component {
     </form>
   );
 
-  filter = (
+  filter = () => (
     <form className='ui topMargin'>
       <div id='searchBar' className="ui fluid left icon input topMargin" onSubmit={this.submitBtnHandler}>
         <i className="search link icon" />
-        <input type="text" name="cityjob" placeholder="Osaka, Japan" onChange={this.changeHandler} />
+        <input type="text" name="cityjob" placeholder="Osaka, Japan" onChange={this.changeHandler} value={this.state.form.cityjob}/>
       </div>
       <div className='topMargin'>
         <button className="ui inverted green button filterButton">Apply</button>
@@ -94,15 +106,15 @@ class Search extends Component {
   render() {
     switch(this.props.version) {
       case 'landing':
-        return this.landing;
+        return this.landing();
       case 'search':
-        return this.search;
+        return this.search();
       case 'filter':
-        return this.filter;
+        return this.filter();
       default:
-        return this.default;
+        return this.default();
     }
   }
 }
 
-export default Search;
+export default withRouter(Search);
