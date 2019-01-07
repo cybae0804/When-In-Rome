@@ -1,9 +1,9 @@
 import React from 'react';
-const { resolve } = require('path');
 import Calendar from 'react-calendar';
 import { connect } from 'react-redux';
 import './experience_details.css';
 import ReviewsContainer from '../reviews_container/reviews_container'
+const { resolve } = require('path');
 
 const ExperienceDetails = props => {
   console.log('exp details:', props);

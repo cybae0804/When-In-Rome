@@ -17,7 +17,7 @@ class ExperiencePage extends Component {
 	render() {
 		return (
 			<div>
-				<Header submit={this.submit}/>
+				<Header />
 				<ExperienceDetails 
           {...this.props.details}
         />
