@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import Header from './header';
 import ExperienceDetails from './experience_details/experience_details';
@@ -11,7 +10,7 @@ class ExperiencePage extends Component {
   }
 
   componentDidMount() {
-    this.props.getExperienceDetails();
+    this.props.getExperienceDetails(this.props.experience_id);
   }
 
 	render() {
@@ -26,9 +25,12 @@ class ExperiencePage extends Component {
 	}
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
+  const { experience_id } = ownProps.match.params; 
+  
   return {
     details: state.experience.details,
+    experience_id,
   };
 }
 
