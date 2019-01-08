@@ -8,6 +8,7 @@ import SearchPage from '../search_page';
 import ExperiencePage from '../experience_page';
 import FilterPage from '../filter_page';
 import HamburgerMenu from '../hamburger_menu/hamburger_menu';
+import Dashboard from '../dashboard_page'
 
 class App extends Component {
   constructor(props) {
@@ -22,6 +23,7 @@ class App extends Component {
         <Route path={'/experience/:experience_id'} component={ExperiencePage} />
         <Route path={'/filter/'} component={FilterPage} />
         <Route path={'/hamburger/'} component={HamburgerMenu} />
+        <Route path={'/dashboard/'} component={Dashboard}/>
       </div>
     );
   }
