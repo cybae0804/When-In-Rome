@@ -34,7 +34,7 @@ const ExperienceDetails = props => {
   }
 
   const image_url = `${resolve('assets', 'images')}/${image}`;
-  console.log(image);
+  
   return (
     <div className="topMargin">
       <div className="rounded container">
