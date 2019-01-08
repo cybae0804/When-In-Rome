@@ -120,3 +120,24 @@ exports.put = async (req, res) => {
     res.status(422).send('Error putting experience');
   }
 };
+
+exports.delete = async (req, res) => {
+  try {
+    const { experience_id } = req.params;
+    const inserts = [ experience_id, experience_id, experience_id ];
+    const prepared = `DELETE FROM experiences, reviews, dates 
+                    USING experiences, reviews, dates
+                    WHERE experiences.id = ?
+                    AND reviews.experience_id = ?
+                    AND dates.experience_id = ?`;
+    const query = mysql.format(prepared, inserts);
+
+    await db.query(query);
+    res.send({
+      success: true,
+    });
+  } catch (err) {
+    res.status(422).send('Error deleting experience');
+    console.log(err)
+  }
+}
