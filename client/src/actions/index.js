@@ -7,7 +7,7 @@ export function getExperienceDetails(id) {
   return async dispatch => {
     try {
       const { data: { experience } } = await axios.get(`${GET_EXPERIENCES}/${id}`);
-
+      console.log(experience);
       dispatch({
         type: types.GET_EXPERIENCE_DETAILS,
         payload: experience,
