@@ -42,7 +42,8 @@ exports.getOne = async (req, res) => {
       throw new Error('experience_id missing');
     }
 
-    const sql = `SELECT e.*,
+
+    let prepared = `SELECT e.*,
                 COUNT(r.rating) AS total_ratings, 
                 AVG(r.rating) AS average_rating
                 FROM experiences AS e
@@ -51,13 +52,13 @@ exports.getOne = async (req, res) => {
                 WHERE e.id = ?
                 GROUP BY e.id`;
     const inserts = [experience_id];
-    const query = mysql.format(sql, inserts);
+    let query = mysql.format(prepared, inserts);
     const [experience] = await db.query(query);
 
-    sql = `SELECT * 
+    prepared = `SELECT * 
             FROM reviews 
             WHERE experience_id = ?`;
-    query = mysql.format(sql, inserts);
+    query = mysql.format(prepared, inserts);
     experience.reviews = await db.query(query);
 
     if (!experience) {
@@ -73,16 +74,16 @@ exports.getOne = async (req, res) => {
   }
 };
 
-exports.postOne = async (req, res) => {
-  // S3 stuff...
+exports.post = async (req, res) => {
+  // S3 - get image url ...
   try {
     const fields = { activity, occupation, city, country, price, guests, date, host, host_info, activity_info } = req.body;
-    const sql = `INSERT INTO experiences (activity, occupation, city, country, 
+    const prepared = `INSERT INTO experiences (activity, occupation, city, country, 
                                           price, guests, date, host, host_info, 
                                           activity_info, image)
                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
     const inserts = [...Object.values(fields)];
-    const query = mysql.format(sql, inserts);
+    const query = mysql.format(prepared, inserts);
 
     await db.query(query);
     res.send({
@@ -90,5 +91,32 @@ exports.postOne = async (req, res) => {
     });
   } catch (err) {
     res.status(422).send('Error posting experience');
+  }
+};
+
+exports.put = async (req, res) => {
+  try {
+    const fields = { activity, occupation, city, country, price, guests, date, host, host_info, activity_info } = req.body;
+    fields.id = req.params.experience_id;
+    const prepared = `UPDATE experiences SET activity = ?,
+                                              occupation = ?,
+                                              city = ?,
+                                              country = ?,
+                                              price = ?,
+                                              guests = ?,
+                                              date = ?,
+                                              host = ?,
+                                              host_info = ?,
+                                              activity_info = ?
+                                              WHERE id = ?`;
+    const inserts = [...Object.values(fields)];
+    const query = mysql.format(prepared, inserts);
+
+    await db.query(query);
+    res.send({
+      success: true,
+    });
+  } catch (err) {
+    res.status(422).send('Error putting experience');
   }
 };

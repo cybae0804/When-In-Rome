@@ -4,17 +4,14 @@ const reviewsRouter = require('./reviews');
 
 experiencesRouter.route('/')
   .get(experiences.getAll)
-  .post(experiences.postOne);
+  .post(experiences.post);
 experiencesRouter.route('/:experience_id')
-  .get(experiences.getOne);
+  .get(experiences.getOne)
+  .put(experiences.put);
 experiencesRouter.use('/:experience_id/reviews', reviewsRouter);
 
 module.exports = experiencesRouter;
 
-// app.post('/api/experiences', (req, res) => {
-// });
-// app.put('/api/experiences/:experience_id', (req, res) => {
-// });
 // app.delete('/api/experiences/:experience_id', (req, res) => {
 // });
 
