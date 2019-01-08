@@ -7,7 +7,9 @@ experiencesRouter.route('/')
   .post(experiences.post);
 experiencesRouter.route('/:experience_id')
   .get(experiences.getOne)
-  .put(experiences.put);
+  .put(experiences.put)
+  .delete(experiences.delete);
+
 experiencesRouter.use('/:experience_id/reviews', reviewsRouter);
 
 module.exports = experiencesRouter;
