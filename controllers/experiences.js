@@ -3,13 +3,26 @@ const mysql = require('mysql');
 
 exports.getAll = async (req, res) => {
   try {
-    const query = `SELECT e.*, 
+    let { cityjob, date, guests } = req.query;
+
+    cityjob = cityjob ? cityjob : '';
+    date = date ? date : '';
+    guests = guests ? guests : 0;
+
+    const inserts = [cityjob, cityjob, cityjob, date, guests];
+    const prepared = `SELECT e.*, 
                     COUNT(r.rating) AS total_ratings, 
                     AVG(r.rating) AS average_rating
                     FROM experiences AS e
                     LEFT JOIN reviews AS r
                     ON e.id = r.experience_id
+                    WHERE (e.activity LIKE CONCAT('%',? ,'%')
+                    OR e.occupation LIKE CONCAT('%',? ,'%')
+                    OR e.city LIKE CONCAT('%',? ,'%'))
+                    AND (e.date = ?
+                    AND e.guests >= ?)
                     GROUP BY e.id`;
+    const query = mysql.format(prepared, inserts);
     const experiences = await db.query(query);
 
     res.send({
@@ -28,6 +41,7 @@ exports.getOne = async (req, res) => {
     if (!experience_id) {
       throw new Error('experience_id missing');
     }
+
 
     let prepared = `SELECT e.*,
                 COUNT(r.rating) AS total_ratings, 
