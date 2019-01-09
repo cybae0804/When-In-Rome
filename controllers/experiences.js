@@ -16,12 +16,13 @@ exports.getAll = async (req, res) => {
                     FROM experiences AS e
                     LEFT JOIN reviews AS r
                     ON e.id = r.experience_id
-                    WHERE (e.activity LIKE CONCAT('%',? ,'%')
-                    OR e.occupation LIKE CONCAT('%',? ,'%')
-                    OR e.city LIKE CONCAT('%',? ,'%'))
-                    AND (e.date = ?
-                    AND e.guests >= ?)
+
                     GROUP BY e.id`;
+                    // WHERE (e.activity LIKE CONCAT('%',? ,'%')
+                    // OR e.occupation LIKE CONCAT('%',? ,'%')
+                    // OR e.city LIKE CONCAT('%',? ,'%'))
+                    // AND (e.date = ?
+                    // AND e.guests >= ?)
     const query = mysql.format(prepared, inserts);
     const experiences = await db.query(query);
 
