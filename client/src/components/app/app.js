@@ -10,6 +10,9 @@ import FilterPage from '../filter_page';
 import HamburgerMenu from '../hamburger_menu/hamburger_menu';
 import Dashboard from '../dashboard_page'
 
+// etc
+import './app.css';
+
 class App extends Component {
   constructor(props) {
     super(props);

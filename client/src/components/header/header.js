@@ -5,7 +5,7 @@ import './header.css';
 
 export default props => {
   return (
-    <div className="ui container posRelative">
+    <div id='header' className="ui container posRelative topMargin8px">
       {props.title ? <h1 className='headerText'>{props.title}</h1> : undefined}
       <HamburgerButton />
       <Search version={props.version} />
