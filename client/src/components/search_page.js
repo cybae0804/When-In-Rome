@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getExperiences } from '../actions';
 import ExperiencePreviewContainer from './experience_preview_container/experience_preview_container';
-import Header from './header';
+import Header from './header/header';
 
 class SearchPage extends Component {
   constructor(props) {

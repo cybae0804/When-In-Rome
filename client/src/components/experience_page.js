@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Header from './header';
+import Header from './header/header';
 import ExperienceDetails from './experience_details/experience_details';
 import { getExperienceDetails } from '../actions';
 
