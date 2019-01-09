@@ -21,7 +21,7 @@ export default props => {
   const image_url = resolve('assets', 'images') + '/' + image;
   
   return (
-    <div className="experience-preview column">
+    <div className="experience-preview">
       <div className="image">
         <Link to={"/experience/" + id}>
           <img src={image_url} alt={title} width="100%" height="165px" />

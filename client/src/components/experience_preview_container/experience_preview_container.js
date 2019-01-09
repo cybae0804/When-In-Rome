@@ -22,7 +22,7 @@ export default props => {
       <div className="experience-preview-container-header">
         {headingText}
       </div>
-      <div className="ui grid container two column">
+      <div className="experience-previews">
         {experienceList}
       </div>
     </div>
