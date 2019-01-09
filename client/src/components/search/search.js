@@ -71,19 +71,19 @@ class Search extends Component {
   );
 
   default = () => (
-    <form className="ui left icon input topMargin" id='searchBar' onSubmit={this.submitBtnHandler}>
+    <form id='search' className="ui left icon input" onSubmit={this.submitBtnHandler}>
       <i className="search link icon" />
       <input type="text" name="cityjob" placeholder="Osaka, Japan" onChange={this.changeHandler} value={this.state.form.cityjob}/>
     </form>
   );
 
   search = () => (
-    <form className='ui topMargin'>
-      <div id='searchBar' className="ui fluid left icon input" onSubmit={this.submitBtnHandler}>
+    <form id='search' className='ui'>
+      <div className="ui fluid left icon input" onSubmit={this.submitBtnHandler}>
         <i className="search link icon"/>
         <input type="text" name="cityjob" placeholder="Osaka, Japan" onChange={this.changeHandler} value={this.state.form.cityjob}/>
       </div>
-      <div className='topMargin'>
+      <div className='topMargin4px'>
         <button className="ui inverted green button filterButton">Filter</button>
         <button className="ui inverted green button sortButton">Sort by Date</button>
       </div>
@@ -91,12 +91,12 @@ class Search extends Component {
   );
 
   filter = () => (
-    <form className='ui topMargin'>
-      <div id='searchBar' className="ui fluid left icon input topMargin" onSubmit={this.submitBtnHandler}>
+    <form id='search' className='ui'>
+      <div id='searchBar' className="ui fluid left icon input" onSubmit={this.submitBtnHandler}>
         <i className="search link icon" />
         <input type="text" name="cityjob" placeholder="Osaka, Japan" onChange={this.changeHandler} value={this.state.form.cityjob}/>
       </div>
-      <div className='topMargin'>
+      <div className='topMargin4px'>
         <button className="ui inverted green button filterButton">Apply</button>
         <button className="ui inverted green button sortButton">Cancel</button>
       </div>

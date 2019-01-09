@@ -1,17 +1,13 @@
+#search {
+    width: 90%;
+}
+
 .filterButton {
-    width: 25%;
+    width: 33%;
 }
 
 .sortButton {
-    width: 66%;
-}
-
-#searchBar {
-    width: 92%;
-}
-
-.topMargin {
-    margin-top: 5px;
+    width: 64%;
 }
 
 #overrideColumns {
