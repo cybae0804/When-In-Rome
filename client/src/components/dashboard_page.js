@@ -4,7 +4,7 @@ import Dashboard from './dashboard/dashboard';
 class DashboardPage extends Component{
   render(){
     return(
-      <Dashboard {...this.props.details}/>
+      <Dashboard/>
     )
   }
 }
