@@ -76,7 +76,9 @@ const ExperienceDetails = props => {
       <div>
         <Calendar/>
       </div>
+      <div className="reviews">
         <ReviewsContainer avg = {average_rating} total = {total_ratings} reviews = {reviews}/>
+      </div>
     </div>
   )
 }

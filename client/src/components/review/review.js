@@ -10,7 +10,7 @@ export default props => {
   const newDate = new Date(date).toLocaleDateString();
 
   return (
-      <div className="ui divided items container">
+      <div className="ui divided items">
         <div className="item">
           <div className="content">
             <span className="header">{user_id}</span>
