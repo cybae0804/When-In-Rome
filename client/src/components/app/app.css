@@ -14,3 +14,7 @@
 .dispNone {
   display: none !important;
 }
+
+.menu {
+  transition: 1s;
+}
