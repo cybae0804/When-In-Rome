@@ -10,6 +10,7 @@ import Header from '../header/header';
 import './dashboard.css'
 
 export default props => {
+  console.log(props)
   return(
     <div>
       <Header noSearch title='Dashboard'/>
