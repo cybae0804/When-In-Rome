@@ -46,8 +46,9 @@ class HamburgerMenu extends Component {
   ]
 
   render() {
+    const open = this.props.open ? ' open' : '';
     return(
-      <div className='ui secondary vertical menu'>
+      <div className={'ui secondary vertical menu' + open}>
         <i className="massive close icon" onClick={this.props.toggle}/>
         <div className="linksContainer">
           {
