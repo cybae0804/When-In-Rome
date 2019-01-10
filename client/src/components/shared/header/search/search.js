@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import './search.css';
-import { queryString } from '../../helper';
+import { queryString } from '../../../../helper';
 
 class Search extends Component {
   constructor(props) {
