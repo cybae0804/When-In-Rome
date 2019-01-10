@@ -1,6 +1,6 @@
 import React from 'react'
 import './reviews_container.css'
-import Review from '../review/review'
+import Review from './review/review'
 
 export default props => {
   const{avg, total, reviews} = props

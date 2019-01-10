@@ -1,6 +1,6 @@
 import React from 'react';
-import HamburgerButton from '../hamburger_button/hamburger_button';
-import Search from '../search/search';
+import HamburgerButton from './hamburger_button/hamburger_button';
+import Search from './search/search';
 import './header.css';
 
 export default props => {

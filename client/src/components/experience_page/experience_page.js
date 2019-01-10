@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Header from './header/header';
+import Header from '../shared/header/header';
 import ExperienceDetails from './experience_details/experience_details';
-import { getExperienceDetails } from '../actions';
+import { getExperienceDetails } from '../../actions';
 
 class ExperiencePage extends Component {
   submit = form => {

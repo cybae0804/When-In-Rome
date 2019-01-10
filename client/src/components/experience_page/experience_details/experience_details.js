@@ -1,7 +1,7 @@
 import React from 'react';
 import Calendar from 'react-calendar';
 import './experience_details.css';
-import ReviewsContainer from '../reviews_container/reviews_container'
+import ReviewsContainer from './reviews_container/reviews_container'
 const { resolve } = require('path');
 
 const ExperienceDetails = props => {
