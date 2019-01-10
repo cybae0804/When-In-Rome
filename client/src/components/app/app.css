@@ -6,3 +6,11 @@
   margin-top: 8px;
 }
 
+.vertMargin16px {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.dispNone {
+  display: none !important;
+}

@@ -1,7 +1,7 @@
 import React from 'react';
-import Calendar from '../calendar/calendar'
+import Calendar from '../../shared/calendar/calendar';
 import './experience_details.css';
-import ReviewsContainer from '../reviews_container/reviews_container'
+import ReviewsContainer from './reviews_container/reviews_container'
 const { resolve } = require('path');
 
 const ExperienceDetails = props => {
@@ -36,7 +36,7 @@ const ExperienceDetails = props => {
   const image_url = `${resolve('assets', 'images')}/${image}`;
   
   return (
-    <div className="topMargin">
+    <div>
       <div className="rounded container">
         <img className="ui image centered" src={image_url} />
       </div>

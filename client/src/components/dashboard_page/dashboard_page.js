@@ -1,12 +1,12 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import Dashboard from './dashboard/dashboard';
 
 class DashboardPage extends Component{
-  render(){
-    return(
+  render() {
+    return (
       <Dashboard/>
-    )
+    );
   }
 }
 
-export default DashboardPage
+export default DashboardPage;

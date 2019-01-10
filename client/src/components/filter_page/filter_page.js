@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Calendar from './calendar/calendar'
-import Header from './header/header';
+import Calendar from '../shared/calendar/calendar'
+import Header from '../shared/header/header';
 
 class FilterPage extends Component {
   constructor(props) {

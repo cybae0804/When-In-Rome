@@ -7,13 +7,16 @@ import rootReducer from './reducers';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import App from './components/app/app';
+import ScrollToTop from './components/shared/scroll_to_top/scroll_to_top';
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-      <App />
+      <ScrollToTop>
+        <App />
+      </ScrollToTop>
     </Router>
   </Provider>,
   document.getElementById('root')
