@@ -1,0 +1,28 @@
+.calendar .react-calendar__navigation{
+  font-size: 1.5em;
+}
+
+.calendar .react-calendar__tile--active:enabled:hover, .react-calendar__tile--active:enabled:focus{
+  background: teal;
+} 
+
+.calendar .react-calendar__tile--active{
+  background: lightseagreen
+}
+
+.calendar .react-calendar__tile{
+  border: 0.5px solid lightgrey;
+}
+
+.calendar .react-calendar__navigation__arrow.react-calendar__navigation__next2-button,
+.calendar .react-calendar__navigation__arrow.react-calendar__navigation__prev2-button{
+  display: none;
+}
+.calendar .react-calendar__month-view__days__day--weekend {
+  color: black;
+}
+
+
+
+
+

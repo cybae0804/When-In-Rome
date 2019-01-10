@@ -1,5 +1,5 @@
 import React from 'react';
-import Calendar from 'react-calendar';
+import Calendar from '../../shared/calendar/calendar';
 import './experience_details.css';
 import ReviewsContainer from './reviews_container/reviews_container'
 const { resolve } = require('path');

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Calendar from 'react-calendar'
+import Calendar from '../shared/calendar/calendar'
 import Header from '../shared/header/header';
 
 class FilterPage extends Component {
@@ -28,7 +28,7 @@ class FilterPage extends Component {
             </div>
           </div>
         </div>
-        <Calendar />
+        <Calendar/>
       </div>
     );
   }
