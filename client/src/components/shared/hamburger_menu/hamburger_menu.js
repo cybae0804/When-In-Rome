@@ -1,50 +1,62 @@
 import React, { Component } from 'react';
 import './hamburger_menu.css';
+import { Link } from 'react-router-dom'
 
 class HamburgerMenu extends Component {
   constructor(props) {
     super(props);
   }
 
-  user = (
-    <div className="ui secondary vertical menu">
-      <i className="massive close icon"></i>
-      <a className="item">
-        Home
-      </a>
-      <a className="item">
-        Dashboard
-      </a>
-      <a className="item">
-        Log Out
-      </a>
-      <a className="item">
-        About
-      </a>
-    </div>
-  );
+  user = [
+    {
+      text: 'Home',
+      to: '/'
+    },
+    {
+      text: 'Dashboard',
+      to: '/dashboard'
+    },
+    {
+      text: 'Log Out',
+      to: '/'
+    },
+    {
+      text: 'About',
+      to: '/about'
+    },
+  ]
 
-  guest = (
-    <div className="ui secondary vertical menu">
-      <i className="massive close icon"></i>
-      <a className="item">
-        Home
-      </a>
-      <a className="item">
-        Sign Up
-      </a>
-      <a className="item">
-        Login
-      </a>
-      <a className="item">
-        About
-      </a>
-    </div>
-  );
+  guest = [
+    {
+      text: 'Home',
+      to: '/'
+    },
+    {
+      text: 'Sign Up',
+      to: '/'
+    },
+    {
+      text: 'Login',
+      to: '/'
+    },
+    {
+      text: 'About',
+      to: '/about'
+    },
+  ]
 
   render() {
     return(
-      this.props.loggedIn ? this.user : this.guest
+      <div className='ui secondary vertical menu'>
+        <i className="massive close icon" onClick={this.props.toggle}/>
+        <div className="linksContainer">
+          {
+            this.props.loggedIn ? 
+              this.user.map((item, index) => (<Link className='item' to={item.to} key={index}>{item.text}</Link>)) : 
+              this.user.map((item, index) => (<Link className='item' to={item.to} key={index}>{item.text}</Link>))
+          }
+        </div>
+      </div>
     );
   }
 }

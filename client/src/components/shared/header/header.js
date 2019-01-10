@@ -1,19 +1,38 @@
-import React from 'react';
+import React, { Component } from 'react';
 import HamburgerButton from './hamburger_button/hamburger_button';
 import Search from './search/search';
+import HamburgerMenu from '../hamburger_menu/hamburger_menu';
 import './header.css';
 
-export default props => {
-  return props.noSearch ? (
-    <div id='header' className='ui container posRelative topMargin8px'>
-      {props.title ? <h1 className='headerText'>{props.title}</h1> : undefined}
-      <HamburgerButton />
-    </div>
-  ) : (
-    <div id='header' className="ui container posRelative topMargin8px">
-      {props.title ? <h1 className='headerText'>{props.title}</h1> : undefined}
-      <HamburgerButton />
-      <Search version={props.version} />
-    </div>
-  );
+class Header extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      menuOpen: false
+    }
+  }
+
+  toggleMenu = () => {
+    this.setState({
+      menuOpen: !this.state.menuOpen
+    });
+  }
+  
+  render() {
+    return (
+      <div id='header' className="ui container posRelative vertMargin16px">
+        {this.props.title ? <h1 className='headerText'>{this.props.title}</h1> : undefined}
+        {this.state.menuOpen ? <HamburgerMenu
+          toggle={this.toggleMenu}
+        /> : undefined}
+        <HamburgerButton 
+          toggle={this.toggleMenu}
+        />
+        {this.props.noSearch ? undefined : <Search version={this.props.version} />}
+      </div>
+    );
+  }
 }
+
+export default Header;
