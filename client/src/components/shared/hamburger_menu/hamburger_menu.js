@@ -52,8 +52,8 @@ class HamburgerMenu extends Component {
         <div className="linksContainer">
           {
             this.props.loggedIn ? 
-              this.user.map((item, index) => (<Link className='item' to={item.to} key={index}>{item.text}</Link>)) : 
-              this.user.map((item, index) => (<Link className='item' to={item.to} key={index}>{item.text}</Link>))
+              this.user.map((item, index) => (<Link className='item' onClick={this.props.toggle} to={item.to} key={index}>{item.text}</Link>)) : 
+              this.guest.map((item, index) => (<Link className='item' onClick={this.props.toggle} to={item.to} key={index}>{item.text}</Link>))
           }
         </div>
       </div>
