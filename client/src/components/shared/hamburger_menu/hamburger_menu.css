@@ -2,6 +2,11 @@
   background-color: #6FCF97 !important;
   height: 100vh;
   padding: 2rem;
+  position: fixed;
+  z-index: 1;
+  right: 0;
+  top: 0;
+  margin: 0 !important;
 }
 
 .menu * {
@@ -12,4 +17,8 @@
 .close {
   float: right;
   color: black !important;
+}
+
+.linksContainer {
+  margin-top: 20px;
 }
