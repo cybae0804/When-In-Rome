@@ -6,24 +6,26 @@ exports.getAll = async (req, res) => {
     let { cityjob, date, guests } = req.query;
 
     cityjob = cityjob ? cityjob : '';
-    guests = !isNaN(parseInt(guests)) ? Math.abs(parseInt(guests)) : 0;
-    
-    const dateQueryString = date ? 'AND e.date = ?' : '';
-    const inserts = [cityjob, cityjob, cityjob, guests, date];
+    guests = isFinite(guests) ? Math.abs(parseInt(guests)) : 0;
+    const cityjobQueryString = cityjob !== 'undefined' ? 
+                                `AND (e.activity LIKE CONCAT('%', ?,'%')
+                                OR e.occupation LIKE CONCAT('%', ?,'%')
+                                OR e.city LIKE CONCAT('%', ?,'%'))`
+                                : '';
+    const dateQueryString = date !== 'undefined' ? 'AND e.date = ?' : '';
+    const inserts = [guests, cityjob, cityjob, cityjob, date];
     const prepared = `SELECT e.*, 
-                    COUNT(r.rating) AS total_ratings, 
-                    AVG(r.rating) AS average_rating
-                    FROM experiences AS e
-                    LEFT JOIN reviews AS r
-                    ON e.id = r.experience_id
-                    WHERE (e.activity LIKE CONCAT('%',? ,'%')
-                    OR e.occupation LIKE CONCAT('%',? ,'%')
-                    OR e.city LIKE CONCAT('%',? ,'%'))
-                    AND e.guests >= ?
-                    ${dateQueryString}
-                    GROUP BY e.id`;
-
+                      COUNT(r.rating) AS total_ratings, 
+                      AVG(r.rating) AS average_rating
+                      FROM experiences AS e
+                      LEFT JOIN reviews AS r
+                      ON e.id = r.experience_id
+                      WHERE e.guests >= ?
+                      ${cityjobQueryString}
+                      ${dateQueryString}
+                      GROUP BY e.id`;
     const query = mysql.format(prepared, inserts);
+    console.log(query);
     const experiences = await db.query(query);
 
     res.send({
@@ -45,13 +47,13 @@ exports.getOne = async (req, res) => {
 
 
     let prepared = `SELECT e.*,
-                COUNT(r.rating) AS total_ratings, 
-                AVG(r.rating) AS average_rating
-                FROM experiences AS e
-                LEFT JOIN reviews AS r
-                ON e.id = r.experience_id
-                WHERE e.id = ?
-                GROUP BY e.id`;
+                    COUNT(r.rating) AS total_ratings, 
+                    AVG(r.rating) AS average_rating
+                    FROM experiences AS e
+                    LEFT JOIN reviews AS r
+                    ON e.id = r.experience_id
+                    WHERE e.id = ?
+                    GROUP BY e.id`;
     const inserts = [experience_id];
     let query = mysql.format(prepared, inserts);
     const [experience] = await db.query(query);
@@ -82,7 +84,7 @@ exports.post = async (req, res) => {
     const prepared = `INSERT INTO experiences (activity, occupation, city, country, 
                                           price, guests, date, host, host_info, 
                                           activity_info, image)
-                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
     const inserts = [...Object.values(fields)];
     const query = mysql.format(prepared, inserts);
 

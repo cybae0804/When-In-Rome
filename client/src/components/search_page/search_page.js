@@ -11,7 +11,7 @@ class SearchPage extends Component {
 		return (
 			<div>
         <Header version="search" />
-				<ExperiencePreviewContainer />
+				<ExperiencePreviewContainer  />
 			</div>
 		);
 	}

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { getExperiences } from '../../../actions';
 import ExperiencePreview from './experience_preview/experience_preview';
-import './experience_preview_container.css'
+import './experience_preview_container.css';
+import { queryString } from '../../../helper';
 
 class ExperiencePreviewContainer extends Component {
   constructor(props) {
@@ -10,13 +12,15 @@ class ExperiencePreviewContainer extends Component {
   }
 
   async componentDidMount() {
-    this.props.getExperiences();
+    const parameters = queryString(this.props.location.search);
+
+    this.props.getExperiences(parameters);
   }
 
   render() {
-    const { heading, experiences } = this.props;
+    const { heading } = this.props;
     const headingText = heading ? <h2>{heading}</h2> : '';
-    const experienceList = experiences.map(experience => {
+    const experienceList = this.props.experiences.map(experience => {
       const { id } = experience;
 
       return (
@@ -49,4 +53,4 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {
   getExperiences,
-})(ExperiencePreviewContainer);
+})(withRouter(ExperiencePreviewContainer));
