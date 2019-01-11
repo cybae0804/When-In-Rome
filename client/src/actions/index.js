@@ -18,10 +18,12 @@ export function getExperienceDetails(id) {
   }
 }
 
-export function getExperiences() {
+export function getExperiences(parameters) {
   return async dispatch => {
     try {
-      const { data: { experiences } } = await axios.get(GET_EXPERIENCES);
+      const { cityjob, date, guests } = parameters;
+      console.log(`${GET_EXPERIENCES}?cityjob=${cityjob}&date=${date}&guests=${guests}`);
+      const { data: { experiences } } = await axios.get(`${GET_EXPERIENCES}?cityjob=${cityjob}&date=${date}&guests=${guests}`);
 
       dispatch({
         type: types.GET_EXPERIENCES,
