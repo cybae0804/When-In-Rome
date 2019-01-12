@@ -5,6 +5,18 @@ import Header from '../shared/header/header';
 class FilterPage extends Component {
   constructor(props) {
     super(props);
+    this.state={
+      range: this.range,
+      
+    }
+  }
+
+  getRange = (range) => {
+    const dateRange = (range.map(date=>date.toLocaleDateString()));
+    this.setState({
+      range: dateRange
+    })
+    return dateRange
   }
 
   render() {
@@ -28,7 +40,12 @@ class FilterPage extends Component {
             </div>
           </div>
         </div>
-        <Calendar/>
+        <Calendar
+          selectRange 
+          returnValue="range" 
+          onChange={
+            (range) => console.log("Filter Page Range", this.getRange(range))}
+        />
       </div>
     );
   }

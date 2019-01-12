@@ -34,7 +34,9 @@ const ExperienceDetails = props => {
   }
 
   const image_url = `${resolve('assets', 'images')}/${image}`;
-  
+
+  //dummy dates for calendar
+  const dateArray = ['1/20/2019', '1/23/2019'];
   return (
     <div>
       <div className="rounded container">
@@ -74,7 +76,11 @@ const ExperienceDetails = props => {
         <p>{activity_info}</p>
       </div>
       <div>
-        <Calendar/>
+        <Calendar 
+          onChange={(response) => console.log(response.toLocaleDateString())}
+          tileContent={({activeStartDate, date, view}) => dateArray.includes(date.toLocaleDateString()) ? <i className="icon check large"></i> : null }
+          tileDisabled={({date}) => !dateArray.includes(date.toLocaleDateString())}
+        />
       </div>
       <div className="reviews">
         <ReviewsContainer avg = {average_rating} total = {total_ratings} reviews = {reviews}/>
