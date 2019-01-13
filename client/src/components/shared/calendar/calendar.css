@@ -22,6 +22,10 @@
   color: black;
 }
 
+.calendar .react-calendar__month-view__days{
+  /* height: 45px; */
+}
+
 
 
 
