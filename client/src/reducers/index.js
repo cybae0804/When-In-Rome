@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-import experienceReducer from './experience_reducer';
-import searchReducer from './search_reducer';
+import experience from './experience_reducer';
+import images from './images_reducer';
 
 const rootReducer = combineReducers({
-  experience: experienceReducer,
-  // search: searchReducer,
+  experience,
+  images,
 });
 
 export default rootReducer;

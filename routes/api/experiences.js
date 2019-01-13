@@ -15,13 +15,7 @@ experiencesRouter.use('/:experience_id/reviews', reviewsRouter);
 
 module.exports = experiencesRouter;
 
-// app.delete('/api/experiences/:experience_id', (req, res) => {
-// });
 
-// // Reviews
-// app.post('/api/experiences/:experience_id/reviews', (req, res) => {
-// });
-// router.use('/:experience_id/dates', require('./dates'));
 // // Dates
 
 // app.get('/api/experiences/:experience_id/dates', (req, res) => {

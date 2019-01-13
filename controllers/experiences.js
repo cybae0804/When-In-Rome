@@ -25,7 +25,7 @@ exports.getAll = async (req, res) => {
                       ${dateQueryString}
                       GROUP BY e.id`;
     const query = mysql.format(prepared, inserts);
-    console.log(query);
+    
     const experiences = await db.query(query);
 
     res.send({
@@ -44,7 +44,6 @@ exports.getOne = async (req, res) => {
     if (!experience_id) {
       throw new Error('experience_id missing');
     }
-
 
     let prepared = `SELECT e.*,
                     COUNT(r.rating) AS total_ratings, 
