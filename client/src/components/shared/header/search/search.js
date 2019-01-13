@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Calendar from '../../calendar/calendar';
 import { withRouter } from 'react-router';
 import './search.css';
 import { queryString } from '../../../../helper';
@@ -8,11 +9,12 @@ class Search extends Component {
     super(props);
 
     this.state = {
+      range: null,
       form: {
         cityjob: '',
         date: '',
         guests: ''
-      }
+      },
     }
   }
 
@@ -48,6 +50,16 @@ class Search extends Component {
   inputValidation = () => {
     //validate this.state.form
     return true;
+  }
+
+  getRange = range => {
+    const dateRange = range.map(date=>date.toLocaleDateString());
+
+    this.setState({
+      range: dateRange
+    });
+
+    return dateRange;
   }
 
   landing = () => (
@@ -91,16 +103,19 @@ class Search extends Component {
   );
 
   filter = () => (
-    <form id='search' className='ui'>
-      <div id='searchBar' className="ui fluid left icon input" onSubmit={this.submitBtnHandler}>
-        <i className="search link icon" />
-        <input type="text" name="cityjob" placeholder="Osaka, Japan" onChange={this.changeHandler} value={this.state.form.cityjob}/>
-      </div>
-      <div className='topMargin4px'>
-        <button className="ui inverted green button filterButton">Apply</button>
-        <button className="ui inverted green button sortButton">Cancel</button>
-      </div>
-    </form>
+    <div>
+      <form id='search' className='ui'>
+        <div id='searchBar' className="ui fluid left icon input" onSubmit={this.submitBtnHandler}>
+          <i className="search link icon" />
+          <input type="text" name="cityjob" placeholder="Osaka, Japan" onChange={this.changeHandler} value={this.state.form.cityjob}/>
+        </div>
+        <div className='topMargin4px'>
+          <button className="ui inverted green button filterButton">Apply</button>
+          <button className="ui inverted green button sortButton">Cancel</button>
+        </div>
+      </form>
+    </div>
+    
   );
 
   render() {
