@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ExperiencePreviewContainer from '../shared/experience_preview_container/experience_preview_container';
 import Header from '../shared/header/header';
+import Footer from '../shared/footer/footer';
+import './search_page.css';
 
 class SearchPage extends Component {
   constructor(props) {
@@ -9,9 +11,10 @@ class SearchPage extends Component {
 
 	render() {
 		return (
-			<div>
+			<div id='searchPage'>
         <Header version="search" />
-				<ExperiencePreviewContainer  />
+				<ExperiencePreviewContainer />
+				<Footer />
 			</div>
 		);
 	}
