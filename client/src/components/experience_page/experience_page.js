@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Header from '../shared/header/header';
+import Footer from '../shared/footer/footer';
 import ExperienceDetails from './experience_details/experience_details';
 import { getExperienceDetails } from '../../actions';
+import './experience_page.css';
 
 class ExperiencePage extends Component {
   submit = form => {
@@ -15,11 +17,12 @@ class ExperiencePage extends Component {
 
 	render() {
 		return (
-			<div>
+			<div id='experiencePage'>
 				<Header />
 				<ExperienceDetails 
           {...this.props.details}
         />
+        <Footer />
 			</div>
 		);
 	}
