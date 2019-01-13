@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Calendar from '../../calendar/calendar';
 import { withRouter } from 'react-router';
 import './search.css';
 import { queryString } from '../../../../helper';
@@ -8,10 +9,22 @@ class Search extends Component {
     super(props);
 
     this.state = {
+      filterOpen: false,
+      range: null,
       form: {
         cityjob: '',
-        date: '',
-        guests: ''
+        dateStart: '',
+        dateEnd: '',
+        guests: '',
+        priceMin: 0,
+        priceMax: 0
+      },
+      pre: {
+        dateStart: null,
+        dateEnd: null,
+        guests: 0,
+        priceMin: 0,
+        priceMax: 0
       }
     }
   }
@@ -36,19 +49,127 @@ class Search extends Component {
 
   submitBtnHandler = e => {
     e.preventDefault();
+    this.updateUrl();    
+  }
 
+  filterChangeHandler = e => {
+    this.setState({
+      pre: {
+        ...this.state.pre,
+        [e.target.name]: e.target.value
+      }
+    });
+  }
+
+  updateUrl = () => {
     if (this.inputValidation()){
       const { form } = this.state;
-      const datesString = form.date === '' ? '' : `&date=${form.date}`;
-      const guestsString = form.guests === '' ? '' : `&guests=${form.guests}`;
-      this.props.history.push(`/search?cityjob=${form.cityjob}${datesString}${guestsString}`);
+
+      const dateStart = form.dateStart === null ? '' : `&dateStart=${form.dateStart}`;
+      const dateEnd = form.dateEnd === null ? '' : `&dateEnd=${form.dateEnd}`;
+      const guests = form.guests === '' ? '' : `&guests=${form.guests}`;
+      const priceMin = form.priceMin === 0 ? '' : `&priceMin=${form.priceMin}`;
+      const priceMax = form.priceMax === 0 ? '' : `&priceMax=${form.priceMax}`;
+
+      this.props.history.push(`/search?cityjob=${form.cityjob}${dateStart}${dateEnd}${guests}${priceMin}${priceMax}`);
     }
+  }
+
+  filterBtnHandler = e => {
+    e.preventDefault();
+
+    this.setState({
+      filterOpen: true
+    });
+  }
+
+  applyBtnHandler = e => {
+    e.preventDefault();
+
+    this.setState({
+      filterOpen: false,
+      form: {
+        ...this.state.form,
+        ...this.state.pre
+      }
+    }, this.updateUrl);
+  }
+
+  cancelBtnHandler = e => {
+    e.preventDefault();
+
+    this.setState({
+      filterOpen: false,
+      pre: {
+        dateStart: null,
+        dateEnd: null,
+        guests: 0,
+        priceMin: 0,
+        priceMax: 0
+      }
+    });
+  }
+
+  sortBtnHandler = e => {
+    e.preventDefault();
+
+  }
+
+  calendarChangeHandler = range => {
+    const [dateStart, dateEnd] = range.map( date => `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`);
+    this.setState({
+      pre: {
+        dateStart, dateEnd
+      }
+    });
   }
 
   inputValidation = () => {
     //validate this.state.form
     return true;
   }
+
+  search = () => (
+    // have to fix enter key pressed behavior. currently doesn't do anything. I think the lack of button w/ type submit in this form is the issue
+    <form id='search' className='ui form' onSubmit={this.submitBtnHandler}>
+      <div className="ui fluid left icon input" onSubmit={this.submitBtnHandler}>
+        <i className="search link icon"/>
+        <input type="text" name="cityjob" placeholder="Osaka, Japan" onChange={this.changeHandler} value={this.state.form.cityjob}/>
+      </div>
+      <div className={this.state.filterOpen ? 'dispNone' : 'topMargin4px'}>
+        <button type='button' className="ui inverted green button filterButton" onClick={this.filterBtnHandler}>Filter</button>
+        <button type='button' className="ui inverted green button sortButton" onClick={this.sortBtnHandler}>Sort by Date</button>
+      </div>
+      <div className={this.state.filterOpen ? 'topMargin4px' : 'dispNone'}>
+        <button type='button' className="ui inverted green button filterButton" onClick={this.applyBtnHandler}>Apply</button>
+        <button type='button' className="ui inverted red button sortButton" onClick={this.cancelBtnHandler}>Cancel</button>
+      </div>
+      <div className={`filterDrop${this.state.filterOpen ? '' : ' dispNone'}`}>
+        <div className="ui form container">
+          <label>Group Size</label>
+          <div className="fields">
+            <div className="field">
+              <input type="text" placeholder="Number of Guests" name='guests' onChange={this.filterChangeHandler}/>
+            </div>
+          </div>
+          <label>Price</label>
+          <div className="inline fields">
+            <div className="field">
+              <input type="text" placeholder="Min" name='priceMin' onChange={this.filterChangeHandler}/>
+            </div>
+            <div className="field">
+              <input type="text" placeholder="Max" name='priceMax' onChange={this.filterChangeHandler}/>
+            </div>
+          </div>
+        </div>
+        <Calendar
+          selectRange 
+          returnValue="range" 
+          onChange={this.calendarChangeHandler}
+        />
+      </div>
+    </form>
+  );
 
   landing = () => (
     <form className="ui form" onSubmit={this.submitBtnHandler}>
@@ -77,40 +198,12 @@ class Search extends Component {
     </form>
   );
 
-  search = () => (
-    <form id='search' className='ui'>
-      <div className="ui fluid left icon input" onSubmit={this.submitBtnHandler}>
-        <i className="search link icon"/>
-        <input type="text" name="cityjob" placeholder="Osaka, Japan" onChange={this.changeHandler} value={this.state.form.cityjob}/>
-      </div>
-      <div className='topMargin4px'>
-        <button className="ui inverted green button filterButton">Filter</button>
-        <button className="ui inverted green button sortButton">Sort by Date</button>
-      </div>
-    </form>
-  );
-
-  filter = () => (
-    <form id='search' className='ui'>
-      <div id='searchBar' className="ui fluid left icon input" onSubmit={this.submitBtnHandler}>
-        <i className="search link icon" />
-        <input type="text" name="cityjob" placeholder="Osaka, Japan" onChange={this.changeHandler} value={this.state.form.cityjob}/>
-      </div>
-      <div className='topMargin4px'>
-        <button className="ui inverted green button filterButton">Apply</button>
-        <button className="ui inverted green button sortButton">Cancel</button>
-      </div>
-    </form>
-  );
-
   render() {
     switch(this.props.version) {
       case 'landing':
         return this.landing();
       case 'search':
         return this.search();
-      case 'filter':
-        return this.filter();
       default:
         return this.default();
     }

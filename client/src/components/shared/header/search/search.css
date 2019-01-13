@@ -18,3 +18,8 @@
 #overrideColumns {
     width: 50% !important;
 }
+
+.filterDrop {
+    z-index: 1;
+    position: absolute;
+}

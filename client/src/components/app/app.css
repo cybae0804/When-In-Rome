@@ -34,5 +34,5 @@
 }
 
 .posRelative {
-  position: relative;
+  position: relative !important;
 }
