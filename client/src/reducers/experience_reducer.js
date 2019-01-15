@@ -27,6 +27,8 @@ function experienceReducer(state = DEFAULT_STATE, action) {
       return { ...state, details: action.payload };
     case types.GET_EXPERIENCES:
       return { ...state, experiences: action.payload };
+    case types.POST_EXPERIENCE:
+      return { ...state, success: action.payload };
     default:
       return state;
   }

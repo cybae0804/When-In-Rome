@@ -10,14 +10,6 @@ class ImageUpload extends Component {
     caption: ''
   }
 
-  backToImages = () => {
-    const { history, resetImageUpload } = this.props;
-
-    resetImageUpload();
-
-    history.push('/');
-  }
-
   onFileChange = e => {
     const reader = new FileReader();
     const file = e.target.files[0];
@@ -77,26 +69,18 @@ class ImageUpload extends Component {
     }
 
     return (
-      <form onSubmit={this.handleUpload}>
+      <div>
         <div>
           <input type="file" accept="image/*" onChange={this.onFileChange} />
-        </div>
-        <div>
-          <input type="text" id="name" onChange={({ target }) => this.setState({ name: target.value })} autoComplete="off" />
-          <label htmlFor="name">Name</label>
-        </div>
-        <div>
-          <input type="text" id="caption" onChange={({ target }) => this.setState({ caption: target.value })} autoComplete="off" />
-          <label htmlFor="caption">Caption</label>
         </div>
         <div>
           <h5>{src && 'Preview'}</h5>
           {this.renderImage(src)}
         </div>
         <div>
-          {src && <button>Upload Image</button>}
+          {src && <button onClick={this.handleUpload}>Upload Image</button>}
         </div>
-      </form>
+      </div>
     );
   }
 

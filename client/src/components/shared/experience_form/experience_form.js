@@ -2,7 +2,8 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
-import { } from '../../../actions';
+import ImageUpload from '../../shared/image_upload/image_upload';
+import { postExperience } from '../../../actions';
 
 class ExperienceForm extends Component {
   renderInput(props) {
@@ -14,9 +15,17 @@ class ExperienceForm extends Component {
     );
   }
 
+  handleAddExperience = async values => {
+    console.log(values);
+    await this.props.postExperience(values);
+
+    this.props.history.push('/');
+  }
+
   render() {
+    const { handleSubmit } = this.props;
     return (
-      <form className="ui form container">
+      <form onSubmit={handleSubmit(this.handleAddExperience)} className="ui form container">
         <div className="field">
           <Field component={this.renderInput} id="occupation" name="occupation" label="Occupation" />
         </div>
@@ -41,6 +50,7 @@ class ExperienceForm extends Component {
         <div className="field">
           <Field component={this.renderInput} id="activity_info" name="activity_info" label="Activity Info" />
         </div>
+        <ImageUpload />
         <div>
           <button>Save</button>
         </div>
@@ -58,7 +68,7 @@ function mapStateToProps(state, props) {
 }
 
 ExperienceForm = connect(mapStateToProps, {
-
+  postExperience,
 })(withRouter(ExperienceForm));
 
 export default reduxForm({
