@@ -35,6 +35,10 @@ export function getExperiences(parameters) {
   }
 }
 
+export function postExperiences(parameters) {
+  
+}
+
 export const getImages = () => async dispatch => {
   const { data: { images } } = await axios.get('/api/get-images');
 
