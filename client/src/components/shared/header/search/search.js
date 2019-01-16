@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import Calendar from '../../calendar/calendar';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import './search.css';
 import { queryString } from '../../../../helper';
+import { getExperiences } from '../../../../actions/index';
 
 class Search extends Component {
   constructor(props) {
@@ -61,20 +63,6 @@ class Search extends Component {
     });
   }
 
-  updateUrl = () => {
-    if (this.inputValidation()){
-      const { form } = this.state;
-
-      const dateStart = form.dateStart === null ? '' : `&dateStart=${form.dateStart}`;
-      const dateEnd = form.dateEnd === null ? '' : `&dateEnd=${form.dateEnd}`;
-      const guests = form.guests === '' ? '' : `&guests=${form.guests}`;
-      const priceMin = form.priceMin === 0 ? '' : `&priceMin=${form.priceMin}`;
-      const priceMax = form.priceMax === 0 ? '' : `&priceMax=${form.priceMax}`;
-
-      this.props.history.push(`/search?cityjob=${form.cityjob}${dateStart}${dateEnd}${guests}${priceMin}${priceMax}`);
-    }
-  }
-
   filterBtnHandler = e => {
     e.preventDefault();
 
@@ -112,7 +100,6 @@ class Search extends Component {
 
   sortBtnHandler = e => {
     e.preventDefault();
-
   }
 
   calendarChangeHandler = range => {
@@ -129,8 +116,21 @@ class Search extends Component {
     return true;
   }
 
+  updateUrl = () => {
+    if (this.inputValidation()){
+      const { form } = this.state;
+      let narrowDownQuery = '?';
+
+      for (let field in form){
+        if (form[field]) narrowDownQuery += `${field}=${form[field]}&`
+      }
+
+      this.props.history.push(`/search${narrowDownQuery}`);
+      this.props.getExperiences(queryString(narrowDownQuery));
+    }
+  }
+
   search = () => (
-    // have to fix enter key pressed behavior. currently doesn't do anything. I think the lack of button w/ type submit in this form is the issue
     <form id='search' className='ui form' onSubmit={this.submitBtnHandler}>
       <div className="ui fluid left icon input" onSubmit={this.submitBtnHandler}>
         <i className="search link icon"/>
@@ -168,6 +168,7 @@ class Search extends Component {
           onChange={this.calendarChangeHandler}
         />
       </div>
+      <input type="submit" className='dispNone'/>
     </form>
   );
 
@@ -210,4 +211,4 @@ class Search extends Component {
   }
 }
 
-export default withRouter(Search);
+export default withRouter(connect(null, {getExperiences})(Search));

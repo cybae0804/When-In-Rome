@@ -3,17 +3,33 @@ const mysql = require('mysql');
 
 exports.getAll = async (req, res) => {
   try {
-    let { cityjob, date, guests } = req.query;
+    let { cityjob, dateStart, dateEnd, priceMin, priceMax, guests } = req.query;
 
-    cityjob = cityjob ? cityjob : '';
     guests = isFinite(guests) ? Math.abs(parseInt(guests)) : 0;
-    const cityjobQueryString = cityjob !== 'undefined' ? 
-                                `AND (e.activity LIKE CONCAT('%', ?,'%')
-                                OR e.occupation LIKE CONCAT('%', ?,'%')
-                                OR e.city LIKE CONCAT('%', ?,'%'))`
-                                : '';
-    const dateQueryString = date !== 'undefined' ? 'AND e.date = ?' : '';
-    const inserts = [guests, cityjob, cityjob, cityjob, date];
+    cityjob = cityjob ? cityjob : '';
+
+    const inserts = [guests, cityjob, cityjob, cityjob];
+    let narrowDownQuery = '';
+
+    if (dateStart){
+      inserts.push(dateStart);
+      narrowDownQuery += ' AND e.date > ?';
+    }
+
+    if (dateEnd){
+      inserts.push(dateEnd);
+      narrowDownQuery += ' AND e.date < ?';
+    }
+
+    if (priceMin){
+      inserts.push(priceMin);
+      narrowDownQuery += ` AND e.price > ?`;
+    }
+    
+    if (priceMax){
+      inserts.push(priceMax);
+      narrowDownQuery += ` AND e.price < ?`;
+    }
     const prepared = `SELECT e.*, 
                       COUNT(r.rating) AS total_ratings, 
                       AVG(r.rating) AS average_rating
@@ -21,11 +37,13 @@ exports.getAll = async (req, res) => {
                       LEFT JOIN reviews AS r
                       ON e.id = r.experience_id
                       WHERE e.guests >= ?
-                      ${cityjobQueryString}
-                      ${dateQueryString}
+                      AND (e.activity LIKE CONCAT('%', ?,'%')
+                        OR e.occupation LIKE CONCAT('%', ?,'%')
+                        OR e.city LIKE CONCAT('%', ?,'%'))
+                      ${narrowDownQuery}
                       GROUP BY e.id`;
+                      
     const query = mysql.format(prepared, inserts);
-    
     const experiences = await db.query(query);
 
     res.send({
