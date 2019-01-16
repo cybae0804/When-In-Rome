@@ -11,9 +11,8 @@ class ExperiencePreviewContainer extends Component {
     super(props);
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     const parameters = queryString(this.props.location.search);
-
     this.props.getExperiences(parameters);
   }
 
@@ -51,6 +50,6 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, {
-  getExperiences,
-})(withRouter(ExperiencePreviewContainer));
+export default withRouter(connect(mapStateToProps, {
+  getExperiences
+})(ExperiencePreviewContainer));

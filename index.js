@@ -15,7 +15,7 @@ require('./routes')(app);
 app.listen(PORT, () => {
   console.log('Server running on PORT', PORT);
 }).on('error', (err) => {
-  console.log('Server listen error');
+  console.log('Server listen error', err);
 });
 
 

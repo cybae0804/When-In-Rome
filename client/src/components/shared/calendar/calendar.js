@@ -2,9 +2,7 @@ import React from 'react'
 import './calendar.css'
 import Calendar from 'react-calendar'
 
-export default props => {
-  // console.log(props)
-  return(
+export default props => (
   <div className="calendar" id="calendarID">
     <Calendar 
       {...props}
@@ -13,5 +11,4 @@ export default props => {
       nextLabel={<i className="arrow right icon"></i>}
     />
   </div>
-  )
-}
+)

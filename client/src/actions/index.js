@@ -21,9 +21,13 @@ export function getExperienceDetails(id) {
 export function getExperiences(parameters) {
   return async dispatch => {
     try {
-      const { cityjob, date, guests } = parameters;
-      console.log(`${GET_EXPERIENCES}?cityjob=${cityjob}&date=${date}&guests=${guests}`);
-      const { data: { experiences } } = await axios.get(`${GET_EXPERIENCES}?cityjob=${cityjob}&date=${date}&guests=${guests}`);
+      let narrowDownQuery = '';
+
+      for (let param in parameters){
+        if (parameters[param]) narrowDownQuery += `${param}=${parameters[param]}&`; 
+      }
+
+      const { data: { experiences } } = await axios.get(`${GET_EXPERIENCES}?${narrowDownQuery}`);
 
       dispatch({
         type: types.GET_EXPERIENCES,
