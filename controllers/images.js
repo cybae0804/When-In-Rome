@@ -6,15 +6,6 @@ const db = require('../db');
 
 const s3 = new S3({ accessKeyId, secretAccessKey, region });
 
-exports.getImages = async (req, res) => {
-  const images = await db.query('SELECT * FROM `images`');
-
-  res.send({
-    success: true,
-    images
-  });
-}
-
 exports.prepUpload = (req, res) => {
   const { query: { fileType, name } } = req;
 
