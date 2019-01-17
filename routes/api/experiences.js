@@ -1,6 +1,7 @@
 const experiencesRouter = require('express').Router();
 const { experiences } = require('../../controllers');
 const reviewsRouter = require('./reviews');
+const datesRouter = require('./dates');
 
 experiencesRouter.route('/')
   .get(experiences.getAll)
@@ -12,17 +13,6 @@ experiencesRouter.route('/:experience_id')
   .delete(experiences.delete);
 
 experiencesRouter.use('/:experience_id/reviews', reviewsRouter);
+experiencesRouter.use('/:experience_id/dates', datesRouter);
 
 module.exports = experiencesRouter;
-
-
-// Dates
-
-// app.get('/api/experiences/:experience_id/dates', (req, res) => {
-// });
-// app.post('/api/experiences/:experience_id/dates', (req, res) => {
-// });
-// app.put('/api/experiences/:experience_id/dates/:date_id', (req, res) => {
-// });
-// app.delete('/api/experiences/:experience_id/dates/:date_id', (req, res) => {
-// });
