@@ -1,5 +1,6 @@
 #search {
     width: calc(100% - 40px);
+    position: relative;
 }
 
 #search button {
@@ -22,4 +23,15 @@
 .filterDrop {
     z-index: 1;
     position: absolute;
+    background-color: white;
+    width: calc(100vw - 2em);
+    padding-top: 16px;
+}
+
+.padRight1em {
+    padding-right: 1em !important;
+}
+
+.space {
+    height: 10vh;
 }

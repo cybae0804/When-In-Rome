@@ -144,33 +144,62 @@ class Search extends Component {
         <button type='button' className="ui inverted green button filterButton" onClick={this.applyBtnHandler}>Apply</button>
         <button type='button' className="ui inverted red button sortButton" onClick={this.cancelBtnHandler}>Cancel</button>
       </div>
-      <div className={`filterDrop${this.state.filterOpen ? '' : ' dispNone'}`}>
-        <div className="ui form container">
-          <label>Group Size</label>
-          <div className="fields">
-            <div className="field">
-              <input type="text" placeholder="Number of Guests" name='guests' onChange={this.filterChangeHandler}/>
-            </div>
+      <div className={`filterDrop ${this.state.filterOpen ? '' : 'dispNone'}`}>
+        <div className='two fields'>
+          <div className="field small" id="overrideColumns">
+            <label>Group Size</label>
+            <input type="text" name="guests" placeholder='Number of Guests' onChange={this.filterChangeHandler} />
           </div>
-          <label>Price</label>
-          <div className="inline fields">
-            <div className="field">
-              <input type="text" placeholder="Min" name='priceMin' onChange={this.filterChangeHandler}/>
-            </div>
-            <div className="field">
-              <input type="text" placeholder="Max" name='priceMax' onChange={this.filterChangeHandler}/>
+          <div className="field small" id="overrideColumns">
+            <label>Price</label>
+            <div className="two fields">
+              <div className="field small" id="overrideColumns">
+                <input type="text" placeholder='Min' name='priceMin' onChange={this.filterChangeHandler} />
+              </div>
+              <div className="field small" id="overrideColumns">
+                <input type="text" placeholder='Max' name='priceMax' onChange={this.filterChangeHandler} />
+              </div>
             </div>
           </div>
         </div>
-        <Calendar
-          selectRange 
-          returnValue="range" 
-          onChange={this.calendarChangeHandler}
-        />
+        <div className="field">
+          <label>Dates</label>
+          <Calendar
+            selectRange 
+            returnValue="range" 
+            onChange={this.calendarChangeHandler}
+          />
+        </div>
+        <div className="space"></div>
       </div>
       <input type="submit" className='dispNone'/>
     </form>
   );
+
+  // <div className={`filterDrop padRight1em${this.state.filterOpen ? '' : ' dispNone'}`}>
+  //       <div className="ui form padRight1em">
+  //         <label>Group Size</label>
+  //         <div className="fields">
+  //           <div className="field">
+  //             <input type="text" placeholder="Number of Guests" name='guests' onChange={this.filterChangeHandler}/>
+  //           </div>
+  //         </div>
+  //         <label>Price</label>
+  //         <div className="inline fields">
+  //           <div className="field">
+  //             <input type="text" placeholder="Min" name='priceMin' onChange={this.filterChangeHandler}/>
+  //           </div>
+  //           <div className="field">
+  //             <input type="text" placeholder="Max" name='priceMax' onChange={this.filterChangeHandler}/>
+  //           </div>
+  //         </div>
+  //         <Calendar
+  //           selectRange 
+  //           returnValue="range" 
+  //           onChange={this.calendarChangeHandler}
+  //         />
+  //       </div>
+  //     </div>
 
   landing = () => (
     <form className="ui form" onSubmit={this.submitBtnHandler}>
