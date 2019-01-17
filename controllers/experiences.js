@@ -63,21 +63,25 @@ exports.getOne = async (req, res) => {
       throw new Error('experience_id missing');
     }
 
-    let prepared = `SELECT e.*,
+    let prepared = `SELECT e.*, u.firstname AS host,
                     COUNT(r.rating) AS total_ratings, 
                     AVG(r.rating) AS average_rating
                     FROM experiences AS e
                     LEFT JOIN reviews AS r
                     ON e.id = r.experience_id
+                    LEFT JOIN users as u
+                    on e.host_id = u.id
                     WHERE e.id = ?
                     GROUP BY e.id`;
     const inserts = [experience_id];
     let query = mysql.format(prepared, inserts);
     const [experience] = await db.query(query);
 
-    prepared = `SELECT * 
-            FROM reviews 
-            WHERE experience_id = ?`;
+    prepared = `SELECT date, rating, description, u.firstname AS reviewer
+                FROM reviews AS r
+                LEFT JOIN users AS u
+                ON r.user_id = u.id
+                WHERE experience_id = ?`;
     query = mysql.format(prepared, inserts);
     experience.reviews = await db.query(query);
 
@@ -96,7 +100,8 @@ exports.getOne = async (req, res) => {
 
 exports.post = async (req, res) => {
   try {
-    const fields = { activity, occupation, city, country, price, guests, host, host_info, activity_info, imagePath} = req.body;
+    const fields = { activity, occupation, city, country, price, 
+                     guests, host, host_info, activity_info, imagePath} = req.body;
     const prepared = `INSERT INTO experiences (activity, occupation, city, country, price,
                                                guests, host, host_info, activity_info, imagePath)
                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
@@ -116,7 +121,8 @@ exports.post = async (req, res) => {
 
 exports.put = async (req, res) => {
   try {
-    const fields = { activity, occupation, city, country, price, guests, date, host, host_info, activity_info } = req.body;
+    const fields = { activity, occupation, city, country, price, 
+                     guests, date, host, host_info, activity_info } = req.body;
     fields.id = req.params.experience_id;
     const prepared = `UPDATE experiences SET activity = ?,
                                               occupation = ?,
