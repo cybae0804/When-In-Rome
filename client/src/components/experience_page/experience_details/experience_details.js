@@ -6,7 +6,6 @@ const { resolve } = require('path');
 
 const ExperienceDetails = props => {
   const { id, 
-          image, 
           activity, 
           occupation, 
           city, 
@@ -16,7 +15,7 @@ const ExperienceDetails = props => {
           host, 
           host_info,
           activity_info,
-          duration, 
+          imagePath,
           reviews,
           average_rating, 
           total_ratings } = props;
@@ -33,7 +32,7 @@ const ExperienceDetails = props => {
     starsDisplay.push(<i key={4} className="star half icon"></i>);
   }
 
-  const image_url = `${resolve('assets', 'images')}/${image}`;
+  const image_url = 'https://s3-us-west-1.amazonaws.com/when-in-rome/' + imagePath;
 
   //dummy dates for calendar
   const dateArray = ['1/20/2019', '1/23/2019'];

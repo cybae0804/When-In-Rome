@@ -72,31 +72,6 @@ export function postExperience(parameters, image) {
   }
 }
 
-export const uploadImage = (name, image) => async dispatch => {
-  try {
-    dispatch({ type: types.IMAGE_UPLOAD_START });
-
-    const s3UploadConfig = await axios.get(`/api/prep-upload?fileType=${image.type}&name=${image.name}`);
-
-    const { url, key } = s3UploadConfig.data;
-
-    await axios.put(url, image, {
-      headers: {
-        'Content-Type': image.type
-      }
-    });
-
-    await axios.post('/api/save-image', {
-      name,
-      path: key,
-    });
-
-    dispatch({ type: types.IMAGE_UPLOAD_COMPLETE });
-  } catch (err) {
-    console.log('Error Uploading Image to S3', err);
-  }
-}
-
 export const getImages = () => async dispatch => {
   const { data: { images } } = await axios.get('/api/get-images');
 

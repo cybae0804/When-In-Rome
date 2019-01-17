@@ -4,7 +4,8 @@ const { resolve } = require('path');
 import './experience_preview.css';
 
 export default props => {
-  const { id, image, activity, occupation, price, duration, average_rating, total_ratings } = props;
+  const { id, activity, occupation, price, duration, average_rating, total_ratings, imagePath } = props;
+  
   const title = `${activity} with a ${occupation}`;
   const starsDisplay = [];
   const averageRatingInteger = Math.floor(average_rating);
@@ -18,7 +19,7 @@ export default props => {
     starsDisplay.push(<i key={5} className="star half icon"></i>);
   }
 
-  const image_url = resolve('assets', 'images') + '/' + image;
+  const image_url = 'https://s3-us-west-1.amazonaws.com/when-in-rome/' + imagePath;
   
   return (
     <div className="experience-preview">

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 04, 2019 at 06:46 AM
+-- Generation Time: Jan 17, 2019 at 06:17 AM
 -- Server version: 5.6.34-log
 -- PHP Version: 7.0.13
 
@@ -68,23 +68,22 @@ CREATE TABLE IF NOT EXISTS `experiences` (
   `country` varchar(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `price` int(5) unsigned NOT NULL,
   `guests` int(3) unsigned NOT NULL,
-  `date` date NOT NULL,
   `host` varchar(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `host_info` varchar(300) CHARACTER SET utf32 COLLATE utf32_unicode_ci NOT NULL,
   `activity_info` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `image` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+  `imagePath` varchar(70) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `experiences`
 --
 
-INSERT INTO `experiences` (`id`, `activity`, `occupation`, `city`, `country`, `price`, `guests`, `date`, `host`, `host_info`, `activity_info`, `image`) VALUES
-(1, 'Fishing', 'Commercial Fisherman', 'Tokyo', 'Japan', 150, 5, '2019-01-17', 'Sakuragi Hanamichi', 'Sakuragi comes from a long line of commercial fisherman in Japan and has been fishing for over 25 years. Fishing is his livelihood and passion.', 'Meet at the dock at 4am. Load up the boat and head out to the fishing grounds. Fish until the holds are full or the light goes down. Head back to the dock and unload the catch. Clean the boat and call it a day.', 'fishing.jpg'),
-(2, 'Manual Labor', 'Ranch Hand', 'Corpus Christi, Texas', 'U.S.', 250, 10, '2019-01-09', 'Burnett Ranches', 'Currently owned by Anne Marion, the great-granddaughter of the four sixes hunting ranch founder Samuel Burnett, the Burnett ranches have been operational since 1868. The ranch has two locations, one in Guthrie and one in the panhandle, and the family breeds horses and black Angus cattle.', 'Meet at the stable at 6am. Shovel out the horse stables. Put fresh hay in the stables.  Lunch at noon.  Feed the animals.  General manual labor', 'ranch.jpg'),
-(3, 'Stock Trading', 'NYSE Floor Broker', 'Manhattan, NY', 'U.S.', 300, 2, '2019-09-12', 'Patrick Bateman', 'I have been a floor trader on Wall Street for 5 years.  I consider myself to be the eyes and ears for my clients and their portfolios.', 'Meet outside the NYSE building at 8, grab some coffee.  Hit the floor of the exchange by 9am. opening bell is rung at 930am and closing bell is at 4pm.  We stay on the floor the whole time, except to use the restroom.', 'stock.jpg'),
-(4, 'Making Sushi', 'Itamae (Sushi Chef)', 'Ginza, Tokyo', 'Japan', 200, 3, '2019-02-02', 'Jiro Ono', 'Jiro Ono is a Japanese chef and owner of Sukiyabashi Jiro, a three-Michelin-starred Japanese sushi restaurant. Ono has been regarded by his contemporaries and peers as the greatest sushi craftsman alive and is credited with innovating methods used in modern sushi preparation.', 'Preparation of sushi rice, sharpening sushi knives. Preparing blocks of fish, grating ginger and slicing scallions.', 'sushi.jpg'),
-(5, 'Driving around London', 'London Black Cab Driver', 'London', 'England', 100, 4, '2019-02-12', 'Oliver Williams', 'Oliver has been a London Black Cab Driver for 25 years.  He knows the city like the back of his hand since the cabby examination is possibly the most difficult test in the world — demanding years of study to memorize the labyrinthine city’s 25,000 streets and any business or landmark on them.', 'We will be driving around in the cab picking up fares from 6am until 8pm, breaking for lunch and dinner when we have time.  You will get to experience the city and I will provide historical info on all landmarks as we drive around.', 'taxi.jpg');
+INSERT INTO `experiences` (`id`, `activity`, `occupation`, `city`, `country`, `price`, `guests`, `host`, `host_info`, `activity_info`, `imagePath`) VALUES
+(1, 'Fishing', 'Commercial Fisherman', 'Tokyo', 'Japan', 150, 5, 'Sakuragi Hanamichi', 'Sakuragi comes from a long line of commercial fisherman in Japan and has been fishing for over 25 years. Fishing is his livelihood and passion.', 'Meet at the dock at 4am. Load up the boat and head out to the fishing grounds. Fish until the holds are full or the light goes down. Head back to the dock and unload the catch. Clean the boat and call it a day.', 'bce61fd7-a5f7-4332-b629-89a7522f4c25.jpg'),
+(2, 'Manual Labor', 'Ranch Hand', 'Corpus Christi, Texas', 'U.S.', 250, 10, 'Burnett Ranches', 'Currently owned by Anne Marion, the great-granddaughter of the four sixes hunting ranch founder Samuel Burnett, the Burnett ranches have been operational since 1868. The ranch has two locations, one in Guthrie and one in the panhandle, and the family breeds horses and black Angus cattle.', 'Meet at the stable at 6am. Shovel out the horse stables. Put fresh hay in the stables.  Lunch at noon.  Feed the animals.  General manual labor', '082ed233-4a04-41ab-9866-32734e417f7a.jpg'),
+(3, 'Stock Trading', 'NYSE Floor Broker', 'Manhattan, NY', 'U.S.', 300, 2, 'Patrick Bateman', 'I have been a floor trader on Wall Street for 5 years.  I consider myself to be the eyes and ears for my clients and their portfolios.', 'Meet outside the NYSE building at 8, grab some coffee.  Hit the floor of the exchange by 9am. opening bell is rung at 930am and closing bell is at 4pm.  We stay on the floor the whole time, except to use the restroom.', '33ef0622-abec-40f5-839f-9858667c2e62.jpg'),
+(4, 'Making Sushi', 'Itamae (Sushi Chef)', 'Ginza, Tokyo', 'Japan', 200, 3, 'Jiro Ono', 'Jiro Ono is a Japanese chef and owner of Sukiyabashi Jiro, a three-Michelin-starred Japanese sushi restaurant. Ono has been regarded by his contemporaries and peers as the greatest sushi craftsman alive and is credited with innovating methods used in modern sushi preparation.', 'Preparation of sushi rice, sharpening sushi knives. Preparing blocks of fish, grating ginger and slicing scallions.', '94344140-61c1-45b4-b2db-2ee7590d4cef.jpg'),
+(5, 'Driving around London', 'London Black Cab Driver', 'London', 'England', 100, 4, 'Oliver Williams', 'Oliver has been a London Black Cab Driver for 25 years.  He knows the city like the back of his hand since the cabby examination is possibly the most difficult test in the world — demanding years of study to memorize the labyrinthine city’s 25,000 streets and any business or landmark on them.', 'We will be driving around in the cab picking up fares from 6am until 8pm, breaking for lunch and dinner when we have time.  You will get to experience the city and I will provide historical info on all landmarks as we drive around.', 'a7830f33-8c08-417d-b29c-e0832af95093.jpg');
 
 -- --------------------------------------------------------
 
@@ -153,7 +152,7 @@ ALTER TABLE `dates`
 -- AUTO_INCREMENT for table `experiences`
 --
 ALTER TABLE `experiences`
-  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `reviews`
 --
