@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { postExperience } from '../../../actions';
 import Input from '../input/input';
-import { resetImageUpload, uploadImage } from '../../../actions';
+import { resetImageUpload } from '../../../actions';
 import './experience_form.css';
 
 class ExperienceForm extends Component {
@@ -112,7 +112,6 @@ const mapStateToProps = ({ images }) => ({ status: images.uploadStatus });
 
 ExperienceForm = connect(mapStateToProps, {
   postExperience,
-  uploadImage,
   resetImageUpload,
 })(withRouter(ExperienceForm));
 
