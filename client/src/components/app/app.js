@@ -7,7 +7,6 @@ import LandingPage from '../landing_page/landing_page';
 import SearchPage from '../search_page/search_page';
 import ExperiencePage from '../experience_page/experience_page';
 import DashboardPage from '../dashboard_page/dashboard_page';
-import ImageUpload from '../shared/image_upload/image_upload';
 import CreateExperiencePage from '../create_experience_page/create_experience_page';
 
 // etc
@@ -26,7 +25,6 @@ class App extends Component {
         <Route path={'/experience/:experience_id'} component={ExperiencePage} />
         <Route path={'/dashboard/'} component={DashboardPage}/>
         <Route path={'/create_experience/'} component={CreateExperiencePage} />
-        <Route path={'/image_upload/'} component={ImageUpload} />
       </div>
     );
   }
