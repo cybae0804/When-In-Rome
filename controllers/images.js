@@ -15,21 +15,6 @@ exports.getImages = async (req, res) => {
   });
 }
 
-exports.saveImage = async (req, res) => {
-  // const { body: { name, caption, path } } = req;
-
-  // let sql = 'INSERT INTO ?? (??, ??, ??) VALUES (?, ?, ?)';
-  // const inserts = ['images', 'name', 'caption', 'path', name, caption, path];
-
-  // sql = mysql.format(sql, inserts);
-
-  // await db.query(sql);
-
-  res.send({
-    success: true
-  });
-}
-
 exports.prepUpload = (req, res) => {
   const { query: { fileType, name } } = req;
 

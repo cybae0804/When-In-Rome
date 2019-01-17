@@ -77,13 +77,11 @@ exports.getOne = async (req, res) => {
 };
 
 exports.post = async (req, res) => {
-  // S3 - get image url ...
   try {
-    const fields = { activity, occupation, city, country, price, guests, host, host_info, activity_info } = req.body;
-    const prepared = `INSERT INTO experiences (activity, occupation, city, country, 
-                                          price, guests, host, host_info, 
-                                          activity_info)
-                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    const fields = { activity, occupation, city, country, price, guests, host, host_info, activity_info, imagePath} = req.body;
+    const prepared = `INSERT INTO experiences (activity, occupation, city, country, price,
+                                               guests, host, host_info, activity_info, imagePath)
+                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
     const inserts = [...Object.values(fields)];
     const query = mysql.format(prepared, inserts);
 

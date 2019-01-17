@@ -1,10 +1,8 @@
 const imagesRouter = require('express').Router();
-const { getImages, prepUpload, saveImage, test } = require('../../controllers/images');
+const { getImages, prepUpload } = require('../../controllers/images');
 
 imagesRouter.get('/get-images', getImages);
 
 imagesRouter.get('/prep-upload', prepUpload);
-
-imagesRouter.post('/save-image', saveImage);
 
 module.exports = imagesRouter;
