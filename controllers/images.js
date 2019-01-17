@@ -6,13 +6,6 @@ const db = require('../db');
 
 const s3 = new S3({ accessKeyId, secretAccessKey, region });
 
-exports.test = (req, res) => {
-  res.send({
-    success: true,
-    message: 'Test API working',
-  });
-}
-
 exports.getImages = async (req, res) => {
   const images = await db.query('SELECT * FROM `images`');
 

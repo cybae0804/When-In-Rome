@@ -1,13 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { Field } from 'redux-form';
 import { resetImageUpload, uploadImage } from '../../../actions';
+import Input from '../input/input';
 
 class ImageUpload extends Component {
   state = {
     file: null,
-    src: '',
-    name: '',
-    caption: ''
   }
 
   onFileChange = e => {
@@ -41,9 +40,6 @@ class ImageUpload extends Component {
   resetUpload = () => {
     this.setState({
       file: null,
-      src: '',
-      name: '',
-      caption: ''
     });
 
     this.props.resetImageUpload();
@@ -62,17 +58,14 @@ class ImageUpload extends Component {
         <div>
           <h4>Image Upload Successful</h4>
           {this.renderImage(src)}
-          <button onClick={this.resetUpload}>Upload New Image</button>
-          <button onClick={this.backToImages}>Back to Images</button>
+          <button onClick={this.resetUpload}>Re-upload</button>
         </div>
       );
     }
 
     return (
-      <div>
-        <div>
-          <input type="file" accept="image/*" onChange={this.onFileChange} />
-        </div>
+      <Fragment>
+        <Field component={Input} id="image" name="image" label="Image Upload" type="file" accept="image/*" onChange={this.onFileChange} />
         <div>
           <h5>{src && 'Preview'}</h5>
           {this.renderImage(src)}
@@ -80,14 +73,13 @@ class ImageUpload extends Component {
         <div>
           {src && <button onClick={this.handleUpload}>Upload Image</button>}
         </div>
-      </div>
+      </Fragment>
     );
   }
 
   render() {
     return (
       <div>
-        <h3>Upload an Image</h3>
         {this.renderForm()}
       </div>
     );

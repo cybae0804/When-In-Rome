@@ -39,9 +39,9 @@ export function postExperience(parameters) {
   return async dispatch => {
     try {
       console.log(EXPERIENCES_ROUTE);
-      const { data: { success } } = await axios.post('http://localhost:9000/api/experiences', {
+      const { data: { success } } = await axios.post(EXPERIENCES_ROUTE, 
         parameters,
-      });
+      );
 
       dispatch({
         type: types.POST_EXPERIENCE,

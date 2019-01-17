@@ -7,6 +7,4 @@ imagesRouter.get('/prep-upload', prepUpload);
 
 imagesRouter.post('/save-image', saveImage);
 
-imagesRouter.get('/test', test);
-
 module.exports = imagesRouter;
