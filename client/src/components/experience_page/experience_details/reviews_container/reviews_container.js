@@ -6,13 +6,13 @@ export default props => {
   const{avg, total, reviews} = props
   const avgRating = Math.floor(avg);
   const remainder = avg - avgRating;
-  let starsDisplay = [];
+  const starsDisplay = [];
   let newReview = [];
-
+  
   if (reviews) {
-    newReview = reviews.map( item => {
-      const {date, description, rating, user_id, id} = item;
-      return <Review key={id} date={date} description={description} rating={rating} user_id={user_id}/>
+    newReview = reviews.map(item => {
+      const {date, description, rating, id, reviewer} = item;
+      return <Review key={id} date={date} description={description} rating={rating} reviewer={reviewer} />
     });
   }
 
