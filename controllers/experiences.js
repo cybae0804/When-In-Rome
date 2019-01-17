@@ -97,19 +97,21 @@ exports.getOne = async (req, res) => {
 exports.post = async (req, res) => {
   // S3 - get image url ...
   try {
-    const fields = { activity, occupation, city, country, price, guests, date, host, host_info, activity_info } = req.body;
+    const fields = { activity, occupation, city, country, price, guests, host, host_info, activity_info } = req.body;
     const prepared = `INSERT INTO experiences (activity, occupation, city, country, 
-                                          price, guests, date, host, host_info, 
-                                          activity_info, image)
-                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+                                          price, guests, host, host_info, 
+                                          activity_info)
+                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
     const inserts = [...Object.values(fields)];
     const query = mysql.format(prepared, inserts);
 
     await db.query(query);
+
     res.send({
       success: true,
     });
   } catch (err) {
+    console.log(err);
     res.status(422).send('Error posting experience');
   }
 };
