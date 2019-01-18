@@ -9,8 +9,10 @@ exports.get = async (req, res) => {
       throw new Error('experience_id missing');
     }
 
-    const prepared = `SELECT user_id, date, guests
-                      FROM dates
+    const prepared = `SELECT CONCAT(firstname, " ", lastname) AS name, date, guests
+                      FROM dates AS d
+                      JOIN users AS u
+                      ON d.user_id = u.id
                       WHERE experience_id = ?`;
     const inserts = [experience_id];
     const query = mysql.format(prepared, inserts);

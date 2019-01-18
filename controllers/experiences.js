@@ -77,7 +77,7 @@ exports.getOne = async (req, res) => {
     let query = mysql.format(prepared, inserts);
     const [experience] = await db.query(query);
 
-    prepared = `SELECT date, rating, description, u.firstname AS reviewer
+    prepared = `SELECT r.id, date, rating, description, u.firstname AS reviewer
                 FROM reviews AS r
                 LEFT JOIN users AS u
                 ON r.user_id = u.id
