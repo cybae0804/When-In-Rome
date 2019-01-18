@@ -27,10 +27,32 @@ exports.get = async (req, res) => {
   }
 };
 
-// app.get('/api/experiences/:experience_id/dates', (req, res) => {
-// });
-// app.post('/api/experiences/:experience_id/dates', (req, res) => {
-// });
+exports.post = async (req, res) => {
+  try {
+    const { experience_id } = req.params;
+    const { dates } = req.body;
+    const preparedInserts = Array(dates.length).fill('(?, ?, ?, ?)').join(',');
+    const prepared = `INSERT INTO dates (experience_id, user_id, date, guests)
+                      VALUES ${preparedInserts}`;
+    const inserts = [];
+    
+    for (let date of dates) {
+      const fields = { user_id, date, guests } = date;
+      inserts.push(experience_id, ...Object.values(fields));
+    }
+    
+    const query = mysql.format(prepared, inserts);
+    
+    await db.query(query);
+
+    res.send({
+      success: true,
+    });
+  } catch (err) {
+    res.status(422).send('Error posting dates');
+  }
+};
+
 // app.put('/api/experiences/:experience_id/dates/:date_id', (req, res) => {
 // });
 // app.delete('/api/experiences/:experience_id/dates/:date_id', (req, res) => {
