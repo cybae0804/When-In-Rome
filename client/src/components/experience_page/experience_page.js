@@ -12,7 +12,11 @@ class ExperiencePage extends Component {
   }
 
   componentDidMount() {
-    this.props.getExperienceDetails(this.props.experience_id);
+    const { experience_id } = this.props.match.params;
+    
+    if (experience_id) {
+      this.props.getExperienceDetails(experience_id);
+    }
   }
 
 	render() {
@@ -29,11 +33,8 @@ class ExperiencePage extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-  const { experience_id } = ownProps.match.params; 
-  
   return {
     details: state.experience.details,
-    experience_id,
   };
 }
 
