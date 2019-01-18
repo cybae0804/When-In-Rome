@@ -21,3 +21,15 @@
 .calendar .react-calendar__month-view__days__day--weekend {
   color: black;
 }
+
+.calendar .react-calendar__month-view__days{
+  /* height: 45px; */
+}
+
+.active{
+  background-color: lightsalmon;
+}
+
+.booked{
+  background-color: red;
+}

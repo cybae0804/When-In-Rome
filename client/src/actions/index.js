@@ -77,13 +77,8 @@ export function postExperience(parameters, image) {
   }
 }
 
-export const getImages = () => async dispatch => {
-  const { data: { images } } = await axios.get('/api/get-images');
-
-  dispatch({
-    type: types.GET_IMAGES,
-    images
-  });
-}
-
-export const resetImageUpload = () => ({ type: types.IMAGE_UPLOAD_RESET });
+export function resetImageUpload() {
+  return { 
+    type: types.IMAGE_UPLOAD_RESET 
+  }
+};

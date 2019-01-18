@@ -2,14 +2,26 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
-import { postExperience } from '../../../actions';
+import { postExperience, getExperienceDetails } from '../../../actions';
 import Input from '../input/input';
 import { resetImageUpload } from '../../../actions';
 import './experience_form.css';
 
 class ExperienceForm extends Component {
-  state = {
-    file: null,
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      file: null,
+    }
+  }
+
+  componentDidMount() {
+    const { experience_id } = this.props.match.params;
+    
+    if (experience_id) {
+      this.props.getExperienceDetails(experience_id);
+    }
   }
 
   onFileChange = e => {
@@ -108,14 +120,21 @@ function validate() {
 
 }
 
-const mapStateToProps = ({ images }) => ({ status: images.uploadStatus });
+function mapStateToProps(state, ownProps) {
+  return {
+    status: state.images.uploadStatus,
+    initialValues: state.experience.details,
+  }
+}
 
-ExperienceForm = connect(mapStateToProps, {
+ExperienceForm = reduxForm({
+  form: 'experience-form',
+  enableReinitialize: true,
+  validate,
+})(ExperienceForm)
+
+export default connect(mapStateToProps, {
   postExperience,
+  getExperienceDetails,
   resetImageUpload,
 })(withRouter(ExperienceForm));
-
-export default reduxForm({
-  form: 'experience-form',
-  validate,
-})(ExperienceForm);
