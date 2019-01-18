@@ -24,14 +24,30 @@
     z-index: 1;
     position: absolute;
     background-color: white;
-    width: calc(100vw - 2em);
-    padding-top: 16px;
+    width: 100%;
+    padding: 16px;
+}
+
+@media screen and (max-width:768px){
+    .filterDrop {
+        width: 100vw;
+        left: -1em;
+        box-shadow: 0 16px 24px 2px rgba(0,0,0,0.14) !important;
+    }
 }
 
 .padRight1em {
     padding-right: 1em !important;
 }
 
-.space {
+.space10vh {
     height: 10vh;
+}
+
+.space12px {
+    height: 12px;
+}
+
+.space24px {
+    height: 24px;
 }
