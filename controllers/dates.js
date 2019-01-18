@@ -33,7 +33,10 @@ exports.post = async (req, res) => {
     const { dates } = req.body;
     const preparedInserts = Array(dates.length).fill('(?, ?, ?, ?)').join(',');
     const prepared = `INSERT INTO dates (experience_id, user_id, date, guests)
-                      VALUES ${preparedInserts}`;
+                      VALUES ${preparedInserts}
+                      ON DUPLICATE KEY UPDATE 
+                      user_id = VALUES(user_id),
+                      guests = VALUES(guests)`;
     const inserts = [];
     
     for (let date of dates) {

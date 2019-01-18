@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jan 17, 2019 at 09:02 PM
+-- Generation Time: Jan 18, 2019 at 10:43 PM
 -- Server version: 5.6.34-log
 -- PHP Version: 7.2.1
 
@@ -52,7 +52,7 @@ INSERT INTO `dates` (`id`, `experience_id`, `user_id`, `date`, `guests`) VALUES
 (5, 4, 1, '2018-12-26', 3),
 (6, 5, 2, '2018-12-22', 1),
 (7, 5, 3, '2018-12-29', 1),
-(8, 2, 1, '2019-01-10', 3),
+(8, 2, 1, '2019-01-11', 3),
 (9, 3, 5, '2019-01-17', 2),
 (10, 3, 4, '2019-01-16', 1);
 
@@ -151,7 +151,8 @@ INSERT INTO `users` (`id`, `email`, `password`, `firstname`, `lastname`) VALUES
 -- Indexes for table `dates`
 --
 ALTER TABLE `dates`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `experience_id` (`experience_id`,`date`);
 
 --
 -- Indexes for table `experiences`
@@ -180,12 +181,12 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `dates`
 --
 ALTER TABLE `dates`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT for table `experiences`
 --
 ALTER TABLE `experiences`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `reviews`
 --
