@@ -26,6 +26,13 @@
   /* height: 45px; */
 }
 
+.active{
+  background-color: lightsalmon;
+}
+
+.booked{
+  background-color: red;
+}
 
 
 
