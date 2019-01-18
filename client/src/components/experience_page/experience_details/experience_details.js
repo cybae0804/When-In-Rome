@@ -47,9 +47,9 @@ class ExperienceDetails extends Component {
     );
 
   displayModal = () => {
-    if(this.state.signedIn){
+    if (this.state.signedIn) {
       return this.reserveModal();
-    }else {
+    } else {
       return this.signInPrompt();
     }
   }
