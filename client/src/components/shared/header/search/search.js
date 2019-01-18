@@ -12,6 +12,7 @@ class Search extends Component {
 
     this.state = {
       filterOpen: false,
+      dateOpen: false,
       range: null,
       form: {
         cityjob: '',
@@ -102,6 +103,17 @@ class Search extends Component {
     e.preventDefault();
   }
 
+  confirmBtnHandler = e => {
+    this.setState({
+      dateOpen: false,
+      form: {
+        ...this.state.form,
+        dateStart: this.state.pre.dateStart, 
+        dateEnd: this.state.pre.dateEnd
+      }
+    });
+  }
+
   calendarChangeHandler = range => {
     const [dateStart, dateEnd] = range.map( date => `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`);
     this.setState({
@@ -131,42 +143,69 @@ class Search extends Component {
   }
 
   search = () => (
-    <form id='search' className='ui form' onSubmit={this.submitBtnHandler}>
+    <form id='search' className='ui form posRelative' onSubmit={this.submitBtnHandler}>
       <div className="ui fluid left icon input" onSubmit={this.submitBtnHandler}>
         <i className="search link icon"/>
-        <input type="text" name="cityjob" placeholder="Osaka, Japan" onChange={this.changeHandler} value={this.state.form.cityjob}/>
+        <input 
+          type="text" 
+          name="cityjob" 
+          placeholder="Osaka, Japan" 
+          onChange={this.changeHandler} 
+          value={this.state.form.cityjob}
+        />
       </div>
       <div className={this.state.filterOpen ? 'dispNone' : 'topMargin4px'}>
-        <button type='button' className="ui inverted green button filterButton" onClick={this.filterBtnHandler}>Filter</button>
-        <button type='button' className="ui inverted green button sortButton" onClick={this.sortBtnHandler}>Sort by Date</button>
+        <button type='button' className="ui positive button filterButton" onClick={this.filterBtnHandler}>Filter</button>
+        <button type='button' className="ui positive button sortButton" onClick={this.sortBtnHandler}>Sort by Date</button>
       </div>
       <div className={this.state.filterOpen ? 'topMargin4px' : 'dispNone'}>
-        <button type='button' className="ui inverted green button filterButton" onClick={this.applyBtnHandler}>Apply</button>
-        <button type='button' className="ui inverted red button sortButton" onClick={this.cancelBtnHandler}>Cancel</button>
+        <button type='button' className="ui positive button filterButton" onClick={this.applyBtnHandler}>
+          <i className="chevron up icon"></i>
+        </button>
+        <button type='button' className="ui button sortButton" onClick={this.cancelBtnHandler}>Cancel</button>
       </div>
-      <div className={`filterDrop${this.state.filterOpen ? '' : ' dispNone'}`}>
-        <div className="ui form container">
-          <label>Group Size</label>
-          <div className="fields">
-            <div className="field">
-              <input type="text" placeholder="Number of Guests" name='guests' onChange={this.filterChangeHandler}/>
-            </div>
+      <div className={`filterDrop ${this.state.filterOpen ? '' : 'dispNone'}`}>
+        <div className='two fields'>
+          <div className="field small" id="overrideColumns">
+            <label>Group Size</label>
+            <input 
+              type="text" 
+              name="guests" 
+              placeholder='Number of Guests' 
+              onChange={this.filterChangeHandler} 
+            />
           </div>
-          <label>Price</label>
-          <div className="inline fields">
-            <div className="field">
-              <input type="text" placeholder="Min" name='priceMin' onChange={this.filterChangeHandler}/>
-            </div>
-            <div className="field">
-              <input type="text" placeholder="Max" name='priceMax' onChange={this.filterChangeHandler}/>
+          <div className="field small" id="overrideColumns">
+            <label>Price</label>
+            <div className="two fields">
+              <div className="field small" id="overrideColumns">
+                <input 
+                  type="text" 
+                  placeholder='Min' 
+                  name='priceMin' 
+                  onChange={this.filterChangeHandler} 
+                />
+              </div>
+              <div className="field small" id="overrideColumns">
+                <input 
+                  type="text" 
+                  placeholder='Max' 
+                  name='priceMax' 
+                  onChange={this.filterChangeHandler} 
+                />
+              </div>
             </div>
           </div>
         </div>
-        <Calendar
-          selectRange 
-          returnValue="range" 
-          onChange={this.calendarChangeHandler}
-        />
+        <div className="field">
+          <label>Dates</label>
+          <Calendar
+            selectRange 
+            returnValue="range" 
+            onChange={this.calendarChangeHandler}
+          />
+        </div>
+        <div className="space10vh"></div>
       </div>
       <input type="submit" className='dispNone'/>
     </form>
@@ -176,17 +215,73 @@ class Search extends Component {
     <form className="ui form" onSubmit={this.submitBtnHandler}>
       <div className="field">
         <label>City or Job</label>
-        <input type="text" name="cityjob" placeholder="Tokyo, Japan" onChange={this.changeHandler} value={this.state.form.cityjob}/>
+        <input 
+          type="text" 
+          name="cityjob" 
+          placeholder="Tokyo, Japan" 
+          onChange={this.changeHandler} 
+          value={this.state.form.cityjob}
+        />
       </div>
       <div className='two fields'>
         <div className="field small" id="overrideColumns">
           <label>Dates</label>
-          <input type="text" name="date" placeholder="mm/dd/yyyy" onChange={this.changeHandler} value={this.state.form.date}/>
+          <input readOnly 
+            type="text" 
+            name="date" 
+            placeholder="mm/dd/yyyy" 
+            onChange={this.changeHandler}
+            onFocus={() => {this.setState({dateOpen: true})}}
+            value={ this.state.form.dateStart && this.state.form.dateEnd ? `${this.state.form.dateStart} to ${this.state.form.dateEnd}` : ''}
+          />
         </div>
         <div className="field small" id="overrideColumns">
           <label>Guests</label>
-          <input type="text" name="guests" placeholder="1 guest" onChange={this.changeHandler} value={this.state.form.guests}/>
+          <input 
+            type="text" 
+            name="guests" 
+            placeholder="5 guests" 
+            onChange={this.changeHandler} 
+            value={this.state.form.guests}
+          />
         </div>
+      </div>
+      <div className={`field filterDrop ${this.state.dateOpen ? '' : 'dispNone'}`}>
+        <label>Please select a range</label>
+        <Calendar
+          selectRange 
+          returnValue="range" 
+          onChange={this.calendarChangeHandler}
+        />
+        <div className="space12px"></div>
+        <button 
+          type='button' 
+          className='ui button positive'
+          onClick={this.confirmBtnHandler}
+        >Confirm</button>
+        <button 
+          type='button' 
+          className='ui button'
+          onClick={() => {
+            this.setState({
+              form: {
+                ...this.state.form, 
+                dateStart: null,
+                dateEnd: null
+              },
+              pre: {
+                ...this.state.pre,
+                dateStart: null,
+                dateEnd: null
+              }
+          })}}
+        >Clear</button>
+        <button 
+          type='button' 
+          className='ui button'
+          onClick={() => {this.setState({dateOpen: false})}}
+        >Cancel</button>
+        <div className="space24px"></div>
       </div>
       <button className="fluid ui button positive" type="submit">Search</button>
     </form>
@@ -195,7 +290,13 @@ class Search extends Component {
   default = () => (
     <form id='search' className="ui left icon input" onSubmit={this.submitBtnHandler}>
       <i className="search link icon" />
-      <input type="text" name="cityjob" placeholder="Osaka, Japan" onChange={this.changeHandler} value={this.state.form.cityjob}/>
+      <input 
+        type="text" 
+        name="cityjob" 
+        placeholder="Osaka, Japan" 
+        onChange={this.changeHandler} 
+        value={this.state.form.cityjob}
+      />
     </form>
   );
 
