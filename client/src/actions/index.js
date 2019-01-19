@@ -27,6 +27,11 @@ export function getExperiences(parameters) {
         if (parameters[param]) narrowDownQuery += `${param}=${parameters[param]}&`; 
       }
 
+      const l = narrowDownQuery.length;
+      if (narrowDownQuery[l-1] === '&'){
+        narrowDownQuery = narrowDownQuery.substring(0, l-1);
+      }
+
       const { data: { experiences } } = await axios.get(`${EXPERIENCES_ROUTE}?${narrowDownQuery}`);
 
       dispatch({

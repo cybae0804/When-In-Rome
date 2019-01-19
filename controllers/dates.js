@@ -9,8 +9,10 @@ exports.get = async (req, res) => {
       throw new Error('experience_id missing');
     }
 
-    const prepared = `SELECT user_id, date, guests
-                      FROM dates
+    const prepared = `SELECT CONCAT(firstname, " ", lastname) AS name, date, guests
+                      FROM dates AS d
+                      JOIN users AS u
+                      ON d.user_id = u.id
                       WHERE experience_id = ?`;
     const inserts = [experience_id];
     const query = mysql.format(prepared, inserts);
@@ -25,10 +27,35 @@ exports.get = async (req, res) => {
   }
 };
 
-// app.get('/api/experiences/:experience_id/dates', (req, res) => {
-// });
-// app.post('/api/experiences/:experience_id/dates', (req, res) => {
-// });
+exports.post = async (req, res) => {
+  try {
+    const { experience_id } = req.params;
+    const { dates } = req.body;
+    const preparedInserts = Array(dates.length).fill('(?, ?, ?, ?)').join(',');
+    const prepared = `INSERT INTO dates (experience_id, user_id, date, guests)
+                      VALUES ${preparedInserts}
+                      ON DUPLICATE KEY UPDATE 
+                      user_id = VALUES(user_id),
+                      guests = VALUES(guests)`;
+    const inserts = [];
+    
+    for (let date of dates) {
+      const fields = { user_id, date, guests } = date;
+      inserts.push(experience_id, ...Object.values(fields));
+    }
+    
+    const query = mysql.format(prepared, inserts);
+    
+    await db.query(query);
+
+    res.send({
+      success: true,
+    });
+  } catch (err) {
+    res.status(422).send('Error posting dates');
+  }
+};
+
 // app.put('/api/experiences/:experience_id/dates/:date_id', (req, res) => {
 // });
 // app.delete('/api/experiences/:experience_id/dates/:date_id', (req, res) => {

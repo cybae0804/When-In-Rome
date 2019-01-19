@@ -47,9 +47,9 @@ class ExperienceDetails extends Component {
     );
 
   displayModal = () => {
-    if(this.state.signedIn){
+    if (this.state.signedIn) {
       return this.reserveModal();
-    }else {
+    } else {
       return this.signInPrompt();
     }
   }
@@ -97,40 +97,42 @@ class ExperienceDetails extends Component {
         <div className="rounded container">
           <img className="ui image centered" src={image_url} />
         </div>
-        <div className="ui relaxed list container">
-          <h1>{title}</h1>
-          <div className="item">
-            <i className= "icon map marker alternate large" id="detailsIcon"></i>
-            {`${city}, ${country}`}
+        <div className="ui container topMargin bottomMargin">
+          <h1 className="detailsHeading-1">{title}</h1>
+          <div className="overview ui relaxed list container">
+            <div className="item">
+              <i className="icon map marker alternate large" id="detailsIcon"></i>
+              &nbsp; {`${city}, ${country}`}
+            </div>
+            <div className="item">
+              <i className="icon dollar sign large" id="detailsIcon"></i>
+              &nbsp; {`$${price}`}
+            </div>
+            <div className="item">
+              <i className="icon clock outline large" id="detailsIcon"></i>
+              &nbsp; Full Day
           </div>
-          <div className="item">
-            <i className="icon dollar sign large" id="detailsIcon"></i>
-            {`$${price}`}
-          </div>
-          <div className="item">
-            <i className="icon clock outline large" id="detailsIcon"></i>
-            Full Day
-          </div>
-          <div className="item">
-            <i className="icon users large" id="detailsIcon"></i>
-            {guests}
-          </div>
-          <div className="item">
-            <i className="icon id badge large" id="detailsIcon"></i>
-            {host}
+            <div className="item">
+              <i className="icon users large" id="detailsIcon"></i>
+              &nbsp; {guests}
+            </div>
+            <div className="item">
+              <i className="icon id badge large" id="detailsIcon"></i>
+              &nbsp; {host}
+            </div>
           </div>
         </div>
         <div className="ui container">
-          <h2 className="host">
+          <h2 className="ui header horizontal divider container detailsHeading-2">
             Host Info
           </h2>
           <p>{host_info}</p>
-          <h2 className="host">
+          <h2 className="ui header horizontal divider container detailsHeading-2">
             Activity
           </h2>
           <p>{activity_info}</p>
         </div>
-        <div>
+        <div className="bigTopMargin">
           <Calendar 
             onChange={(response) => console.log(response.toLocaleDateString())}
             tileClassName={({date}) => dateArray.includes(date.toLocaleDateString()) ? "active" : null }

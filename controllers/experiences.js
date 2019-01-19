@@ -13,12 +13,12 @@ exports.getAll = async (req, res) => {
 
     if (dateStart){
       inserts.push(dateStart);
-      narrowDownQuery += ' AND e.date > ?';
+      narrowDownQuery += ' AND d.date > ?';
     }
 
     if (dateEnd){
       inserts.push(dateEnd);
-      narrowDownQuery += ' AND e.date < ?';
+      narrowDownQuery += ' AND d.date < ?';
     }
 
     if (priceMin){
@@ -36,6 +36,8 @@ exports.getAll = async (req, res) => {
                       FROM experiences AS e
                       LEFT JOIN reviews AS r
                       ON e.id = r.experience_id
+                      LEFT JOIN dates AS d
+                      ON d.experience_id = e.id
                       WHERE e.guests >= ?
                       AND (e.activity LIKE CONCAT('%', ?,'%')
                         OR e.occupation LIKE CONCAT('%', ?,'%')
@@ -51,6 +53,7 @@ exports.getAll = async (req, res) => {
       experiences,
     });
   } catch (err) {
+    console.log(err);
     res.status(422).send('Error getting experiences');
   }
 };
@@ -77,7 +80,7 @@ exports.getOne = async (req, res) => {
     let query = mysql.format(prepared, inserts);
     const [experience] = await db.query(query);
 
-    prepared = `SELECT date, rating, description, u.firstname AS reviewer
+    prepared = `SELECT r.id, date, rating, description, u.firstname AS reviewer
                 FROM reviews AS r
                 LEFT JOIN users AS u
                 ON r.user_id = u.id

@@ -14,6 +14,23 @@
   margin-top: 1.5em !important;
 }
 
+.bottomMargin {
+  margin-bottom: 1rem !important;
+}
+
+.center {
+  text-align: center;
+}
+
+.right {
+  text-align: right;
+}
+
+.spaceBetween {
+  display: flex;
+  justify-content: space-between;
+}
+
 .vertMargin16px {
   padding-top: 16px;
   margin-bottom: 16px;
@@ -35,4 +52,32 @@
 
 .posRelative {
   position: relative !important;
+}
+
+.marginRight7px {
+  margin-right: 7px !important;
+}
+
+.marginRight14px {
+  margin-right: 14px !important;
+}
+
+.marginRight5px {
+  margin-right: 5px;
+}
+
+.space10vh {
+  height: 10vh;
+}
+
+.space12px {
+  margin: 7px 0 !important;
+}
+
+.space24px {
+  height: 24px;
+}
+
+.padRight1em {
+  padding-right: 1em !important;
 }

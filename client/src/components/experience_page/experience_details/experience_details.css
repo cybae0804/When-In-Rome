@@ -1,11 +1,14 @@
-.host{
-    margin-top: 0;
-    margin-bottom: 0;
-}
-
 .react-calendar{
     margin: auto;
     margin-top: 1em;
+}
+
+.detailsHeading-1 {
+  font-size: 1.75rem;
+}
+
+.detailsHeading-2 {
+  font-size: 1.5rem;
 }
 
 #detailsIcon{

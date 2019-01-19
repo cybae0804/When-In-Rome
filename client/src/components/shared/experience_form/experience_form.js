@@ -2,14 +2,26 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
-import { postExperience } from '../../../actions';
+import { postExperience, getExperienceDetails } from '../../../actions';
 import Input from '../input/input';
 import { resetImageUpload } from '../../../actions';
 import './experience_form.css';
 
 class ExperienceForm extends Component {
-  state = {
-    file: null,
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      file: null,
+    }
+  }
+
+  componentDidMount() {
+    const { experience_id } = this.props.match.params;
+    
+    if (experience_id) {
+      this.props.getExperienceDetails(experience_id);
+    }
   }
 
   onFileChange = e => {
@@ -68,9 +80,12 @@ class ExperienceForm extends Component {
 
     return (
       <Fragment>
-        <input type="file" accept="image/*" onChange={this.onFileChange} />
-        <div>
-          {this.renderImage(src)}
+        <div className="field">
+          <label>Upload Image</label>
+          <input type="file" accept="image/*" onChange={this.onFileChange} />
+          <div>
+            {this.renderImage(src)}
+          </div>
         </div>
       </Fragment>
     );
@@ -97,8 +112,11 @@ class ExperienceForm extends Component {
         <Field component={Input} id="host" name="host" label="Host" />
         <Field component={Input} id="host_info" name="host_info" label="Host Info" />
         <Field component={Input} id="activity_info" name="activity_info" label="Activity Info" />
-          {this.renderImageStatus()}
-          <button>Save</button>
+        {this.renderImageStatus()}
+        <div className="spaceBetween">
+          <button type="button" className="ui button ">Cancel</button>
+          <button className="ui button positive">Submit</button>
+        </div>
       </form>
     );
   }
@@ -108,14 +126,21 @@ function validate() {
 
 }
 
-const mapStateToProps = ({ images }) => ({ status: images.uploadStatus });
+function mapStateToProps(state, ownProps) {
+  return {
+    status: state.images.uploadStatus,
+    initialValues: state.experience.details,
+  }
+}
 
-ExperienceForm = connect(mapStateToProps, {
+ExperienceForm = reduxForm({
+  form: 'experience-form',
+  enableReinitialize: true,
+  validate,
+})(ExperienceForm)
+
+export default connect(mapStateToProps, {
   postExperience,
+  getExperienceDetails,
   resetImageUpload,
 })(withRouter(ExperienceForm));
-
-export default reduxForm({
-  form: 'experience-form',
-  validate,
-})(ExperienceForm);
