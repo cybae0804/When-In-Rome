@@ -19,11 +19,6 @@
     margin-top: 1em; 
 }
 
-
-.active{
-    background-color: lightsalmon
-}
-
 .active:hover, .calendar .react-calendar__tile--active:enabled:hover, .react-calendar__tile--active:enabled:focus{
     background-color: #1087ff !important;
 }
@@ -31,3 +26,4 @@
 #guests{
     right: 48px;
 }
+  

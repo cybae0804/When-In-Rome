@@ -135,7 +135,7 @@ class ExperienceDetails extends Component {
         <div className="bigTopMargin">
           <Calendar 
             onChange={(response) => console.log(response.toLocaleDateString())}
-            // tileClassName={({date}) => dateArray.includes(date.toLocaleDateString()) ? "active" : null }
+            tileClassName={({date}) => dateArray.includes(date.toLocaleDateString()) ? "active" : null }
             tileDisabled={({date}) => !dateArray.includes(date.toLocaleDateString())}
             onClickDay={this.handleDateClicked}
           />
