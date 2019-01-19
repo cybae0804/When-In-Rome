@@ -38,7 +38,11 @@
 }
 
 .marginRight7px {
-  margin-right: 7px;
+  margin-right: 7px !important;
+}
+
+.marginRight14px {
+  margin-right: 14px !important;
 }
 
 .marginRight5px {

@@ -35,7 +35,6 @@ class Search extends Component {
   }
 
   componentDidMount = () => {
-    console.log('Component Mounted');
     this.setState({
       form: {
         ...this.state.form,
@@ -69,7 +68,9 @@ class Search extends Component {
 
   filterBtnHandler = e => {
     this.setState({
-      filterOpen: true
+      filterOpen: true,
+      dateOpen: false,
+      sortOpen: false
     });
   }
 
@@ -99,6 +100,8 @@ class Search extends Component {
   sortBtnHandler = e => {
     this.setState({
       sortOpen: !this.state.sortOpen,
+      dateOpen: false,
+      filterOpen: false
     });
   }
 
@@ -165,6 +168,9 @@ class Search extends Component {
         if (form[field]) narrowDownQuery += `${field}=${form[field]}&`
       }
 
+      const l = narrowDownQuery.length-1;
+      if (narrowDownQuery[l] === '&') narrowDownQuery = narrowDownQuery.substring(0, l);
+
       this.props.history.push(`/search${narrowDownQuery}`);
       this.props.getExperiences(queryString(narrowDownQuery));
     }
@@ -212,10 +218,18 @@ class Search extends Component {
         </div>
       </div>
       <div className={this.state.filterOpen ? 'topMargin4px' : 'dispNone'}>
-        <button type='button' className="ui positive button filterButton" onClick={this.applyBtnHandler}>
+        <button 
+          type='button' 
+          className="ui positive button filterButton" 
+          onClick={this.applyBtnHandler}
+        >
           <i className="chevron up icon"></i>
         </button>
-        <button type='button' className="ui button sortButton" onClick={this.cancelBtnHandler}>Cancel</button>
+        <button 
+          type='button' 
+          className="ui button sortButton" 
+          onClick={this.cancelBtnHandler}
+        >Cancel</button>
       </div>
       <div className={`filterDrop ${this.state.filterOpen ? '' : 'dispNone'}`}>
         <div className='two fields'>
@@ -252,13 +266,39 @@ class Search extends Component {
         </div>
         <div className="field">
           <label>Dates</label>
-          <Calendar
-            selectRange 
-            returnValue="range" 
-            onChange={this.calendarChangeHandler}
+          <input readOnly 
+            className = 'widthAdjust marginRight14px'
+            type="text" 
+            name="date" 
+            placeholder="mm/dd/yyyy" 
+            onFocus={() => {this.setState({dateOpen: true})}}
+            value={ this.state.pre.dateStart && this.state.pre.dateEnd ? `${this.state.pre.dateStart} to ${this.state.pre.dateEnd}` : ''}
           />
+          <button 
+              type='button' 
+              className='ui button '
+              onClick={() => {
+                this.setState({
+                  form: {
+                    ...this.state.form, 
+                    dateStart: null,
+                    dateEnd: null
+                  },
+                  pre: {
+                    ...this.state.pre,
+                    dateStart: null,
+                    dateEnd: null
+                  }
+              })}}
+            >Clear</button>
+          <div className={this.state.dateOpen ? '' : 'dispNone'}>
+            <Calendar
+              selectRange 
+              returnValue="range" 
+              onChange={this.calendarChangeHandler}
+            />
+          </div>
         </div>
-        <div className="space10vh"></div>
       </div>
       <input type="submit" className='dispNone'/>
     </form>
@@ -354,7 +394,6 @@ class Search extends Component {
   );
 
   render() {
-    console.log('Search Form State:', this.state.form);
     switch(this.props.version) {
       case 'landing':
         return this.landing();
