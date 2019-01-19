@@ -9,7 +9,7 @@ class ExperienceFormPage extends Component {
     return (
       <div id='experienceFormPage'>
         <Header noSearch title={this.props.title} />
-        <ExperienceForm />
+        <ExperienceForm noImage={this.props.noImage} />
         <Footer />
       </div>
     );

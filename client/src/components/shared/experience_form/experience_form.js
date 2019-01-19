@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
-import { postExperience, getExperienceDetails } from '../../../actions';
+import { getExperienceDetails, postExperience, putExperience } from '../../../actions';
 import Input from '../input/input';
 import { resetImageUpload } from '../../../actions';
 import './experience_form.css';
@@ -99,20 +99,24 @@ class ExperienceForm extends Component {
     // this.props.history.push('/');
   }
 
+  handleEditExperience = async values => {
+    await this.props.putExperience(values);
+  }
+
   render() {
-    const { handleSubmit } = this.props;
+    const { props: { handleSubmit, noImage }, handleAddExperience, handleEditExperience } = this;
+
     return (
-      <form onSubmit={handleSubmit(this.handleAddExperience)} className="ui form container">
+      <form onSubmit={noImage ? handleSubmit(handleEditExperience) : handleSubmit(handleAddExperience)} className="ui form container">
         <Field component={Input} id="occupation" name="occupation" label="Occupation" />
         <Field component={Input} id="activity" name="activity" label="Activity" />
         <Field component={Input} id="city" name="city" label="City" />
         <Field component={Input} id="country" name="country" label="Country" />
         <Field component={Input} id="price" name="price" label="Price" />
         <Field component={Input} id="guests" name="guests" label="Guests" />
-        <Field component={Input} id="host" name="host" label="Host" />
         <Field component={Input} id="host_info" name="host_info" label="Host Info" />
         <Field component={Input} id="activity_info" name="activity_info" label="Activity Info" />
-        {this.renderImageStatus()}
+        {this.props.noImage ? '' : this.renderImageStatus()}
         <div className="spaceBetween">
           <button type="button" className="ui button ">Cancel</button>
           <button className="ui button positive">Submit</button>
@@ -141,6 +145,7 @@ ExperienceForm = reduxForm({
 
 export default connect(mapStateToProps, {
   postExperience,
+  putExperience,
   getExperienceDetails,
   resetImageUpload,
 })(withRouter(ExperienceForm));

@@ -104,9 +104,9 @@ exports.getOne = async (req, res) => {
 exports.post = async (req, res) => {
   try {
     const fields = { activity, occupation, city, country, price, 
-                     guests, host, host_info, activity_info, imagePath} = req.body;
+                     guests, host_info, activity_info, imagePath, host_id} = req.body;
     const prepared = `INSERT INTO experiences (activity, occupation, city, country, price,
-                                               guests, host, host_info, activity_info, imagePath)
+                                               guests, host_info, activity_info, imagePath, host_id)
                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
     const inserts = [...Object.values(fields)];
     const query = mysql.format(prepared, inserts);
@@ -124,28 +124,29 @@ exports.post = async (req, res) => {
 
 exports.put = async (req, res) => {
   try {
-    const fields = { activity, occupation, city, country, price, 
-                     guests, date, host, host_info, activity_info } = req.body;
-    fields.id = req.params.experience_id;
+    const { activity, occupation, city, country, price, guests, host_info, activity_info } = req.body;
+    const fields = { activity, occupation, city, country, price, guests, host_info, activity_info };
+    const { experience_id } = req.params;
     const prepared = `UPDATE experiences SET activity = ?,
                                               occupation = ?,
                                               city = ?,
                                               country = ?,
                                               price = ?,
                                               guests = ?,
-                                              date = ?,
-                                              host = ?,
                                               host_info = ?,
                                               activity_info = ?
                                               WHERE id = ?`;
-    const inserts = [...Object.values(fields)];
+    const inserts = [...Object.values(fields), experience_id];
     const query = mysql.format(prepared, inserts);
+    console.log(query);
 
     await db.query(query);
+    
     res.send({
       success: true,
     });
   } catch (err) {
+    console.log(err);
     res.status(422).send('Error putting experience');
   }
 };

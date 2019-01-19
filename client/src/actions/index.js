@@ -82,3 +82,21 @@ export function resetImageUpload() {
     type: types.IMAGE_UPLOAD_RESET 
   }
 };
+
+export function putExperience(parameters) {
+  return async dispatch => {
+    try {
+      const { id } = parameters;
+      const { data: { success } } = await axios.put(`${EXPERIENCES_ROUTE}/${id}`,
+        parameters,
+      );
+
+      dispatch({
+        type: types.PUT_EXPERIENCE,
+        payload: success,
+      });
+    } catch (err) {
+      console.log('putExperience Error', err);
+    }
+  }
+}
