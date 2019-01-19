@@ -106,15 +106,7 @@ class Search extends Component {
   }
 
   sortItemHandler = name => {
-    if (name === null){
-      this.setState({
-        sortOpen: false, 
-        form: {
-          ...this.state.form,
-          by: name
-        }
-      }, this.updateUrl);
-    } else if (name === this.state.form.by){
+    if (name === this.state.form.by){
       this.setState({
         sortOpen: false,
         form: {
