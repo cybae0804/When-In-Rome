@@ -80,9 +80,12 @@ class ExperienceForm extends Component {
 
     return (
       <Fragment>
-        <input type="file" accept="image/*" onChange={this.onFileChange} />
-        <div>
-          {this.renderImage(src)}
+        <div className="field">
+          <label>Upload Image</label>
+          <input type="file" accept="image/*" onChange={this.onFileChange} />
+          <div>
+            {this.renderImage(src)}
+          </div>
         </div>
       </Fragment>
     );
@@ -109,8 +112,11 @@ class ExperienceForm extends Component {
         <Field component={Input} id="host" name="host" label="Host" />
         <Field component={Input} id="host_info" name="host_info" label="Host Info" />
         <Field component={Input} id="activity_info" name="activity_info" label="Activity Info" />
-          {this.renderImageStatus()}
-          <button>Save</button>
+        {this.renderImageStatus()}
+        <div className="spaceBetween">
+          <button type="button" className="ui button ">Cancel</button>
+          <button className="ui button positive">Submit</button>
+        </div>
       </form>
     );
   }

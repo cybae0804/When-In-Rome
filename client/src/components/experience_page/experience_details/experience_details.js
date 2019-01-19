@@ -97,7 +97,7 @@ class ExperienceDetails extends Component {
         <div className="rounded container">
           <img className="ui image centered" src={image_url} />
         </div>
-        <div className="ui container marginTop marginBottom">
+        <div className="ui container topMargin bottomMargin">
           <h1 className="detailsHeading-1">{title}</h1>
           <div className="overview ui relaxed list container">
             <div className="item">
@@ -132,7 +132,7 @@ class ExperienceDetails extends Component {
           </h2>
           <p>{activity_info}</p>
         </div>
-        <div className="marginTopBig">
+        <div className="bigTopMargin">
           <Calendar 
             onChange={(response) => console.log(response.toLocaleDateString())}
             // tileClassName={({date}) => dateArray.includes(date.toLocaleDateString()) ? "active" : null }
