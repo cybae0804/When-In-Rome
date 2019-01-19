@@ -27,7 +27,7 @@ export default props => {
 
   return(
     <div className = "ui container" id='reviewsContainer'>
-      <h2>{total} Reviews:</h2>
+      <h2>{total} Reviews</h2>
       <p>{starsDisplay}  {avg ? avg.toFixed(1) : ''}</p>
       {newReview}
     </div>
