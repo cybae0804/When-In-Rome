@@ -36,18 +36,15 @@
     }
 }
 
-.padRight1em {
-    padding-right: 1em !important;
+.sortDrop { 
+    margin-left: 37%;
+    width: 63%;
+    position: absolute;
+    background-color: white;
+    border-radius: 5px;
+    padding: 0 10px;
 }
 
-.space10vh {
-    height: 10vh;
-}
-
-.space12px {
-    height: 12px;
-}
-
-.space24px {
-    height: 24px;
+.dropButton {
+    background-color: white !important;
 }

@@ -13,14 +13,16 @@ class Search extends Component {
     this.state = {
       filterOpen: false,
       dateOpen: false,
-      range: null,
+      sortOpen: false,
       form: {
         cityjob: '',
         dateStart: '',
         dateEnd: '',
         guests: '',
         priceMin: 0,
-        priceMax: 0
+        priceMax: 0,
+        by: null,
+        desc: false
       },
       pre: {
         dateStart: null,
@@ -33,6 +35,7 @@ class Search extends Component {
   }
 
   componentDidMount = () => {
+    console.log('Component Mounted');
     this.setState({
       form: {
         ...this.state.form,
@@ -65,16 +68,12 @@ class Search extends Component {
   }
 
   filterBtnHandler = e => {
-    e.preventDefault();
-
     this.setState({
       filterOpen: true
     });
   }
 
   applyBtnHandler = e => {
-    e.preventDefault();
-
     this.setState({
       filterOpen: false,
       form: {
@@ -85,8 +84,6 @@ class Search extends Component {
   }
 
   cancelBtnHandler = e => {
-    e.preventDefault();
-
     this.setState({
       filterOpen: false,
       pre: {
@@ -100,7 +97,38 @@ class Search extends Component {
   }
 
   sortBtnHandler = e => {
-    e.preventDefault();
+    this.setState({
+      sortOpen: !this.state.sortOpen,
+    });
+  }
+
+  sortItemHandler = name => {
+    if (name === null){
+      this.setState({
+        sortOpen: false, 
+        form: {
+          ...this.state.form,
+          by: name
+        }
+      }, this.updateUrl);
+    } else if (name === this.state.form.by){
+      this.setState({
+        sortOpen: false,
+        form: {
+          ...this.state.form,
+          desc: !this.state.form.desc
+        }
+      }, this.updateUrl);
+    } else {
+      this.setState({
+        sortOpen: false,
+        form: {
+          ...this.state.form,
+          by: name,
+          desc: false
+        }
+      }, this.updateUrl);
+    }
   }
 
   confirmBtnHandler = e => {
@@ -156,7 +184,32 @@ class Search extends Component {
       </div>
       <div className={this.state.filterOpen ? 'dispNone' : 'topMargin4px'}>
         <button type='button' className="ui positive button filterButton" onClick={this.filterBtnHandler}>Filter</button>
-        <button type='button' className="ui positive button sortButton" onClick={this.sortBtnHandler}>Sort by Date</button>
+        <button type='button' className="ui positive button sortButton" onClick={this.sortBtnHandler}>
+          {this.state.form.by === null ? 'Sort by...' : 
+          this.state.form.desc ? <div>Sorting by {this.state.form.by} <i className="arrow down icon"></i></div> :
+          <div>Sorting by {this.state.form.by} <i className="arrow up icon"></i></div>}
+        </button>
+        <div className={`sortDrop shadow ${this.state.sortOpen ? '' : ' dispNone'}`}>
+          <div className="space12px"></div>
+          <button 
+            type='button' 
+            className="ui fluid button dropButton" 
+            onClick={() => {this.sortItemHandler('price')}}
+          ><span className='marginRight7px'>Price</span>{this.state.form.by === 'price' && !this.state.form.desc ? <i className="arrow down icon"/> : <i className="arrow up icon"/>}</button>
+          <div className="space12px divider ui"></div>
+          <button 
+            type='button' 
+            className="ui fluid button dropButton"
+            onClick={(e) => {this.sortItemHandler('rating')}}
+          ><span className='marginRight5px'>Rating</span> {this.state.form.by === 'rating' && !this.state.form.desc ? <i className="arrow down icon"/> : <i className="arrow up icon"/>}</button>
+          <div className="space12px divider ui"></div>
+          <button
+            type='button' 
+            className="ui fluid button dropButton" 
+            onClick={() => {this.sortItemHandler('date')}}
+          ><span className='marginRight5px'>Date</span> {this.state.form.by === 'date' && !this.state.form.desc ? <i className="arrow down icon"/> : <i className="arrow up icon"/>}</button>
+          <div className="space12px"></div>
+        </div>
       </div>
       <div className={this.state.filterOpen ? 'topMargin4px' : 'dispNone'}>
         <button type='button' className="ui positive button filterButton" onClick={this.applyBtnHandler}>
@@ -301,6 +354,7 @@ class Search extends Component {
   );
 
   render() {
+    console.log('Search Form State:', this.state.form);
     switch(this.props.version) {
       case 'landing':
         return this.landing();
