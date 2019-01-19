@@ -23,8 +23,8 @@ class App extends Component {
         <Route exact path={'/'} component={LandingPage} />
         <Route path={'/search'} component={SearchPage} />
         <Route path={'/experience/:experience_id'} component={ExperiencePage} />
-        <Route path={'/dashboard/'} component={DashboardPage}/>
-        <Route path={'/create_experience/'} render={() => <ExperienceFormPage title="New Experience" />} />
+        <Route path={'/dashboard'} component={DashboardPage}/>
+        <Route path={'/create_experience'} render={() => <ExperienceFormPage title="New Experience" />} />
         <Route path={'/edit_experience/:experience_id'} render={() => <ExperienceFormPage title="Edit Experience" />} />
       </div>
     );
