@@ -6,6 +6,9 @@
   "proxy": {
     "/api/*": {
       "target": "http://localhost:9000"
+    },
+    "/oauth/*": {
+      "target": "http://localhost:9000"
     }
   },
   "scripts": {
