@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, Route } from 'react-router-dom';
-const { resolve } = require('path');
 import './experience_preview.css';
 
 export default props => {

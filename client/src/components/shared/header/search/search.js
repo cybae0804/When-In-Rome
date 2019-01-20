@@ -215,7 +215,7 @@ class Search extends Component {
           className="ui positive button filterButton" 
           onClick={this.applyBtnHandler}
         >
-          <i className="chevron up icon"></i>
+          Apply
         </button>
         <button 
           type='button' 

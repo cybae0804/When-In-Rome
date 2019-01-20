@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Header from '../shared/header/header';
 import Footer from '../shared/footer/footer';
-import ExperienceForm from '../shared/experience_form/experience_form';
+import ExperienceForm from './experience_form/experience_form';
 import './experience_form_page.css';
 
 class ExperienceFormPage extends Component {
