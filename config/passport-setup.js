@@ -16,7 +16,6 @@ const configuredPassport = passport.use(
   new GoogleStrategy(config, async (accessToken, refreshToken, profile, done) => {
     const { id: google_id, name: { familyName: lastname, givenName: firstname} } = profile;
 
-    console.log(profile)
     try {
       let prepared = `SELECT * 
                       FROM users AS u
