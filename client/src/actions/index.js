@@ -115,3 +115,17 @@ export function putExperience(parameters) {
     }
   }
 }
+
+export function getHostBookedDates() {
+  return async dispatch => {
+    try {
+      const { data: { dates } } = await axios.get()
+      dispatch({
+        type: types.GET_HOST_BOOKED_DATES,
+        payload: dates,
+      });
+    } catch(err) {
+      console.log('getHostBookedDates Error', err);
+    }
+  }
+}
