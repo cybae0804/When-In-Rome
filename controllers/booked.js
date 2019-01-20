@@ -9,9 +9,9 @@ exports.getHostBooked = async (req, res) => {
                       FROM dates AS d
                       LEFT JOIN experiences AS e
                       ON d.experience_id = e.id
-                      WHERE e.host_id = 1
+                      WHERE e.host_id = ?
                       AND d.guests > 0
-                      ORDER BY d.date ASC`;
+                      ORDER BY d.date ASC`
     const inserts = [user_id];
     const query = mysql.format(prepared, inserts);
     const dates = await db.query(query);
