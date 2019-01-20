@@ -7,7 +7,7 @@ export default () => {
         <div className="ui middle aligned list container">
           <div className="item">
             <div className="right floated content">
-              <button className="ui tiny button green content">Edit</button>
+              <button className="ui tiny button green content">View</button>
             </div>
             <div className="content">
               <h3>Hiking With a Hermit</h3>

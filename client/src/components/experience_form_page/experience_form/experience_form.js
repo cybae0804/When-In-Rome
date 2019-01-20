@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { getExperienceDetails, postExperience, putExperience } from '../../../actions';
-import Input from '../input/input';
+import Input from '../../shared/input/input';
 import { resetImageUpload } from '../../../actions';
 import './experience_form.css';
 
@@ -96,11 +96,13 @@ class ExperienceForm extends Component {
 
     await this.props.postExperience(values, file);
 
-    // this.props.history.push('/');
+    this.props.history.push('/dashboard');
   }
 
   handleEditExperience = async values => {
     await this.props.putExperience(values);
+
+    this.props.history.push('/dashboard');
   }
 
   render() {
@@ -113,7 +115,7 @@ class ExperienceForm extends Component {
         <Field component={Input} id="city" name="city" label="City" />
         <Field component={Input} id="country" name="country" label="Country" />
         <Field component={Input} id="price" name="price" label="Price" />
-        <Field component={Input} id="guests" name="guests" label="Guests" />
+        <Field component={Input} id="guests" name="guests" label="Max Guests" />
         <Field component={Input} id="host_info" name="host_info" label="Host Info" />
         <Field component={Input} id="activity_info" name="activity_info" label="Activity Info" />
         {this.props.noImage ? '' : this.renderImageStatus()}
@@ -126,11 +128,22 @@ class ExperienceForm extends Component {
   }
 }
 
-function validate() {
+function validate({ occupation, activity, city, country, price, guests, host_info, activity_info }) {
+  const errors = {};
 
+  if (!occupation) errors.occupation = 'Please enter occupation';
+  if (!activity) errors.activity = 'Please enter activity';
+  if (!city) errors.city = 'Please enter city';
+  if (!country) errors.country = 'Please enter country';
+  if (!price) errors.price = 'Please enter price';
+  if (!guests) errors.guests = 'Please enter maximum number of guests';
+  if (!host_info) errors.host_info = 'Please enter host info';
+  if (!activity_info) errors.activity_info = 'Please enter activity info';
+
+  return errors;
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
   return {
     status: state.images.uploadStatus,
     initialValues: state.experience.details,
