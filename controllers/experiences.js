@@ -119,6 +119,26 @@ exports.getOne = async (req, res) => {
   }
 };
 
+exports.getCreated = async (req, res) => {
+  const { user_id } = req.body;
+
+  try {
+    const prepared = `SELECT activity, occupation, id
+                       FROM experiences AS 
+                       WHERE host_id = 1`;
+    const inserts = [user_id];
+    const query = mysql.format(prepared, inserts);
+    const experiences = await db.query(query);
+
+    res.send({
+      success: true,
+      experiences,
+    })
+  } catch(err) {
+    res.status(422).send('Error getting created experiences');
+  }
+};
+
 exports.post = async (req, res) => {
   try {
     const fields = { activity, occupation, city, country, price, 
