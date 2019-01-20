@@ -19,6 +19,7 @@ const configuredPassport = passport.use(
     const { id: google_id, name: { familyName: lastname, givenName: firstname} } = profile;
 
     try {
+      console.log(profile);
       let prepared = `SELECT * 
                       FROM users AS u
                       WHERE u.google_id = ?`;

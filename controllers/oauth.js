@@ -1,7 +1,7 @@
 const passport = require('../config/passport-setup');
 
 exports.login = passport.authenticate('google', {
-  scope: ['profile']
+  scope: ['profile', 'email']
 });
 
 exports.logout = async (req, res) => {
@@ -11,5 +11,5 @@ exports.logout = async (req, res) => {
 exports.redirect = passport.authenticate('google', {
   failureRedirect: '/oauth/loginFailure',
   successRedirect: '/oauth/loginSuccess',
-  session: true
+  session: true,
 });
