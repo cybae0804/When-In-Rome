@@ -41,7 +41,6 @@ exports.getAll = async (req, res) => {
           orderByQuery += 'ORDER BY e.price';
           break;
         case 'date':
-          //FIXME currently doesn't work
           orderByQuery += 'ORDER BY d.date';
           break;
       }
