@@ -3,13 +3,14 @@ const mysql = require('mysql');
 
 exports.getAll = async (req, res) => {
   try {
-    let { cityjob, dateStart, dateEnd, priceMin, priceMax, guests } = req.query;
+    let { cityjob, dateStart, dateEnd, priceMin, priceMax, guests, by, desc } = req.query;
 
     guests = isFinite(guests) ? Math.abs(parseInt(guests)) : 0;
     cityjob = cityjob ? cityjob : '';
 
     const inserts = [guests, cityjob, cityjob, cityjob];
     let narrowDownQuery = '';
+    let orderByQuery = '';
 
     if (dateStart){
       inserts.push(dateStart);
@@ -30,6 +31,23 @@ exports.getAll = async (req, res) => {
       inserts.push(priceMax);
       narrowDownQuery += ` AND e.price < ?`;
     }
+
+    if (by){
+      switch(by){
+        case 'rating':
+          orderByQuery += 'ORDER BY average_rating';
+          break;
+        case 'price':
+          orderByQuery += 'ORDER BY e.price';
+          break;
+        case 'date':
+          //FIXME currently doesn't work
+          orderByQuery += 'ORDER BY d.date';
+          break;
+      }
+
+      if (desc === 'true') orderByQuery += ' DESC';
+    }
     const prepared = `SELECT e.*, 
                       COUNT(r.rating) AS total_ratings, 
                       AVG(r.rating) AS average_rating
@@ -43,7 +61,8 @@ exports.getAll = async (req, res) => {
                         OR e.occupation LIKE CONCAT('%', ?,'%')
                         OR e.city LIKE CONCAT('%', ?,'%'))
                       ${narrowDownQuery}
-                      GROUP BY e.id`;
+                      GROUP BY e.id
+                      ${orderByQuery}`;
                       
     const query = mysql.format(prepared, inserts);
     const experiences = await db.query(query);
