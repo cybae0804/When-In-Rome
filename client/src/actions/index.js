@@ -44,6 +44,21 @@ export function getExperiences(parameters) {
   }
 }
 
+export function getCreatedExperiences() {
+  return async dispatch => {
+    try {
+      const { data: { experiences } } = await axios.get(EXPERIENCES_ROUTE);
+
+      dispatch({
+        type: types.GET_CREATED_EXPERIENCES,
+        payload: experiences,
+      });
+    } catch (err) {
+      console.log('getCreatedExperiences Error:', err);
+    }
+  }
+}
+
 export function postExperience(parameters, image) {
   return async dispatch => {
     try {
