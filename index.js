@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const cookieSession = require('cookie-session');
 const { resolve } = require('path');
 const PORT = process.env.PORT || 9000;
 
@@ -10,6 +11,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(resolve(__dirname, 'client', 'dist')));
+app.use(cookieSession({
+  maxAge: 24 * 60 * 60 * 1000,
+  keys: 'extract_to_own_file_later',
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 
