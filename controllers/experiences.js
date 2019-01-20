@@ -125,7 +125,7 @@ exports.getCreated = async (req, res) => {
   try {
     const prepared = `SELECT activity, occupation, id
                        FROM experiences AS 
-                       WHERE host_id = 1`;
+                       WHERE host_id = ?`;
     const inserts = [user_id];
     const query = mysql.format(prepared, inserts);
     const experiences = await db.query(query);

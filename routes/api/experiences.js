@@ -2,6 +2,7 @@ const experiencesRouter = require('express').Router();
 const { experiences } = require('../../controllers');
 const reviewsRouter = require('./reviews');
 const datesRouter = require('./dates');
+const bookedRouter = require('./booked');
 
 experiencesRouter.route('/')
   .get(experiences.getAll)
