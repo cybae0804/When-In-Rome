@@ -5,12 +5,10 @@ const db = require('../db');
 const mysql = require('mysql');
 
 passport.serializeUser((id, done) => {
-  console.log(id);
   done(null, id);
 })
 
 passport.deserializeUser((id, done) => {
-  console.log(id);
   done(null, id);
 })
 
