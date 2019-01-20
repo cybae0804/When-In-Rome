@@ -68,4 +68,4 @@ typings/
 # Server config
 db.js
 s3.js
-oauth.js
+config/oauth.js
