@@ -5,12 +5,10 @@ const db = require('../db');
 const mysql = require('mysql');
 
 passport.serializeUser((id, done) => {
-  console.log(id);
   done(null, id);
 })
 
 passport.deserializeUser((id, done) => {
-  console.log(id);
   done(null, id);
 })
 
@@ -18,6 +16,7 @@ const configuredPassport = passport.use(
   new GoogleStrategy(config, async (accessToken, refreshToken, profile, done) => {
     const { id: google_id, name: { familyName: lastname, givenName: firstname} } = profile;
 
+    console.log(profile)
     try {
       let prepared = `SELECT * 
                       FROM users AS u
