@@ -1,7 +1,7 @@
 const passport = require('../config/passport-setup');
 
 exports.login = passport.authenticate('google', {
-  scope: ['profile', 'email']
+  scope: ['profile', 'email'],
 });
 
 exports.logout = async (req, res) => {
