@@ -14,7 +14,7 @@ passport.deserializeUser((id, done) => {
 
 const configuredPassport = passport.use(
   new GoogleStrategy(config, async (accessToken, refreshToken, profile, done) => {
-    const { id: google_id, name: { familyName: lastname, givenName: firstname} } = profile;
+    const { id: google_id } = profile;
 
     try {
       console.log(profile);
@@ -30,9 +30,12 @@ const configuredPassport = passport.use(
 
         done(null, id);
       } else {
-        prepared = `INSERT INTO users (google_id, firstname, lastname)
-                    VALUES (?, ?, ?)`;
-        inserts = [google_id, firstname, lastname];
+        const { emails, name: { familyName: lastname, givenName: firstname } } = profile;
+        const { value: email } = emails[0];
+        
+        prepared = `INSERT INTO users (email, google_id, firstname, lastname)
+                    VALUES (?, ?, ?, ?)`;
+        inserts = [email, google_id, firstname, lastname];
         query = mysql.format(prepared, inserts);
         const result = await db.query(query);
         const { insertId: id } = result;
