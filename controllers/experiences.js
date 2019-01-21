@@ -141,14 +141,14 @@ exports.getCreated = async (req, res) => {
 
 exports.post = async (req, res) => {
   try {
-    const fields = { activity, occupation, city, country, price, 
-                     guests, host_info, activity_info, imagePath, host_id} = req.body;
+    const { activity, occupation, city, country, price, guests, host_info, activity_info, imagePath} = req.body;
+    const { id: host_id } = req.user;
     const prepared = `INSERT INTO experiences (activity, occupation, city, country, price,
                                                guests, host_info, activity_info, imagePath, host_id)
                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-    const inserts = [...Object.values(fields)];
+    const inserts = [activity, occupation, city, country, price, guests, host_info, activity_info, imagePath, host_id];
     const query = mysql.format(prepared, inserts);
-
+    
     await db.query(query);
 
     res.send({
@@ -163,7 +163,7 @@ exports.post = async (req, res) => {
 exports.put = async (req, res) => {
   try {
     const { activity, occupation, city, country, price, guests, host_info, activity_info } = req.body;
-    const fields = { activity, occupation, city, country, price, guests, host_info, activity_info };
+    const { id: host_id } = req.user;
     const { experience_id } = req.params;
     const prepared = `UPDATE experiences SET activity = ?,
                                               occupation = ?,
@@ -173,10 +173,10 @@ exports.put = async (req, res) => {
                                               guests = ?,
                                               host_info = ?,
                                               activity_info = ?
-                                              WHERE id = ?`;
-    const inserts = [...Object.values(fields), experience_id];
+                                              WHERE id = ?
+                                              AND host_id = ?`;
+    const inserts = [activity, occupation, city, country, price, guests, host_info, activity_info, experience_id, host_id];
     const query = mysql.format(prepared, inserts);
-    console.log(query);
 
     await db.query(query);
     
@@ -192,12 +192,15 @@ exports.put = async (req, res) => {
 exports.delete = async (req, res) => {
   try {
     const { experience_id } = req.params;
-    const inserts = [ experience_id ];
+    const { id: host_id } = req.user;
+    const inserts = [experience_id, host_id];
     const prepared = `DELETE FROM experiences 
-                      WHERE experiences.id = ?`;
+                      WHERE experiences.id = ?
+                      AND host_id = ?`;
     const query = mysql.format(prepared, inserts);
 
     await db.query(query);
+    
     res.send({
       success: true,
     });
