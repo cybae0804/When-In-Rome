@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const cookieSession = require('cookie-session');
 const { resolve } = require('path');
+const { cookieSessionKey } = require('./config').keys;
 const PORT = process.env.PORT || 9000;
 
 const passport = require('./config/passport-setup');
@@ -16,7 +17,7 @@ app.use(express.static(resolve(__dirname, 'client', 'dist')));
 // cookies setup
 app.use(cookieSession({
   maxAge: 24 * 60 * 60 * 1000,
-  keys: ['extract_to_own_file_later'],
+  keys: [cookieSessionKey],
 }));
 
 // passport setup
