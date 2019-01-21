@@ -8,8 +8,15 @@ passport.serializeUser((id, done) => {
   done(null, id);
 })
 
-passport.deserializeUser((id, done) => {
-  done(null, id);
+passport.deserializeUser(async (id, done) => {
+  const prepared = `SELECT * 
+                    FROM users
+                    WHERE id = ?`;
+  const inserts = [id];
+  const query = mysql.format(prepared, inserts);
+  const [user] = await db.query(query);
+  
+  done(null, user);
 })
 
 const configuredPassport = passport.use(
@@ -17,7 +24,6 @@ const configuredPassport = passport.use(
     const { id: google_id } = profile;
 
     try {
-      console.log(profile);
       let prepared = `SELECT * 
                       FROM users AS u
                       WHERE u.google_id = ?`;
