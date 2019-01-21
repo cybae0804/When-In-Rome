@@ -10,6 +10,16 @@ exports.logout = async (req, res) => {
 
 exports.redirect = passport.authenticate('google', {
   failureRedirect: '/oauth/loginFailure',
-  successRedirect: '/oauth/loginSuccess',
+  successRedirect: '/dashboard',
   session: true,
 });
+
+exports.getUser = (req, res) => {
+  if(!req.user){
+    return res.status(401).send('Unauthorized');
+  }
+
+  res.send({
+    email: req.user.email
+  })
+}

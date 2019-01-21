@@ -129,3 +129,20 @@ export function getHostBookedDates() {
     }
   }
 }
+
+export function getUser(){
+  return async dispatch => {
+    try {
+      const resp = await axios.get('/oauth/user');
+      // dispatch user info and signIN type
+      console.log('Get User Resp:', resp);
+
+      return true;
+    } catch(err){
+      console.log('Get User Error:', err);
+      // sign in error
+      
+      return false;
+    }
+  }
+}
