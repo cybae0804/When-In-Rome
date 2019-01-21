@@ -12,27 +12,27 @@ exports.getAll = async (req, res) => {
     let narrowDownQuery = '';
     let orderByQuery = '';
 
-    if (dateStart){
+    if (dateStart) {
       inserts.push(dateStart);
       narrowDownQuery += ' AND d.date > ?';
     }
 
-    if (dateEnd){
+    if (dateEnd) {
       inserts.push(dateEnd);
       narrowDownQuery += ' AND d.date < ?';
     }
 
-    if (priceMin){
+    if (priceMin) {
       inserts.push(priceMin);
       narrowDownQuery += ` AND e.price > ?`;
     }
     
-    if (priceMax){
+    if (priceMax) {
       inserts.push(priceMax);
       narrowDownQuery += ` AND e.price < ?`;
     }
 
-    if (by){
+    if (by) {
       switch(by){
         case 'rating':
           orderByQuery += 'ORDER BY average_rating';
@@ -41,14 +41,13 @@ exports.getAll = async (req, res) => {
           orderByQuery += 'ORDER BY e.price';
           break;
         case 'date':
-          //FIXME currently doesn't work
           orderByQuery += 'ORDER BY d.date';
           break;
       }
 
       if (desc === 'true') orderByQuery += ' DESC';
     }
-    const prepared = `SELECT e.*, 
+    const prepared = `SELECT e.*, MIN(d.date) AS date,
                       COUNT(r.rating) AS total_ratings, 
                       AVG(r.rating) AS average_rating
                       FROM experiences AS e
@@ -63,7 +62,7 @@ exports.getAll = async (req, res) => {
                       ${narrowDownQuery}
                       GROUP BY e.id
                       ${orderByQuery}`;
-                      
+
     const query = mysql.format(prepared, inserts);
     const experiences = await db.query(query);
 
@@ -117,6 +116,26 @@ exports.getOne = async (req, res) => {
     });
   } catch(err) {
     res.status(422).send('Error getting experience');
+  }
+};
+
+exports.getCreated = async (req, res) => {
+  const { user_id } = req.body;
+
+  try {
+    const prepared = `SELECT activity, occupation, id
+                       FROM experiences AS 
+                       WHERE host_id = ?`;
+    const inserts = [user_id];
+    const query = mysql.format(prepared, inserts);
+    const experiences = await db.query(query);
+
+    res.send({
+      success: true,
+      experiences,
+    })
+  } catch(err) {
+    res.status(422).send('Error getting created experiences');
   }
 };
 

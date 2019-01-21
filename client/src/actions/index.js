@@ -44,6 +44,21 @@ export function getExperiences(parameters) {
   }
 }
 
+export function getCreatedExperiences() {
+  return async dispatch => {
+    try {
+      const { data: { experiences } } = await axios.get(EXPERIENCES_ROUTE);
+
+      dispatch({
+        type: types.GET_CREATED_EXPERIENCES,
+        payload: experiences,
+      });
+    } catch (err) {
+      console.log('getCreatedExperiences Error:', err);
+    }
+  }
+}
+
 export function postExperience(parameters, image) {
   return async dispatch => {
     try {
@@ -97,6 +112,20 @@ export function putExperience(parameters) {
       });
     } catch (err) {
       console.log('putExperience Error', err);
+    }
+  }
+}
+
+export function getHostBookedDates() {
+  return async dispatch => {
+    try {
+      const { data: { dates } } = await axios.get()
+      dispatch({
+        type: types.GET_HOST_BOOKED_DATES,
+        payload: dates,
+      });
+    } catch(err) {
+      console.log('getHostBookedDates Error', err);
     }
   }
 }

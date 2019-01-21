@@ -114,7 +114,6 @@ class Reservations extends Component {
 }
 
   displayDropDown = () => {
-    debugger;
     switch (this.state.version){
       case "toggle":
         return this.toggleActive()
@@ -125,12 +124,12 @@ class Reservations extends Component {
     }
   }
   render(){
-    console.log(this.state)
+    console.log(this.state);
     return(
       <div className="topMargin">
         <h2 className="ui header horizontal divider container">Reservations</h2>
         <Calendar 
-          onChange={ (date) => {
+          onChange={(date) => {
             console.log(this.getDate(date));
             this.handleDateClicked(date)
           }}
