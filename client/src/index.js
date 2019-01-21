@@ -13,10 +13,10 @@ import ScrollToTop from './components/shared/scroll_to_top/scroll_to_top';
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
-if(true /* Check if cookie exists */){
+if (true /* Check if cookie exists */) {
   store.dispatch({
     type: types.SIGN_IN,
-    user: {}
+    user: {},
   });
 
   getUser()(store.dispatch);

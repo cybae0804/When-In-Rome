@@ -130,12 +130,17 @@ export function getHostBookedDates() {
   }
 }
 
-export function getUser(){
+export function getUser() {
   return async dispatch => {
     try {
-      const resp = await axios.get('/oauth/user');
-      // dispatch user info and signIN type
-      console.log('Get User Resp:', resp);
+      const res = await axios.get('/oauth/user');
+      
+      console.log('Get User Resp:', res);
+
+      dispatch({
+        type: types.SIGN_IN,
+        payload: res.user,
+      });
 
       return true;
     } catch(err){

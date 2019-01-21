@@ -4,8 +4,9 @@ exports.login = passport.authenticate('google', {
   scope: ['profile', 'email'],
 });
 
-exports.logout = async (req, res) => {
-  res.send('logging out')
+exports.logout = (req, res) => {
+  req.logout();
+  res.redirect('/');
 };
 
 exports.redirect = passport.authenticate('google', {
@@ -20,6 +21,7 @@ exports.getUser = (req, res) => {
   }
 
   res.send({
-    email: req.user.email
-  })
+    success: true,
+    user: req.user,
+  });
 }
