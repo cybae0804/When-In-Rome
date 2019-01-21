@@ -3,7 +3,10 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 20, 2019 at 05:45 AM
+
+-- Generation Time: Jan 20, 2019 at 10:00 PM
+
+
 -- Server version: 5.6.34-log
 -- PHP Version: 7.0.13
 
@@ -37,6 +40,7 @@ CREATE TABLE IF NOT EXISTS `dates` (
   `date` date NOT NULL,
   `guests` int(2) unsigned NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
+
 
 --
 -- Dumping data for table `dates`
@@ -124,17 +128,18 @@ INSERT INTO `reviews` (`id`, `experience_id`, `user_id`, `date`, `rating`, `desc
 
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) unsigned NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `password` varchar(70) NOT NULL,
-  `firstname` varchar(50) NOT NULL,
-  `lastname` varchar(50) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+  `email` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `google_id` varchar(70) CHARACTER SET utf8 NOT NULL,
+  `firstname` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `lastname` varchar(50) CHARACTER SET utf8 NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `password`, `firstname`, `lastname`) VALUES
+INSERT INTO `users` (`id`, `email`, `google_id`, `firstname`, `lastname`) VALUES
 (1, 'Sakuragi @gmail.com', '', 'Sakuragi ', 'Hanamichi'),
 (2, 'Burnett@gmail.com', '', 'Burnett ', 'Ranches'),
 (3, 'Patrick@gmail.com', '', 'Patrick', 'Bateman'),
@@ -179,7 +184,8 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `dates`
 --
 ALTER TABLE `dates`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
+int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+
 --
 -- AUTO_INCREMENT for table `experiences`
 --
@@ -194,7 +200,9 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+
+  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
