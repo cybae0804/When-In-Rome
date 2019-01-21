@@ -2,9 +2,9 @@ const db = require('../db');
 const mysql = require('mysql');
 
 exports.get = async (req, res) => {
-  const { experience_id } = req.params;
-
   try {
+    const { experience_id } = req.params;
+
     if (!experience_id) {
       throw new Error('experience_id missing');
     }
@@ -29,22 +29,35 @@ exports.get = async (req, res) => {
 
 exports.post = async (req, res) => {
   try {
+    const { id: host_id } = req.user;
+    let prepared = `SELECT host_id
+                    FROM experiences
+                    WHERE experience_id = ?`;
+    let inserts = [host_id];
+    let query = mysql.format(prepared, inserts);
+
+    const id = await db.query(query);
+
+    if (id !== host_id) {
+      return res.status(422).send('You do not have permission');
+    }
+
     const { experience_id } = req.params;
     const { dates } = req.body;
     const preparedInserts = Array(dates.length).fill('(?, ?, ?, ?)').join(',');
-    const prepared = `INSERT INTO dates (experience_id, user_id, date, guests)
-                      VALUES ${preparedInserts}
-                      ON DUPLICATE KEY UPDATE 
-                      user_id = VALUES(user_id),
-                      guests = VALUES(guests)`;
-    const inserts = [];
+    prepared = `INSERT INTO dates (experience_id, user_id, date, guests)
+                VALUES ${preparedInserts}
+                ON DUPLICATE KEY UPDATE 
+                user_id = VALUES(user_id),
+                guests = VALUES(guests)`;
+    inserts = [];
     
     for (let date of dates) {
       const fields = { user_id, date, guests } = date;
       inserts.push(experience_id, ...Object.values(fields));
     }
     
-    const query = mysql.format(prepared, inserts);
+    query = mysql.format(prepared, inserts);
     
     await db.query(query);
 
@@ -55,8 +68,3 @@ exports.post = async (req, res) => {
     res.status(422).send('Error posting dates');
   }
 };
-
-// app.put('/api/experiences/:experience_id/dates/:date_id', (req, res) => {
-// });
-// app.delete('/api/experiences/:experience_id/dates/:date_id', (req, res) => {
-// });
