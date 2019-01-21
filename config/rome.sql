@@ -3,10 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1:3306
-
--- Generation Time: Jan 20, 2019 at 10:00 PM
-
-
+-- Generation Time: Jan 21, 2019 at 12:11 AM
 -- Server version: 5.6.34-log
 -- PHP Version: 7.0.13
 
@@ -39,8 +36,7 @@ CREATE TABLE IF NOT EXISTS `dates` (
   `user_id` int(10) unsigned NOT NULL,
   `date` date NOT NULL,
   `guests` int(2) unsigned NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
-
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `dates`
@@ -132,8 +128,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `google_id` varchar(70) CHARACTER SET utf8 NOT NULL,
   `firstname` varchar(50) CHARACTER SET utf8 NOT NULL,
   `lastname` varchar(50) CHARACTER SET utf8 NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
-
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
@@ -184,8 +179,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `dates`
 --
 ALTER TABLE `dates`
-int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
-
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `experiences`
 --
@@ -200,9 +194,7 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-
-  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
-
+  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
