@@ -11,12 +11,12 @@ import { getUser } from './actions';
 import App from './components/app/app';
 import ScrollToTop from './components/shared/scroll_to_top/scroll_to_top';
 
+const { getCookieValue } = require('./helper');
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
-if (true /* Check if cookie exists */) {
+if (getCookieValue('session')) {
   store.dispatch({
     type: types.SIGN_IN,
-    user: {},
   });
 
   getUser()(store.dispatch);

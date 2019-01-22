@@ -139,11 +139,11 @@ export function getUser() {
 
       dispatch({
         type: types.SIGN_IN,
-        payload: res.user,
+        user: res.user,
       });
 
       return true;
-    } catch(err){
+    } catch(err) {
       console.log('Get User Error:', err);
       // sign in error
       
