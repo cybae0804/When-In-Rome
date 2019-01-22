@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
 import Calendar from '../../shared/calendar/calendar';
-import './reservations.css'
+import './reservations.css';
 
 class Reservations extends Component {
 
@@ -12,7 +12,7 @@ class Reservations extends Component {
       toggle: [],
       dates: [
         {
-          date: '2019-0-20',
+          date: '2019-0-24',
           name: "jimbob",
           guests: 3
         },
@@ -22,7 +22,7 @@ class Reservations extends Component {
           guests: 2
         },
         {
-          date: '2019-0-18',
+          date: '2019-0-23',
           name: '',
           guests: null
         },
@@ -36,6 +36,7 @@ class Reservations extends Component {
   } 
 
   displayDates = (datesArray, date) => {
+    debugger;
     const currentDate = this.getDate(date);
     for (let booking of datesArray) {
       let matchingDates = currentDate === booking.date;
@@ -56,37 +57,133 @@ class Reservations extends Component {
     const currentDate = this.getDate(date);
     this.setState({
       currentDate
-    })
-    for (let booking of this.state.dates) {
-      var version = ""
-      let matchingDates = currentDate === booking.date;
-      if (matchingDates && booking.name){
-        version = "booked"
-        break;
-      }else{
-        version = "toggle"
+    }, () => {
+      for (let booking of this.state.dates) {
+        var version = ""
+        let matchingDates = currentDate === booking.date;
+        if (matchingDates && booking.name){
+          version = "booked"
+          break;
+        }else{
+          version = "toggle"
+        }
       }
-    }
-    this.setState({
-      version
+      var dates = this.toggleAvailableCalendar();
+      var toggle = this.toggleAvailableTable();
+      this.setState({
+        version,
+        dates,
+        toggle 
+      })
     })
   }
 
-  toggleActive = () => {
+  viewToggleDates = () => {
+    const { toggle } = this.state
+    console.log("toggle display data", this.state.toggle)
+    const displayDates = toggle.map(date => (
+      <tr>
+        <td>{date.date}</td>
+        <td>{date.available ? "Available" : "Unavailable"}</td>
+      </tr>
+    ))
     return(
-      <div id="toggle">
-        <button className="ui primary button topMargin">
+      <div className="topMargin" id = "details">
+        <table className="ui collapsing table" id="detailsTable">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {displayDates}
+          </tbody>
+        </table> 
+        <button className="ui primary button topMargin" onClick = {this.handleToggleButtonClicked}>
           Make (Un)Available
         </button>
-      </div>
+       </div>
     )
   }
 
-  handleClickAvailable = () => {
-    console.log(this.state.toggle)
+  handleToggleButtonClicked = () => {
+    const { toggle, dates } = this.state
+    for ( let toggleDates of toggle ) {
+      if (dates.available){
+        toggleDates.push({
+          date: toggleDate.date,
+          name: "",
+          guests: null
+        })
+      }
+    }
+    this.setState({
+      toggle: []
+    })
+    // console.log(dates)
   }
 
-  viewDetails = () => {
+  toggleAvailableTable = () => {
+    const {currentDate, toggle } = this.state
+    for( let available of toggle){
+      let matchingDates = currentDate === available.date;
+      if( matchingDates && available.available ){
+        available.available = true
+      } else if( matchingDates ){
+        available.available = false
+      }
+    }
+    return toggle
+  }
+
+  toggleAvailableCalendar = () => {
+    const {dates, currentDate, toggle} = this.state;
+    // var newDates = dates
+    for (let booking of dates) {
+      let matchingDates = currentDate === booking.date;
+      if(matchingDates && !booking.name) {
+        console.log("clicked already available date");
+        for ( let dates of toggle ){
+          let matchingDates = currentDate === dates.date;
+          var removeDate = toggle.indexOf(dates)
+          if(matchingDates){
+            toggle.splice(removeDate, 1)
+          }
+        }
+        toggle.push({
+          date: currentDate,
+          available: false
+        })
+        var makeUnavailable = dates.indexOf(booking);
+        // console.log("make unavailable", makeUnavailable);
+
+        dates.splice(makeUnavailable, 1);
+        return dates;
+      }
+    }
+    const available = {
+      date: currentDate,
+      name: "",
+      guests: null
+    }
+    for ( let dates of toggle ){
+      let matchingDates = currentDate === dates.date;
+      var removeDate = toggle.indexOf(dates)
+      if(matchingDates){
+        toggle.splice(removeDate, 1)
+      }
+    }
+    toggle.push({
+      date: currentDate,
+      available: true
+    })
+    console.log(toggle)
+    dates.push(available)
+    return dates;
+  }
+
+  viewBookedDetails = () => {
     const {currentDate, dates} = this.state
     for (let booking of dates) {
       let matchingDates = currentDate === booking.date;
@@ -114,30 +211,26 @@ class Reservations extends Component {
 }
 
   displayDropDown = () => {
-    debugger;
     switch (this.state.version){
       case "toggle":
-        return this.toggleActive()
+        return this.viewToggleDates()
       case "booked":
-        return this.viewDetails()
+        return this.viewBookedDetails()
       default:
         return ""
     }
   }
   render(){
-    console.log(this.state)
+    // console.log(this.state.toggle)
     return(
       <div className="topMargin">
         <h2 className="ui header horizontal divider container">Reservations</h2>
         <Calendar 
           onChange={ (date) => {
-            console.log(this.getDate(date));
-            this.handleDateClicked(date)
+            this.handleDateClicked(date);
           }}
           tileClassName={(date) => this.displayDates(this.state.dates, date.date)}
           />
-          {/* {this.viewDetails(this.state.dates[0])} */}
-          {/* {this.toggleActive()} */}
           {this.displayDropDown(this.state.currentDate, this.state.dates)}
       </div>
       

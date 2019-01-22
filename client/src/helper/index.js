@@ -9,3 +9,12 @@ export function queryString(qs) {
 
   return output;
 }
+
+export function findDateIndex (arrOfObj, date, field) {
+  for (var objIndex = 0; objIndex < arrOfObj.length; objIndex++){
+    if(arrOfObj[objIndex][field] === date){
+      return objIndex
+    }
+  }
+  return -1
+}

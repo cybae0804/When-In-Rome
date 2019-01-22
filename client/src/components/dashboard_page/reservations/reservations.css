@@ -1,7 +1,13 @@
-#details.ui.collapsing.table{
+#detailsTable.ui.collapsing.table{
+  margin: auto;
+}
+
+#details{
+  text-align: center;
   margin: auto;
 }
 
 #toggle{
   text-align: center;
 }
+
