@@ -14,6 +14,7 @@ class Search extends Component {
       filterOpen: false,
       dateOpen: false,
       sortOpen: false,
+      calendarValue: null,
       form: {
         cityjob: '',
         dateStart: '',
@@ -151,6 +152,28 @@ class Search extends Component {
     return true;
   }
 
+  clearBtnHandler = () => {
+    this.setState({
+      calendarValue: new Date(),
+      form: {
+        ...this.state.form, 
+        dateStart: null,
+        dateEnd: null
+      },
+      pre: {
+        ...this.state.pre,
+        dateStart: null,
+        dateEnd: null
+      },
+    }, () => {
+      this.setState({
+        calendarValue: null
+      });
+    });
+
+    
+  }
+
   updateUrl = () => {
     if (this.inputValidation()){
       const { form } = this.state;
@@ -269,24 +292,13 @@ class Search extends Component {
           <button 
               type='button' 
               className='ui button '
-              onClick={() => {
-                this.setState({
-                  form: {
-                    ...this.state.form, 
-                    dateStart: null,
-                    dateEnd: null
-                  },
-                  pre: {
-                    ...this.state.pre,
-                    dateStart: null,
-                    dateEnd: null
-                  }
-              })}}
+              onClick={this.clearBtnHandler}
             >Clear</button>
           <div className={this.state.dateOpen ? '' : 'dispNone'}>
             <Calendar
               selectRange 
-              returnValue="range" 
+              returnValue="range"
+              value={this.state.calendarValue} 
               onChange={this.calendarChangeHandler}
             />
           </div>
@@ -335,6 +347,7 @@ class Search extends Component {
         <label>Please select a range</label>
         <Calendar
           selectRange 
+          value={this.state.calendarValue}
           returnValue="range" 
           onChange={this.calendarChangeHandler}
         />
@@ -347,19 +360,7 @@ class Search extends Component {
         <button 
           type='button' 
           className='ui button'
-          onClick={() => {
-            this.setState({
-              form: {
-                ...this.state.form, 
-                dateStart: null,
-                dateEnd: null
-              },
-              pre: {
-                ...this.state.pre,
-                dateStart: null,
-                dateEnd: null
-              }
-          })}}
+          onClick={this.clearBtnHandler}
         >Clear</button>
         <button 
           type='button' 
