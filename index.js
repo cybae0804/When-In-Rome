@@ -18,6 +18,7 @@ app.use(express.static(resolve(__dirname, 'client', 'dist')));
 app.use(cookieSession({
   maxAge: 24 * 60 * 60 * 1000,
   keys: [cookieSessionKey],
+  httpOnly: false,
 }));
 
 // passport setup
