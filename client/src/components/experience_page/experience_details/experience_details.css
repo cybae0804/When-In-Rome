@@ -1,4 +1,4 @@
-.react-calendar{
+.react-calendar {
     margin: auto;
     margin-top: 1em;
 }
@@ -11,11 +11,11 @@
   font-size: 1.5rem;
 }
 
-#detailsIcon{
+#detailsIcon {
     margin-right: 5px;
 }
 
-.reviews{
+.reviews {
     margin-top: 1em; 
 }
 
@@ -23,7 +23,10 @@
     background-color: #1087ff !important;
 }
 
-#guests{
+#guests {
     right: 48px;
 }
   
+.rounded {
+    border-radius: .28571429rem;
+}

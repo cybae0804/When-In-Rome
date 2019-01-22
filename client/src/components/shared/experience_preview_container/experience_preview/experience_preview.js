@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './experience_preview.css';
 
 export default props => {
@@ -24,7 +24,7 @@ export default props => {
     <div className="experience-preview">
       <div className="image">
         <Link to={"/experience/" + id}>
-          <img src={image_url} alt={title} width="100%" height="165px" />
+          <div className='experience-preview-item' style={{'backgroundImage': `url(${image_url})` }}></div>
         </Link>
       </div>
       <div className="header">
