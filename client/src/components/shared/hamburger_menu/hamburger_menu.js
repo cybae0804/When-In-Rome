@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import './hamburger_menu.css';
 import { Link } from 'react-router-dom'
 
@@ -10,38 +11,46 @@ class HamburgerMenu extends Component {
   user = [
     {
       text: 'Home',
-      to: '/'
+      to: '/',
+      link: true,
     },
     {
       text: 'Dashboard',
-      to: '/dashboard'
+      to: '/dashboard',
+      link: true,
     },
     {
       text: 'Log Out',
-      to: '/'
+      to: '/oauth/logout',
+      link: false,
     },
     {
       text: 'About',
-      to: '/about'
+      to: '/about',
+      link: true,
     },
   ]
 
   guest = [
     {
       text: 'Home',
-      to: '/'
+      to: '/',
+      link: true,
     },
     {
       text: 'Sign Up',
-      to: '/'
+      to: '/oauth/login',
+      link: false,
     },
     {
       text: 'Login',
-      to: '/'
+      to: '/oauth/login',
+      link: false,
     },
     {
       text: 'About',
-      to: '/about'
+      to: '/about',
+      link: true,
     },
   ]
 
@@ -52,9 +61,15 @@ class HamburgerMenu extends Component {
         <i className="massive close icon" onClick={this.props.toggle}/>
         <div className="linksContainer">
           {
-            this.props.loggedIn ? 
-              this.user.map((item, index) => (<Link className='item' onClick={this.props.toggle} to={item.to} key={index}>{item.text}</Link>)) : 
-              this.guest.map((item, index) => (<Link className='item' onClick={this.props.toggle} to={item.to} key={index}>{item.text}</Link>))
+            this.props.auth ? 
+              this.user.map((item, index) => {
+                if (item.link) return (<Link className='item' onClick={this.props.toggle} to={item.to} key={index}>{item.text}</Link>);
+                return (<a className='item' key={index} href={item.to}>{item.text}</a>);
+              }) : 
+              this.guest.map((item, index) => {
+                if (item.link) return (<Link className='item' onClick={this.props.toggle} to={item.to} key={index}>{item.text}</Link>);
+                return (<a className='item' key={index} href={item.to}>{item.text}</a>);
+              })
           }
         </div>
       </div>
@@ -62,4 +77,10 @@ class HamburgerMenu extends Component {
   }
 }
 
-export default HamburgerMenu;
+function mapStateToProps(state) {
+  return {
+    auth: state.user.auth,
+  }
+}
+
+export default connect(mapStateToProps)(HamburgerMenu);

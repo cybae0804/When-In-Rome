@@ -135,11 +135,9 @@ export function getUser() {
     try {
       const res = await axios.get('/oauth/user');
       
-      console.log('Get User Resp:', res);
-
       dispatch({
         type: types.SIGN_IN,
-        user: res.user,
+        user: res.data.user,
       });
 
       return true;
