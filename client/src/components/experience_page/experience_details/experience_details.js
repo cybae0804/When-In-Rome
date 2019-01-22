@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Calendar from '../../shared/calendar/calendar';
 import './experience_details.css';
 import ReviewsContainer from './reviews_container/reviews_container'
+import Carousel from '../../shared/carousel';
 const { resolve } = require('path');
 
 class ExperienceDetails extends Component {
@@ -61,20 +62,20 @@ class ExperienceDetails extends Component {
   }
 
   render(){
-        const { id, 
-          activity, 
-          occupation, 
-          city, 
-          country, 
-          price, 
-          guests, 
-          host, 
-          host_info,
-          activity_info,
-          imagePath,
-          reviews,
-          average_rating, 
-          total_ratings } = this.props;
+    const { id, 
+            activity, 
+            occupation, 
+            city, 
+            country, 
+            price, 
+            guests, 
+            host, 
+            host_info,
+            activity_info,
+            imagePath,
+            reviews,
+            average_rating, 
+            total_ratings } = this.props;
     const title = `${activity} with a ${occupation}`;
     const starsDisplay = [];
     const averageRatingInteger = Math.floor(average_rating);
@@ -94,9 +95,10 @@ class ExperienceDetails extends Component {
     const dateArray = ['1/20/2019', '1/23/2019'];
     return (
       <div>
-        <div className="rounded container">
+        <Carousel />
+        {/* <div className="rounded container">
           <img className="ui image centered" src={image_url} />
-        </div>
+        </div> */}
         <div className="ui container topMargin bottomMargin">
           <h1 className="detailsHeading-1">{title}</h1>
           <div className="overview ui relaxed list container">
