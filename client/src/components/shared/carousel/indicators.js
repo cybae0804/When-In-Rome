@@ -6,7 +6,7 @@ export default props => {
 
   for (let i = 0; i < count; i++) {
     dots.push(
-      <div onClick={props.onClick.bind(this, i)} key={i} className={`dot ${current === i ? 'active' : ''}`}></div>
+      <div key={i} className={`dot ${current === i ? 'active' : ''}`}></div>
     )
   }
 

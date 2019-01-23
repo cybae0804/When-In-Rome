@@ -86,9 +86,7 @@ class Carousel extends Component {
     const src = images[currentIndex];
 
     return (
-      <div className="ui container">
-        {/* <h3 className="carousel-text center">{text}</h3> */}
-        <button onClick={this.changeImg.bind(this, 'previous')}>Previous Image</button>
+      <div>
         <div className="carousel-container">
           <Transition
             transitionName={`carousel-${direction}`}
@@ -98,7 +96,10 @@ class Carousel extends Component {
             <img key={src} src={src} className="carousel-img" />
           </Transition>
         </div>
-        <button onClick={this.changeImg.bind(this, 'next')}>Next Image</button>
+        <div className="carousel-overlay">
+          <i className="huge angle left icon" onClick={this.changeImg.bind(this, 'previous')}></i>
+          <i className="huge angle right icon" onClick={this.changeImg.bind(this, 'next')}></i>
+        </div>
         <Indicators onClick={this.directToImage.bind(this)} count={images.length} current={currentIndex} />
       </div>
     );

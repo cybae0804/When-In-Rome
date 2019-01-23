@@ -99,7 +99,7 @@ class ExperienceDetails extends Component {
         {/* <div className="rounded container">
           <img className="ui image centered" src={image_url} />
         </div> */}
-        <div className="ui container topMargin bottomMargin">
+        <div className="ui container bottomMargin">
           <h1 className="detailsHeading-1">{title}</h1>
           <div className="overview ui relaxed list container">
             <div className="item">
