@@ -41,7 +41,7 @@ exports.getAll = async (req, res) => {
           orderByQuery += 'ORDER BY e.price';
           break;
         case 'date':
-          orderByQuery += 'ORDER BY d.date';
+          orderByQuery += 'ORDER BY date';
           break;
       }
 
