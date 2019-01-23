@@ -2,6 +2,7 @@ import axios from 'axios';
 import types from './types';
 
 const EXPERIENCES_ROUTE = '/api/experiences';
+const DASHBOARD_ROUTE = '/api/dashboard';
 
 export function getExperienceDetails(id) {
   return async dispatch => {
@@ -116,16 +117,18 @@ export function putExperience(parameters) {
   }
 }
 
-export function getHostDashboard() {
+export function getDashboard() {
   return async dispatch => {
     try {
-      const { data: { dates } } = await axios.get()
+      const { data: { result } } = await axios.get(DASHBOARD_ROUTE);
+
       dispatch({
-        type: types.GET_HOST_BOOKED_DATES,
-        payload: dates,
+        type: types.GET_DASHBOARD,
+        payload: result,
       });
+
     } catch(err) {
-      console.log('getHostBookedDates Error', err);
+      console.log('getDashboard Error', err);
     }
   }
 }

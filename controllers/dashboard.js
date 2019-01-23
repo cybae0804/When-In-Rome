@@ -1,7 +1,7 @@
 const db = require('../db');
 const mysql = require('mysql');
 
-exports.getHostDashboard = async (req, res) => {
+exports.getDashboard = async (req, res) => {
   const { id: host_id  } = req.user;
 
   // if not user id, send blank data
@@ -24,17 +24,32 @@ exports.getHostDashboard = async (req, res) => {
     result.dates = await db.query(query);
 
     // get history
-
-
+    prepared =  `SELECT er.price * COUNT(d.date) AS earnings,
+                  er.average_rating,
+                  er.total_ratings
+                  FROM ( 
+                  SELECT e.*, 
+                  AVG(r.rating) AS average_rating,
+                  COUNT(r.rating) AS total_ratings,
+                  r.date
+                  FROM experiences as e
+                  LEFT JOIN reviews as r
+                  ON e.id = r.experience_id
+                  GROUP BY e.id) AS er
+                  LEFT JOIN dates as d
+                  on er.id = d.experience_id
+                  WHERE er.host_id = ?
+                  AND d.date < NOW()
+                  AND er.date < NOW()`
+    inserts = [host_id];
+    query = mysql.format(prepared, inserts);
+    result.history = await db.query(query);
     res.send({
       success: true,
       result,
     })
   } catch (err) {
-    res.status(422).send('Error getting host\'s booked dates');
+    res.status(422).send('Error getting host dashboard');
   }
 };
 
-exports.getUserBooked = async (req, res) => {
-  
-};
