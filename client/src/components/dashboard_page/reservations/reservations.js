@@ -36,7 +36,7 @@ class Reservations extends Component {
   } 
 
   displayDates = (datesArray, date) => {
-    debugger;
+  
     const currentDate = this.getDate(date);
     for (let booking of datesArray) {
       let matchingDates = currentDate === booking.date;
@@ -69,18 +69,18 @@ class Reservations extends Component {
         }
       }
       var dates = this.toggleAvailableCalendar();
-      var toggle = this.toggleAvailableTable();
+
       this.setState({
         version,
-        dates,
-        toggle 
+        dates
       })
     })
   }
 
   viewToggleDates = () => {
     const { toggle } = this.state
-    console.log("toggle display data", this.state.toggle)
+    toggle.sort(function (a, b){return new Date(a.date.replace('-', '/')) - new Date(b.date.replace('-', '/'))});
+    console.log("toggle display data", toggle)
     const displayDates = toggle.map(date => (
       <tr>
         <td>{date.date}</td>
@@ -89,7 +89,7 @@ class Reservations extends Component {
     ))
     return(
       <div className="topMargin" id = "details">
-        <table className="ui collapsing table" id="detailsTable">
+        <table className="ui collapsing unstackable table" id="detailsTable">
           <thead>
             <tr>
               <th>Date</th>
@@ -111,42 +111,30 @@ class Reservations extends Component {
     const { toggle, dates } = this.state
     for ( let toggleDates of toggle ) {
       if (dates.available){
-        toggleDates.push({
-          date: toggleDate.date,
+        dates.push({
+          date: toggleDates.date,
           name: "",
           guests: null
         })
       }
     }
     this.setState({
-      toggle: []
+      dates,
+      toggle: [],
+      version: ""
     })
-    // console.log(dates)
-  }
-
-  toggleAvailableTable = () => {
-    const {currentDate, toggle } = this.state
-    for( let available of toggle){
-      let matchingDates = currentDate === available.date;
-      if( matchingDates && available.available ){
-        available.available = true
-      } else if( matchingDates ){
-        available.available = false
-      }
-    }
-    return toggle
   }
 
   toggleAvailableCalendar = () => {
+    debugger;
     const {dates, currentDate, toggle} = this.state;
-    // var newDates = dates
     for (let booking of dates) {
       let matchingDates = currentDate === booking.date;
       if(matchingDates && !booking.name) {
         console.log("clicked already available date");
-        for ( let dates of toggle ){
-          let matchingDates = currentDate === dates.date;
-          var removeDate = toggle.indexOf(dates)
+        for ( let date of toggle ){
+          let matchingDates = currentDate === date.date;
+          var removeDate = toggle.indexOf(date)
           if(matchingDates){
             toggle.splice(removeDate, 1)
           }
@@ -156,10 +144,10 @@ class Reservations extends Component {
           available: false
         })
         var makeUnavailable = dates.indexOf(booking);
-        // console.log("make unavailable", makeUnavailable);
-
         dates.splice(makeUnavailable, 1);
         return dates;
+      }else if ( matchingDates ){
+        return dates
       }
     }
     const available = {
@@ -189,7 +177,7 @@ class Reservations extends Component {
       let matchingDates = currentDate === booking.date;
       if (matchingDates && booking.name){
         return(
-          <table className="ui collapsing table topMargin" id="details">
+          <table className="ui collapsing unstackable table" id="details">
             <thead>
               <tr>
                 <th>Date</th>
@@ -221,7 +209,7 @@ class Reservations extends Component {
     }
   }
   render(){
-    // console.log(this.state.toggle)
+    console.log(this.state)
     return(
       <div className="topMargin">
         <h2 className="ui header horizontal divider container">Reservations</h2>
@@ -231,6 +219,28 @@ class Reservations extends Component {
           }}
           tileClassName={(date) => this.displayDates(this.state.dates, date.date)}
           />
+          <table className="ui collapsing table unstackable topMargin" id="details">
+            <thead>
+              <tr>
+                <th>Color</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Teal</td>
+                <td>Available</td>
+              </tr>
+              <tr>
+                <td>Red</td>
+                <td>Booked</td>
+              </tr>
+              <tr>
+                <td>White</td>
+                <td>Unavailable</td>
+              </tr>
+            </tbody>
+          </table>
           {this.displayDropDown(this.state.currentDate, this.state.dates)}
       </div>
       
