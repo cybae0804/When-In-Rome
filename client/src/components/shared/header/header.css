@@ -1,0 +1,19 @@
+.logo {
+  background-image: url('http://picsum.photos/200');
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  
+  width: 36px;
+  height: 36px;
+  display: inline-block;
+}
+
+.headerText {
+  margin-top: 0;
+}
+
+.logoTextContainer {
+  display: flex;
+  align-items: center;
+}
