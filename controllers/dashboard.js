@@ -4,6 +4,7 @@ const mysql = require('mysql');
 exports.getHostDashboard = async (req, res) => {
   const { id: host_id  } = req.user;
 
+  // if not user id, send blank data
   try {
     const result = {};
 

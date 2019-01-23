@@ -4,5 +4,5 @@ module.exports = {
   images: require('./images'),
   dates: require('./dates'),
   oauth: require('./oauth'),
-  booked: require('./booked'),
+  dashboard: require('./dashboard'),
 };
