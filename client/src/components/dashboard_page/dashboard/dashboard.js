@@ -18,7 +18,7 @@ class Dashboard extends Component {
 
   async componentDidMount() {
     // MAKE THE AXIOS CALL HERE AND SET THE STATE APPROPRIATELY
-    const data = await axios.get('/api/');
+    const data = await axios.get('/api/booked/');
   }
 
   toggleStatus = () => {
@@ -42,10 +42,10 @@ class Dashboard extends Component {
           <button onClick={this.toggleStatus} className={`ui column button ${this.state.asUser ? '' : 'positive'}`}><h3>As Host</h3></button>
           <button onClick={this.toggleStatus} className={`ui column button ${this.state.asUser ? 'positive' : ''}`}><h3>As User</h3></button>
         </div>
-        <Upcoming />
-        <Reservations />
-        <ActiveListing />
-        <History />
+        <Upcoming data={upcomingData} />
+        <Reservations data={reservationsData}/>
+        <ActiveListing data={activeListingData}/>
+        {this.state.asUser ? undefined : <History data={historyData}/> }
       </div>
     );
   }
