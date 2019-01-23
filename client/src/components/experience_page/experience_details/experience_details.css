@@ -27,3 +27,6 @@
   right: 48px;
 }
   
+.rounded {
+    border-radius: .28571429rem;
+}
