@@ -1,9 +1,7 @@
 const dashboardRouter = require('express').Router();
 const { dashboard } = require('../../controllers');
 
-dashboardRouter.route('/host')
-  .get(dashboard.getHostDashboard);
-
-dashboardRouter.route('/user');
+dashboardRouter.route('/')
+  .get(dashboard.getDashboard);
 
 module.exports = dashboardRouter;
