@@ -18,7 +18,8 @@ class Dashboard extends Component {
 
   async componentDidMount() {
     // MAKE THE AXIOS CALL HERE AND SET THE STATE APPROPRIATELY
-    const data = await axios.get('/api/booked/');
+    const data = await axios.get('/api/dashboard/');
+    console.log('data', data)
   }
 
   toggleStatus = () => {
