@@ -44,7 +44,7 @@ exports.getDashboard = async (req, res) => {
     result.host.history = await db.query(query);
 
     // USER: get dates and experience id
-    let prepared = `SELECT d.id AS date_id, 
+    prepared = `SELECT d.id AS date_id, 
                     d.date, 
                     d.guests,
                     e.id AS experience_id,
@@ -62,6 +62,7 @@ exports.getDashboard = async (req, res) => {
       result,
     })
   } catch (err) {
+    console.log(err)
     res.status(422).send('Error getting dashboard');
   }
 };
