@@ -116,8 +116,8 @@ class ExperienceForm extends Component {
         <Field component={Input} id="country" name="country" label="Country" />
         <Field component={Input} id="price" name="price" label="Price" />
         <Field component={Input} id="guests" name="guests" label="Max Guests" />
-        <Field component={Input} id="host_info" name="host_info" label="Host Info" />
-        <Field component={Input} id="activity_info" name="activity_info" label="Activity Info" />
+        <Field component={Input} id="host_info" type="textarea" name="host_info" label="Host Info" />
+        <Field component={Input} id="activity_info" type="textarea" name="activity_info" label="Activity Info" />
         {this.props.noImage ? '' : this.renderImageStatus()}
         <div className="spaceBetween">
           <button type="button" className="ui button ">Cancel</button>
