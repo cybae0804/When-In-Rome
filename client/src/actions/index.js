@@ -116,7 +116,7 @@ export function putExperience(parameters) {
   }
 }
 
-export function getHostBookedDates() {
+export function getHostDashboard() {
   return async dispatch => {
     try {
       const { data: { dates } } = await axios.get()
