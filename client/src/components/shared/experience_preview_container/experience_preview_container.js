@@ -21,7 +21,7 @@ class ExperiencePreviewContainer extends Component {
     const headingText = heading ? <h2>{heading}</h2> : '';
     const experienceList = this.props.experiences.map(experience => {
       const { id } = experience;
-
+      
       return (
         <ExperiencePreview
           key={id}

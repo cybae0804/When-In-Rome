@@ -24,21 +24,21 @@ exports.getAll = async (req, res) => {
 
     if (priceMin) {
       inserts.push(priceMin);
-      narrowDownQuery += ` AND e.price > ?`;
+      narrowDownQuery += ` AND er.price > ?`;
     }
     
     if (priceMax) {
       inserts.push(priceMax);
-      narrowDownQuery += ` AND e.price < ?`;
+      narrowDownQuery += ` AND er.price < ?`;
     }
 
     if (by) {
       switch(by){
         case 'rating':
-          orderByQuery += 'ORDER BY average_rating';
+          orderByQuery += 'ORDER BY er.average_rating';
           break;
         case 'price':
-          orderByQuery += 'ORDER BY e.price';
+          orderByQuery += 'ORDER BY er.price';
           break;
         case 'date':
           orderByQuery += 'ORDER BY d.date';
@@ -47,25 +47,31 @@ exports.getAll = async (req, res) => {
 
       if (desc === 'true') orderByQuery += ' DESC';
     }
-    const prepared = `SELECT e.*, MIN(d.date) AS date,
-                      COUNT(r.rating) AS total_ratings, 
-                      AVG(r.rating) AS average_rating
-                      FROM experiences AS e
-                      LEFT JOIN reviews AS r
-                      ON e.id = r.experience_id
+
+    const prepared = `SELECT er.*, 
+                      MIN(d.date) AS date
+                      FROM (
+                        SELECT e.*, 
+                        COUNT(r.rating) AS total_ratings, 
+                        AVG(r.rating) AS average_rating
+                        FROM experiences AS e
+                        LEFT JOIN reviews AS r
+                        ON e.id = r.experience_id
+                        GROUP BY e.id
+                      ) AS er
                       LEFT JOIN dates AS d
-                      ON d.experience_id = e.id
-                      WHERE e.guests >= ?
-                      AND (e.activity LIKE CONCAT('%', ?,'%')
-                        OR e.occupation LIKE CONCAT('%', ?,'%')
-                        OR e.city LIKE CONCAT('%', ?,'%'))
+                      ON d.experience_id = er.id
+                      WHERE er.guests >= ?
+                      AND (activity LIKE CONCAT('%', ?,'%')
+                        OR occupation LIKE CONCAT('%', ?,'%')
+                        OR city LIKE CONCAT('%', ?,'%'))
                       ${narrowDownQuery}
-                      GROUP BY e.id
+                      GROUP BY er.id
                       ${orderByQuery}`;
 
     const query = mysql.format(prepared, inserts);
     const experiences = await db.query(query);
-
+    
     res.send({
       success: true,
       experiences,
