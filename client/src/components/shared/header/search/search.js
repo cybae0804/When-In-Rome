@@ -186,7 +186,7 @@ class Search extends Component {
       const l = narrowDownQuery.length-1;
       if (narrowDownQuery[l] === '&') narrowDownQuery = narrowDownQuery.substring(0, l);
 
-      this.props.history.push(`/search${narrowDownQuery}`);
+      this.props.history.replace(`/search${narrowDownQuery}`);
       this.props.getExperiences(queryString(narrowDownQuery));
     }
   }
