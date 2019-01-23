@@ -5,7 +5,10 @@ exports.getDashboard = async (req, res) => {
   const { id } = req.user;
 
   try {
-    const result = {};
+    const result = {
+      host: {},
+      user: {},
+    };
 
     // HOST: get dates and experience id
     let prepared = `SELECT d.id AS date_id, 
