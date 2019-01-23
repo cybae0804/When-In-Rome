@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import Calendar from '../../shared/calendar/calendar';
 import './experience_details.css';
 import ReviewsContainer from './reviews_container/reviews_container'
+import Carousel from '../../shared/carousel';
+const { resolve } = require('path');
+
 
 class ExperienceDetails extends Component {
   constructor(props){
@@ -96,10 +99,11 @@ class ExperienceDetails extends Component {
     
     return (
       <div>
-        <div className="ui container">
-          <img className="ui image centered rounded" src={image_url} />
-        </div>
-        <div className="ui container topMargin bottomMargin">
+        <Carousel />
+        {/* <div className="rounded container">
+          <img className="ui image centered" src={image_url} />
+        </div> */}
+        <div className="ui container bottomMargin">
           <h1 className="detailsHeading-1">{title}</h1>
           <div className="overview ui relaxed list container">
             <div className="item">

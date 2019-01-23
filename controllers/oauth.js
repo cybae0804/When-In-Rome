@@ -5,8 +5,6 @@ exports.login = passport.authenticate('google', {
 });
 
 exports.logout = (req, res) => {
-  // res.clearCookie('session');
-  // res.clearCookie('session.sig');
   req.session = null;
   req.logout();
   res.redirect('/');
