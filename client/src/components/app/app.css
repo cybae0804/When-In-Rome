@@ -1,9 +1,13 @@
 .topMargin4px {
-  margin-top: 4px;
+  margin-top: 4px !important;
 }
 
 .topMargin8px {
-  margin-top: 8px;
+  margin-top: 8px !important;
+}
+
+.topMargin24px {
+  margin-top: 24px !important;
 }
 
 .bigTopMargin {
@@ -16,6 +20,10 @@
 
 .bottomMargin {
   margin-bottom: 1rem !important;
+}
+
+.bottomMargin20px {
+  margin-bottom: 20px !important;
 }
 
 .center {
@@ -80,4 +88,11 @@
 
 .padRight1em {
   padding-right: 1em !important;
+}
+
+.truncate {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

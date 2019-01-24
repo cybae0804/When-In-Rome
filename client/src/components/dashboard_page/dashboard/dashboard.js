@@ -6,20 +6,28 @@ import axios from 'axios';
 // Components
 import Upcoming from '../upcoming/upcoming';
 import Reservations from '../reservations/reservations';
-import ActiveListing from '../active-listing/active-listing';
 import History from '../history/history';
 
 import './dashboard.css'
 
 class Dashboard extends Component {
   state = {
-    asUser: true
+    asUser: true,
+    host: {
+      dates: [],
+      history: []
+    },
+    user: {
+      dates: []
+    }
   }
 
   async componentDidMount() {
-    // MAKE THE AXIOS CALL HERE AND SET THE STATE APPROPRIATELY
-    const data = await axios.get('/api/dashboard/');
-    console.log('data', data)
+    const { data : { result : { host, user} } } = await axios.get('/api/dashboard/');
+    
+    this.setState({
+      host, user
+    });
   }
 
   toggleStatus = () => {
@@ -29,13 +37,7 @@ class Dashboard extends Component {
   }
 
   render() {
-    // WITH DATA FROM COMPONENTDIDMOUNT, SET VARIABLES PROPERLY AND
-    // PASS IT DOWN TO COMPONENTS
-    
-    const upcomingData = this.state.asUser ? 'hello' : 'bye';
-    const reservationsData = this.state.asUser ? 'hello' : 'bye';
-    const activeListingData = this.state.asUser ? 'hello' : 'bye';
-    const historyData = this.state.asUser ? 'hello' : 'bye';
+    const dateData = this.state.asUser ? this.state.user.dates : this.state.host.dates;
 
     return (
       <div>
@@ -43,10 +45,9 @@ class Dashboard extends Component {
           <button onClick={this.toggleStatus} className={`ui column button ${this.state.asUser ? '' : 'positive'}`}><h3>As Host</h3></button>
           <button onClick={this.toggleStatus} className={`ui column button ${this.state.asUser ? 'positive' : ''}`}><h3>As User</h3></button>
         </div>
-        <Upcoming data={upcomingData} />
-        <Reservations data={reservationsData}/>
-        <ActiveListing data={activeListingData}/>
-        {this.state.asUser ? undefined : <History data={historyData}/> }
+        <Upcoming data={dateData} />
+        <Reservations data={dateData}/>
+        {this.state.asUser ? undefined : <History data={this.state.host.history}/> }
       </div>
     );
   }
