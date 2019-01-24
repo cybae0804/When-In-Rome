@@ -2,18 +2,34 @@
   display: inline-block;
   height: 65vw;
   overflow: hidden;
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  max-height: 400px;
+  margin: auto;
 }
 
-.carousel-overlay {
-  width: 100%;
-  height: 65vw;
-  position: absolute;
-  left: 0;
-  top: 75px;
+.image-center {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 2;
+  justify-content: center;
+}
+
+.overlay {
+  z-index: 3;
+  position: absolute;
+}
+
+.left {
+  left: 1.5%;
+}
+
+.right {
+  right: 1.5%;
+}
+
+.center-vertical {
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .carousel-overlay > i:hover{
@@ -31,6 +47,7 @@
 
 .carousel-img {
   width: 100%;
+  max-width: 600px;
   position: absolute;
 }
 

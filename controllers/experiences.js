@@ -112,6 +112,12 @@ exports.getOne = async (req, res) => {
     query = mysql.format(prepared, inserts);
     experience.reviews = await db.query(query);
 
+    prepared = `SELECT imagePath 
+                FROM images
+                WHERE experience_id = ?`
+    query = mysql.format(prepared, inserts);
+    experience.images = await db.query(query);
+
     if (!experience) {
       throw new Error('No experience with provided experience_id');
     }
