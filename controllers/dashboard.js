@@ -20,11 +20,8 @@ exports.getDashboard = async (req, res) => {
                     FROM dates AS d
                     LEFT JOIN experiences AS e
                     ON d.experience_id = e.id
-<<<<<<< HEAD
-=======
                     LEFT JOIN users AS u
                     ON d.user_id = u.id
->>>>>>> 5160a78eb0617fa7f153ea1765184a1baea5d181
                     WHERE e.host_id = ?
                     AND d.guests > 0
                     ORDER BY d.date ASC`;
