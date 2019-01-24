@@ -38,15 +38,15 @@ class Dashboard extends Component {
 
   render() {
     const dateData = this.state.asUser ? this.state.user.dates : this.state.host.dates;
-
+    const {asUser} = this.state
     return (
       <div>
         <div className="ui equal width grid container topMargin">
           <button onClick={this.toggleStatus} className={`ui column button ${this.state.asUser ? '' : 'positive'}`}><h3>As Host</h3></button>
           <button onClick={this.toggleStatus} className={`ui column button ${this.state.asUser ? 'positive' : ''}`}><h3>As User</h3></button>
         </div>
-        <Upcoming data={dateData} />
-        <Reservations data={dateData}/>
+        <Upcoming data={dateData}  />
+        <Reservations data={dateData} asUser={asUser} />
         {this.state.asUser ? undefined : <History data={this.state.host.history}/> }
       </div>
     );
