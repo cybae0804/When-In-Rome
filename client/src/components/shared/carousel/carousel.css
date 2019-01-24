@@ -9,6 +9,16 @@
   margin: auto;
 }
 
+.white {
+  color: white;
+  opacity: 0.5;
+}
+
+.carousel-container > i:hover{
+  color: #21ba45;
+  cursor: pointer;
+}
+
 .image-center {
   display: flex;
   justify-content: center;
@@ -30,15 +40,6 @@
 .center-vertical {
   top: 50%;
   transform: translateY(-50%);
-}
-
-.carousel-overlay > i:hover{
-  color: white;
-  cursor: pointer;
-}
-
-.carousel-overlay > i {
-  opacity: 0.8;
 }
 
 .carousel-text {

@@ -29,7 +29,7 @@ exports.prepUpload = (req, res) => {
   const { query: { fileType, name } } = req;
 
   const key = `${uuid()}${getExt(name)}`;
-
+  
   s3.getSignedUrl('putObject', {
     Bucket: bucket,
     ContentType: fileType,
