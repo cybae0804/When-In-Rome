@@ -3,8 +3,6 @@ import Calendar from '../../shared/calendar/calendar';
 import './experience_details.css';
 import ReviewsContainer from './reviews_container/reviews_container'
 import Carousel from '../../shared/carousel';
-const { resolve } = require('path');
-
 
 class ExperienceDetails extends Component {
   constructor(props){
@@ -63,7 +61,7 @@ class ExperienceDetails extends Component {
     });
   }
 
-  render(){
+  render() {
     const { id, 
             activity, 
             occupation, 
@@ -77,8 +75,9 @@ class ExperienceDetails extends Component {
             imagePath,
             reviews,
             average_rating, 
-            total_ratings } = this.props;
-
+            total_ratings,
+            images } = this.props;
+    
     const title = `${activity} with a ${occupation}`;
     const starsDisplay = [];
     const averageRatingInteger = Math.floor(average_rating);
@@ -99,7 +98,7 @@ class ExperienceDetails extends Component {
     
     return (
       <div>
-        <Carousel />
+        <Carousel images={images}/>
         {/* <div className="rounded container">
           <img className="ui image centered" src={image_url} />
         </div> */}
