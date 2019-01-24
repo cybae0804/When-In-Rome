@@ -13,11 +13,18 @@ exports.getDashboard = async (req, res) => {
     // HOST: get dates and experience id
     let prepared = `SELECT d.id AS date_id, 
                     d.date, 
+                    d.guests,
                     CONCAT(e.activity, " with a ", e.occupation) AS title,
-                    e.id AS experience_id
+                    e.id AS experience_id,
+                    CONCAT(u.firstname, " ", u.lastname) AS name
                     FROM dates AS d
                     LEFT JOIN experiences AS e
                     ON d.experience_id = e.id
+<<<<<<< HEAD
+=======
+                    LEFT JOIN users AS u
+                    ON d.user_id = u.id
+>>>>>>> 5160a78eb0617fa7f153ea1765184a1baea5d181
                     WHERE e.host_id = ?
                     AND d.guests > 0
                     ORDER BY d.date ASC`;
