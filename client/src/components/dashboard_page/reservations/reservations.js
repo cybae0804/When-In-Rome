@@ -11,6 +11,7 @@ class Reservations extends Component {
       version: "",
       originalDates: [],
       dates: []
+      
     }
   } 
 
