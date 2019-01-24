@@ -25,15 +25,15 @@
 }
 
 .overlay {
-  z-index: 3;
+  z-index: 4;
   position: absolute;
 }
 
-.left {
+.leftpush {
   left: 1.5%;
 }
 
-.right {
+.rightpush {
   right: 1.5%;
 }
 

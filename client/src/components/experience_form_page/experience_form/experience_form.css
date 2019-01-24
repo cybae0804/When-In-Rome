@@ -2,3 +2,7 @@
   text-align: center;
   margin: 10px;
 }
+
+.noMarginButton {
+  margin-right: 0 !important;
+}

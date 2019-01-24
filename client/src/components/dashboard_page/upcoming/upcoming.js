@@ -1,8 +1,9 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 import { keygen } from '../../../helper';
+import './upcoming.css';
 
-export default withRouter(({history, data}) => {
+export default withRouter(({history, data, asUser}) => {
   const organized = {};
   const display = [];
   const today = new Date();
@@ -20,8 +21,16 @@ export default withRouter(({history, data}) => {
   for (let item in organized){
     display.push((
       <div className='item' key={keygen()}>
+        {asUser ? undefined : (
+          <div className="right floated content">
+            <button 
+              className="ui mini button basic green content fixedButton"
+              onClick={() => {history.push(`/edit_experience/${organized[item][0].experience_id}`)}}  
+            >Edit</button>
+          </div>
+        )}
         <div className="content">
-          <h3 className='truncate'>{organized[item][0].title}</h3>
+          <h3 className='truncate topMargin4px'>{organized[item][0].title}</h3>
         </div>
       </div>
     ));
@@ -31,12 +40,12 @@ export default withRouter(({history, data}) => {
         <div key={keygen()} className={`item indentedItem ${i === organized[item].length-1 ? 'bottomMargin20px' : ''}`}>
           <div className="right floated content">
             <button 
-              className="ui mini button green content "
+              className="ui mini button basic green content "
               onClick={() => {history.push(`/experience/${organized[item][i].experience_id}`)}}  
             >View</button>
           </div>
           <div className="content">
-            <h4 className='topMargin4px'>- {organized[item][i].date.substring(0, 10)}</h4>
+            <h4 className='topMargin4px'>{organized[item][i].date.substring(0, 10)}</h4>
           </div>
         </div>
       ));
@@ -52,6 +61,9 @@ export default withRouter(({history, data}) => {
       <h3 className="container align center ui">
         {display.length ? null : 'You have no upcoming sessions.'}
       </h3>
+      {asUser ? undefined : <div className='ui center aligned container'>
+                              <button className='ui button' onClick={() => {history.push('/create_experience')}}>Host Experience</button>
+                            </div>}
     </div>
   );
 });
