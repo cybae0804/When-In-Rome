@@ -9,29 +9,50 @@ class Reservations extends Component {
     this.state = {
       currentDate: "",
       version: "",
-      toggle: [],
-      dates: [
-        {
-          date: '2019-0-24',
-          name: "jimbob",
-          guests: 3
-        },
-        {
-          date: '2019-0-27',
-          name: "Joebob",
-          guests: 2
-        },
-        {
-          date: '2019-0-23',
-          name: '',
-          guests: null
-        },
-        {
-          date: '2019-0-26',
-          name: '',
-          guests: null
-        }
-      ] 
+      // originalDates: [
+      //   {
+      //     date: '2019-0-24',
+      //     name: "jimbob",
+      //     guests: 3,
+      //   },
+      //   {
+      //     date: '2019-0-27',
+      //     name: "Joebob",
+      //     guests: 2,
+      //   },
+      //   {
+      //     date: '2019-0-23',
+      //     name: '',
+      //     guests: null,
+      //   },
+      //   {
+      //     date: '2019-0-26',
+      //     name: '',
+      //     guests: null,
+      //   }
+      // ],
+      // dates: [
+      //   {
+      //     date: '2019-0-24',
+      //     name: "jimbob",
+      //     guests: 3,
+      //   },
+      //   {
+      //     date: '2019-0-27',
+      //     name: "Joebob",
+      //     guests: 2,
+      //   },
+      //   {
+      //     date: '2019-0-23',
+      //     name: '',
+      //     guests: null,
+      //   },
+      //   {
+      //     date: '2019-0-26',
+      //     name: '',
+      //     guests: null,
+      //   }
+      // ] 
     }
   } 
 
@@ -43,6 +64,9 @@ class Reservations extends Component {
       if (matchingDates && booking.name) {
         return "booked";
       } else if (matchingDates) {
+        if(booking.status){
+          return ""
+        }
         return "active";
       }
     }
@@ -64,8 +88,6 @@ class Reservations extends Component {
         if (matchingDates && booking.name){
           version = "booked"
           break;
-        }else{
-          version = "toggle"
         }
       }
       var dates = this.toggleAvailableCalendar();
@@ -73,100 +95,42 @@ class Reservations extends Component {
       this.setState({
         version,
         dates
-      })
+      })  
     })
   }
 
-  viewToggleDates = () => {
-    const { toggle } = this.state
-    toggle.sort(function (a, b){return new Date(a.date.replace('-', '/')) - new Date(b.date.replace('-', '/'))});
-    console.log("toggle display data", toggle)
-    const displayDates = toggle.map(date => (
-      <tr>
-        <td>{date.date}</td>
-        <td>{date.available ? "Available" : "Unavailable"}</td>
-      </tr>
-    ))
-    return(
-      <div className="topMargin" id = "details">
-        <table className="ui collapsing unstackable table" id="detailsTable">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {displayDates}
-          </tbody>
-        </table> 
-        <button className="ui primary button topMargin" onClick = {this.handleToggleButtonClicked}>
-          Make (Un)Available
-        </button>
-       </div>
-    )
-  }
 
-  handleToggleButtonClicked = () => {
-    const { toggle, dates } = this.state
-    for ( let toggleDates of toggle ) {
-      if (dates.available){
-        dates.push({
-          date: toggleDates.date,
-          name: "",
-          guests: null
-        })
-      }
-    }
+  handleConfirmButtonClicked = () => {
+    const {dates} = this.state
     this.setState({
       dates,
-      toggle: [],
+      version: ""
+    })
+  }
+
+  handleClearButtonClicked = () => {
+    const {originalDates} = this.state;
+    const clearDates = originalDates.slice()
+    this.setState({
+      dates: clearDates,
       version: ""
     })
   }
 
   toggleAvailableCalendar = () => {
-    debugger;
-    const {dates, currentDate, toggle} = this.state;
+    const {dates, currentDate } = this.state;
     for (let booking of dates) {
       let matchingDates = currentDate === booking.date;
       if(matchingDates && !booking.name) {
-        console.log("clicked already available date");
-        for ( let date of toggle ){
-          let matchingDates = currentDate === date.date;
-          var removeDate = toggle.indexOf(date)
-          if(matchingDates){
-            toggle.splice(removeDate, 1)
-          }
-        }
-        toggle.push({
-          date: currentDate,
-          available: false
-        })
-        var makeUnavailable = dates.indexOf(booking);
-        dates.splice(makeUnavailable, 1);
+        booking.status = "delete";
         return dates;
-      }else if ( matchingDates ){
-        return dates
       }
     }
     const available = {
       date: currentDate,
       name: "",
-      guests: null
+      guests: null,
     }
-    for ( let dates of toggle ){
-      let matchingDates = currentDate === dates.date;
-      var removeDate = toggle.indexOf(dates)
-      if(matchingDates){
-        toggle.splice(removeDate, 1)
-      }
-    }
-    toggle.push({
-      date: currentDate,
-      available: true
-    })
-    console.log(toggle)
     dates.push(available)
     return dates;
   }
@@ -200,8 +164,6 @@ class Reservations extends Component {
 
   displayDropDown = () => {
     switch (this.state.version){
-      case "toggle":
-        return this.viewToggleDates()
       case "booked":
         return this.viewBookedDetails()
       default:
@@ -209,7 +171,6 @@ class Reservations extends Component {
     }
   }
   render(){
-    console.log(this.state)
     return(
       <div className="topMargin">
         <h2 className="ui header horizontal divider container">Reservations</h2>
@@ -219,29 +180,30 @@ class Reservations extends Component {
           }}
           tileClassName={(date) => this.displayDates(this.state.dates, date.date)}
           />
-          <table className="ui collapsing table unstackable topMargin" id="details">
-            <thead>
-              <tr>
-                <th>Color</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Teal</td>
-                <td>Available</td>
-              </tr>
-              <tr>
-                <td>Red</td>
-                <td>Booked</td>
-              </tr>
-              <tr>
-                <td>White</td>
-                <td>Unavailable</td>
-              </tr>
-            </tbody>
-          </table>
+          <div className="center">
+            <div className="ui horizontal list center-aligned topMargin">
+              <div className="item center">
+                <div className="content legend" id="booked">
+                </div>
+                <span>Booked</span>
+              </div>
+              <div className="item center">
+                <div className="content legend" id="available">
+                </div>
+                <span>Available</span>
+              </div>
+              <div className="item center">
+                <div className="content legend" id="unavailable">
+                </div>
+                <span>Unavailable</span>
+              </div>
+          </div>
           {this.displayDropDown(this.state.currentDate, this.state.dates)}
+          <div className="center">
+            <button className="ui primary button center" onClick = {this.handleConfirmButtonClicked}>Confirm</button>
+            <button className="ui negative red button center" onClick = {this.handleClearButtonClicked}>Clear</button>
+          </div>
+      </div>
       </div>
       
     )
