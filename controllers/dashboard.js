@@ -13,11 +13,15 @@ exports.getDashboard = async (req, res) => {
     // HOST: get dates and experience id
     let prepared = `SELECT d.id AS date_id, 
                     d.date, 
+                    d.guests,
                     CONCAT(e.activity, " with a ", e.occupation) AS title,
-                    e.id AS experience_id
+                    e.id AS experience_id,
+                    CONCAT(u.firstname, " ", u.lastname) AS name
                     FROM dates AS d
                     LEFT JOIN experiences AS e
                     ON d.experience_id = e.id
+                    LEFT JOIN users AS u
+                    ON d.user_id = u.id
                     WHERE e.host_id = 1
                     AND d.guests > 0
                     ORDER BY d.date ASC`;
@@ -48,15 +52,15 @@ exports.getDashboard = async (req, res) => {
 
     // USER: get dates and experience id
     prepared = `SELECT d.id AS date_id, 
-                    d.date, 
-                    d.guests,
-                    e.id AS experience_id,
-                    CONCAT(e.activity, " with a ", e.occupation) AS title
-                    FROM dates AS d
-                    LEFT JOIN experiences AS e
-                    ON d.experience_id = e.id
-                    WHERE d.user_id = 1
-                    ORDER BY d.date ASC`;
+                d.date, 
+                d.guests,
+                e.id AS experience_id,
+                CONCAT(e.activity, " with a ", e.occupation) AS title
+                FROM dates AS d
+                LEFT JOIN experiences AS e
+                ON d.experience_id = e.id
+                WHERE d.user_id = ?
+                ORDER BY d.date ASC`;
     query = mysql.format(prepared, inserts);
     result.user.dates = await db.query(query);
 
