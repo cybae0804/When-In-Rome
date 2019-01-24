@@ -9,50 +9,50 @@ class Reservations extends Component {
     this.state = {
       currentDate: "",
       version: "",
-      // originalDates: [
-      //   {
-      //     date: '2019-0-24',
-      //     name: "jimbob",
-      //     guests: 3,
-      //   },
-      //   {
-      //     date: '2019-0-27',
-      //     name: "Joebob",
-      //     guests: 2,
-      //   },
-      //   {
-      //     date: '2019-0-23',
-      //     name: '',
-      //     guests: null,
-      //   },
-      //   {
-      //     date: '2019-0-26',
-      //     name: '',
-      //     guests: null,
-      //   }
-      // ],
-      // dates: [
-      //   {
-      //     date: '2019-0-24',
-      //     name: "jimbob",
-      //     guests: 3,
-      //   },
-      //   {
-      //     date: '2019-0-27',
-      //     name: "Joebob",
-      //     guests: 2,
-      //   },
-      //   {
-      //     date: '2019-0-23',
-      //     name: '',
-      //     guests: null,
-      //   },
-      //   {
-      //     date: '2019-0-26',
-      //     name: '',
-      //     guests: null,
-      //   }
-      // ] 
+      originalDates: [
+        {
+          date: '2019-0-24',
+          name: "jimbob",
+          guests: 3,
+        },
+        {
+          date: '2019-0-27',
+          name: "Joebob",
+          guests: 2,
+        },
+        {
+          date: '2019-0-23',
+          name: '',
+          guests: null,
+        },
+        {
+          date: '2019-0-26',
+          name: '',
+          guests: null,
+        }
+      ],
+      dates: [
+        {
+          date: '2019-0-24',
+          name: "jimbob",
+          guests: 3,
+        },
+        {
+          date: '2019-0-27',
+          name: "Joebob",
+          guests: 2,
+        },
+        {
+          date: '2019-0-23',
+          name: '',
+          guests: null,
+        },
+        {
+          date: '2019-0-26',
+          name: '',
+          guests: null,
+        }
+      ] 
     }
   } 
 
