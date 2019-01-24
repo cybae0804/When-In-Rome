@@ -3,51 +3,75 @@ const mysql = require('mysql');
 
 exports.getAll = async (req, res) => {
   try {
-    let { cityjob, dateStart, dateEnd, priceMin, priceMax, guests } = req.query;
+    let { cityjob, dateStart, dateEnd, priceMin, priceMax, guests, by, desc } = req.query;
 
     guests = isFinite(guests) ? Math.abs(parseInt(guests)) : 0;
     cityjob = cityjob ? cityjob : '';
 
     const inserts = [guests, cityjob, cityjob, cityjob];
     let narrowDownQuery = '';
+    let orderByQuery = '';
 
-    if (dateStart){
+    if (dateStart) {
       inserts.push(dateStart);
       narrowDownQuery += ' AND d.date > ?';
     }
 
-    if (dateEnd){
+    if (dateEnd) {
       inserts.push(dateEnd);
       narrowDownQuery += ' AND d.date < ?';
     }
 
-    if (priceMin){
+    if (priceMin) {
       inserts.push(priceMin);
-      narrowDownQuery += ` AND e.price > ?`;
+      narrowDownQuery += ` AND er.price > ?`;
     }
     
-    if (priceMax){
+    if (priceMax) {
       inserts.push(priceMax);
-      narrowDownQuery += ` AND e.price < ?`;
+      narrowDownQuery += ` AND er.price < ?`;
     }
-    const prepared = `SELECT e.*, 
-                      COUNT(r.rating) AS total_ratings, 
-                      AVG(r.rating) AS average_rating
-                      FROM experiences AS e
-                      LEFT JOIN reviews AS r
-                      ON e.id = r.experience_id
+
+    if (by) {
+      switch(by){
+        case 'rating':
+          orderByQuery += 'ORDER BY er.average_rating';
+          break;
+        case 'price':
+          orderByQuery += 'ORDER BY er.price';
+          break;
+        case 'date':
+          orderByQuery += 'ORDER BY date';
+          break;
+      }
+
+      if (desc === 'true') orderByQuery += ' DESC';
+    }
+
+    const prepared = `SELECT er.*, 
+                      MIN(d.date) AS date
+                      FROM (
+                        SELECT e.*, 
+                        COUNT(r.rating) AS total_ratings, 
+                        AVG(r.rating) AS average_rating
+                        FROM experiences AS e
+                        LEFT JOIN reviews AS r
+                        ON e.id = r.experience_id
+                        GROUP BY e.id
+                      ) AS er
                       LEFT JOIN dates AS d
-                      ON d.experience_id = e.id
-                      WHERE e.guests >= ?
-                      AND (e.activity LIKE CONCAT('%', ?,'%')
-                        OR e.occupation LIKE CONCAT('%', ?,'%')
-                        OR e.city LIKE CONCAT('%', ?,'%'))
+                      ON d.experience_id = er.id
+                      WHERE er.guests >= ?
+                      AND (activity LIKE CONCAT('%', ?,'%')
+                        OR occupation LIKE CONCAT('%', ?,'%')
+                        OR city LIKE CONCAT('%', ?,'%'))
                       ${narrowDownQuery}
-                      GROUP BY e.id`;
-                      
+                      GROUP BY er.id
+                      ${orderByQuery}`;
+
     const query = mysql.format(prepared, inserts);
     const experiences = await db.query(query);
-
+    
     res.send({
       success: true,
       experiences,
@@ -88,6 +112,12 @@ exports.getOne = async (req, res) => {
     query = mysql.format(prepared, inserts);
     experience.reviews = await db.query(query);
 
+    prepared = `SELECT imagePath 
+                FROM images
+                WHERE experience_id = ?`
+    query = mysql.format(prepared, inserts);
+    experience.images = await db.query(query);
+
     if (!experience) {
       throw new Error('No experience with provided experience_id');
     }
@@ -101,16 +131,36 @@ exports.getOne = async (req, res) => {
   }
 };
 
+exports.getCreated = async (req, res) => {
+  const { user_id } = req.body;
+
+  try {
+    const prepared = `SELECT activity, occupation, id
+                       FROM experiences AS 
+                       WHERE host_id = ?`;
+    const inserts = [user_id];
+    const query = mysql.format(prepared, inserts);
+    const experiences = await db.query(query);
+
+    res.send({
+      success: true,
+      experiences,
+    })
+  } catch(err) {
+    res.status(422).send('Error getting created experiences');
+  }
+};
+
 exports.post = async (req, res) => {
   try {
-    const fields = { activity, occupation, city, country, price, 
-                     guests, host, host_info, activity_info, imagePath} = req.body;
+    const { activity, occupation, city, country, price, guests, host_info, activity_info, imagePath} = req.body;
+    const { id: host_id } = req.user;
     const prepared = `INSERT INTO experiences (activity, occupation, city, country, price,
-                                               guests, host, host_info, activity_info, imagePath)
+                                               guests, host_info, activity_info, imagePath, host_id)
                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-    const inserts = [...Object.values(fields)];
+    const inserts = [activity, occupation, city, country, price, guests, host_info, activity_info, imagePath, host_id];
     const query = mysql.format(prepared, inserts);
-
+    
     await db.query(query);
 
     res.send({
@@ -124,28 +174,29 @@ exports.post = async (req, res) => {
 
 exports.put = async (req, res) => {
   try {
-    const fields = { activity, occupation, city, country, price, 
-                     guests, date, host, host_info, activity_info } = req.body;
-    fields.id = req.params.experience_id;
+    const { activity, occupation, city, country, price, guests, host_info, activity_info } = req.body;
+    const { id: host_id } = req.user;
+    const { experience_id } = req.params;
     const prepared = `UPDATE experiences SET activity = ?,
                                               occupation = ?,
                                               city = ?,
                                               country = ?,
                                               price = ?,
                                               guests = ?,
-                                              date = ?,
-                                              host = ?,
                                               host_info = ?,
                                               activity_info = ?
-                                              WHERE id = ?`;
-    const inserts = [...Object.values(fields)];
+                                              WHERE id = ?
+                                              AND host_id = ?`;
+    const inserts = [activity, occupation, city, country, price, guests, host_info, activity_info, experience_id, host_id];
     const query = mysql.format(prepared, inserts);
 
     await db.query(query);
+    
     res.send({
       success: true,
     });
   } catch (err) {
+    console.log(err);
     res.status(422).send('Error putting experience');
   }
 };
@@ -153,12 +204,15 @@ exports.put = async (req, res) => {
 exports.delete = async (req, res) => {
   try {
     const { experience_id } = req.params;
-    const inserts = [ experience_id ];
+    const { id: host_id } = req.user;
+    const inserts = [experience_id, host_id];
     const prepared = `DELETE FROM experiences 
-                      WHERE experiences.id = ?`;
+                      WHERE experiences.id = ?
+                      AND host_id = ?`;
     const query = mysql.format(prepared, inserts);
 
     await db.query(query);
+    
     res.send({
       success: true,
     });

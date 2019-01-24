@@ -21,7 +21,7 @@ class ExperiencePreviewContainer extends Component {
     const headingText = heading ? <h2>{heading}</h2> : '';
     const experienceList = this.props.experiences.map(experience => {
       const { id } = experience;
-
+      
       return (
         <ExperiencePreview
           key={id}
@@ -31,6 +31,10 @@ class ExperiencePreviewContainer extends Component {
       );
     });
 
+    const noResult = (<div className='ui container center aligned noResult'>
+      <h3>No matching result... :(</h3>
+    </div>);
+
     return (
       <div className="experience-preview-container ui container">
         <div className="experience-preview-container-header">
@@ -39,6 +43,7 @@ class ExperiencePreviewContainer extends Component {
         <div className="experience-previews">
           {experienceList}
         </div>
+        {experienceList.length ? null : noResult}
       </div>
     );
   }

@@ -17,6 +17,7 @@ const DEFAULT_STATE = {
     reviews: '', 
     average_rating: '', 
     total_ratings: '',
+    images: [],
   },
   experiences: [],
 };

@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-import Calendar from '../../calendar/calendar';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import './search.css';
 import { queryString } from '../../../../helper';
 import { getExperiences } from '../../../../actions/index';
+
+// components 
+import Default from './default_version';
+import Landing from './landing_version';
+import SearchV from './search_version';
 
 class Search extends Component {
   constructor(props) {
@@ -14,6 +18,7 @@ class Search extends Component {
       filterOpen: false,
       dateOpen: false,
       sortOpen: false,
+      calendarValue: null,
       form: {
         cityjob: '',
         dateStart: '',
@@ -34,6 +39,7 @@ class Search extends Component {
     }
   }
 
+  //when navigating between pages, the search query persists
   componentDidMount = () => {
     this.setState({
       form: {
@@ -43,6 +49,25 @@ class Search extends Component {
     });
   }
 
+  //calls the search api and updates the url accordingly.
+  updateUrl = () => {
+    if (this.inputValidation()){
+      const { form } = this.state;
+      let narrowDownQuery = '?';
+
+      for (let field in form){
+        if (form[field]) narrowDownQuery += `${field}=${form[field]}&`
+      }
+
+      const l = narrowDownQuery.length-1;
+      if (narrowDownQuery[l] === '&') narrowDownQuery = narrowDownQuery.substring(0, l);
+
+      this.props.history.replace(`/search${narrowDownQuery}`);
+      this.props.getExperiences(queryString(narrowDownQuery));
+    }
+  }
+
+  //main form input handler
   changeHandler = e => {
     this.setState({
       form: {
@@ -52,11 +77,13 @@ class Search extends Component {
     });
   }
 
+  //calls update url with current input
   submitBtnHandler = e => {
     e.preventDefault();
     this.updateUrl();    
   }
 
+  //updates filter dropdown values
   filterChangeHandler = e => {
     this.setState({
       pre: {
@@ -66,6 +93,7 @@ class Search extends Component {
     });
   }
 
+  //closes other dropdowns and opens dropdown menu
   filterBtnHandler = e => {
     this.setState({
       filterOpen: true,
@@ -74,6 +102,7 @@ class Search extends Component {
     });
   }
 
+  //used in search page search component to confirm filter options
   applyBtnHandler = e => {
     this.setState({
       filterOpen: false,
@@ -84,6 +113,7 @@ class Search extends Component {
     }, this.updateUrl);
   }
 
+  //clears pre state, and closes the filter menu
   cancelBtnHandler = e => {
     this.setState({
       filterOpen: false,
@@ -94,9 +124,10 @@ class Search extends Component {
         priceMin: 0,
         priceMax: 0
       }
-    });
+    }, this.clearBtnHandler);
   }
 
+  //toggles sort dropdown menu
   sortBtnHandler = e => {
     this.setState({
       sortOpen: !this.state.sortOpen,
@@ -105,6 +136,7 @@ class Search extends Component {
     });
   }
 
+  //depending on the current state of sort, changes arrows
   sortItemHandler = name => {
     if (name === this.state.form.by){
       this.setState({
@@ -126,6 +158,7 @@ class Search extends Component {
     }
   }
 
+  //closes calendar dropdown, and updates the form
   confirmBtnHandler = e => {
     this.setState({
       dateOpen: false,
@@ -137,6 +170,7 @@ class Search extends Component {
     });
   }
 
+  //extracts calendar select range
   calendarChangeHandler = range => {
     const [dateStart, dateEnd] = range.map( date => `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`);
     this.setState({
@@ -151,248 +185,76 @@ class Search extends Component {
     return true;
   }
 
-  updateUrl = () => {
-    if (this.inputValidation()){
-      const { form } = this.state;
-      let narrowDownQuery = '?';
-
-      for (let field in form){
-        if (form[field]) narrowDownQuery += `${field}=${form[field]}&`
-      }
-
-      const l = narrowDownQuery.length-1;
-      if (narrowDownQuery[l] === '&') narrowDownQuery = narrowDownQuery.substring(0, l);
-
-      this.props.history.push(`/search${narrowDownQuery}`);
-      this.props.getExperiences(queryString(narrowDownQuery));
-    }
+  //clears calendar selection and the input field. 
+  clearBtnHandler = () => {
+    this.setState({
+      calendarValue: new Date(),
+      form: {
+        ...this.state.form, 
+        dateStart: null,
+        dateEnd: null
+      },
+      pre: {
+        ...this.state.pre,
+        dateStart: null,
+        dateEnd: null
+      },
+    }, () => {
+      this.setState({
+        calendarValue: null
+      });
+    });
   }
-
-  search = () => (
-    <form id='search' className='ui form posRelative' onSubmit={this.submitBtnHandler}>
-      <div className="ui fluid left icon input" onSubmit={this.submitBtnHandler}>
-        <i className="search link icon"/>
-        <input 
-          type="text" 
-          name="cityjob" 
-          placeholder="Osaka, Japan" 
-          onChange={this.changeHandler} 
-          value={this.state.form.cityjob}
-        />
-      </div>
-      <div className={this.state.filterOpen ? 'dispNone' : 'topMargin4px'}>
-        <button type='button' className="ui positive button filterButton" onClick={this.filterBtnHandler}>Filter</button>
-        <button type='button' className="ui positive button sortButton" onClick={this.sortBtnHandler}>
-          {this.state.form.by === null ? 'Sort by...' : 
-          this.state.form.desc ? <div>Sorting by {this.state.form.by} <i className="arrow down icon"></i></div> :
-          <div>Sorting by {this.state.form.by} <i className="arrow up icon"></i></div>}
-        </button>
-        <div className={`sortDrop shadow ${this.state.sortOpen ? '' : ' dispNone'}`}>
-          <div className="space12px"></div>
-          <button 
-            type='button' 
-            className="ui fluid button dropButton" 
-            onClick={() => {this.sortItemHandler('price')}}
-          ><span className='marginRight7px'>Price</span>{this.state.form.by === 'price' && !this.state.form.desc ? <i className="arrow down icon"/> : <i className="arrow up icon"/>}</button>
-          <div className="space12px divider ui"></div>
-          <button 
-            type='button' 
-            className="ui fluid button dropButton"
-            onClick={(e) => {this.sortItemHandler('rating')}}
-          ><span className='marginRight5px'>Rating</span> {this.state.form.by === 'rating' && !this.state.form.desc ? <i className="arrow down icon"/> : <i className="arrow up icon"/>}</button>
-          <div className="space12px divider ui"></div>
-          <button
-            type='button' 
-            className="ui fluid button dropButton" 
-            onClick={() => {this.sortItemHandler('date')}}
-          ><span className='marginRight5px'>Date</span> {this.state.form.by === 'date' && !this.state.form.desc ? <i className="arrow down icon"/> : <i className="arrow up icon"/>}</button>
-          <div className="space12px"></div>
-        </div>
-      </div>
-      <div className={this.state.filterOpen ? 'topMargin4px' : 'dispNone'}>
-        <button 
-          type='button' 
-          className="ui positive button filterButton" 
-          onClick={this.applyBtnHandler}
-        >
-          <i className="chevron up icon"></i>
-        </button>
-        <button 
-          type='button' 
-          className="ui button sortButton" 
-          onClick={this.cancelBtnHandler}
-        >Cancel</button>
-      </div>
-      <div className={`filterDrop ${this.state.filterOpen ? '' : 'dispNone'}`}>
-        <div className='two fields'>
-          <div className="field small" id="overrideColumns">
-            <label>Group Size</label>
-            <input 
-              type="text" 
-              name="guests" 
-              placeholder='Number of Guests' 
-              onChange={this.filterChangeHandler} 
-            />
-          </div>
-          <div className="field small" id="overrideColumns">
-            <label>Price</label>
-            <div className="two fields">
-              <div className="field small" id="overrideColumns">
-                <input 
-                  type="text" 
-                  placeholder='Min' 
-                  name='priceMin' 
-                  onChange={this.filterChangeHandler} 
-                />
-              </div>
-              <div className="field small" id="overrideColumns">
-                <input 
-                  type="text" 
-                  placeholder='Max' 
-                  name='priceMax' 
-                  onChange={this.filterChangeHandler} 
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="field">
-          <label>Dates</label>
-          <input readOnly 
-            className = 'widthAdjust marginRight14px'
-            type="text" 
-            name="date" 
-            placeholder="mm/dd/yyyy" 
-            onFocus={() => {this.setState({dateOpen: true})}}
-            value={ this.state.pre.dateStart && this.state.pre.dateEnd ? `${this.state.pre.dateStart} to ${this.state.pre.dateEnd}` : ''}
-          />
-          <button 
-              type='button' 
-              className='ui button '
-              onClick={() => {
-                this.setState({
-                  form: {
-                    ...this.state.form, 
-                    dateStart: null,
-                    dateEnd: null
-                  },
-                  pre: {
-                    ...this.state.pre,
-                    dateStart: null,
-                    dateEnd: null
-                  }
-              })}}
-            >Clear</button>
-          <div className={this.state.dateOpen ? '' : 'dispNone'}>
-            <Calendar
-              selectRange 
-              returnValue="range" 
-              onChange={this.calendarChangeHandler}
-            />
-          </div>
-        </div>
-      </div>
-      <input type="submit" className='dispNone'/>
-    </form>
-  );
-
-  landing = () => (
-    <form className="ui form" onSubmit={this.submitBtnHandler}>
-      <div className="field">
-        <label>City or Job</label>
-        <input 
-          type="text" 
-          name="cityjob" 
-          placeholder="Tokyo, Japan" 
-          onChange={this.changeHandler} 
-          value={this.state.form.cityjob}
-        />
-      </div>
-      <div className='two fields'>
-        <div className="field small" id="overrideColumns">
-          <label>Dates</label>
-          <input readOnly 
-            type="text" 
-            name="date" 
-            placeholder="mm/dd/yyyy" 
-            onChange={this.changeHandler}
-            onFocus={() => {this.setState({dateOpen: true})}}
-            value={ this.state.form.dateStart && this.state.form.dateEnd ? `${this.state.form.dateStart} to ${this.state.form.dateEnd}` : ''}
-          />
-        </div>
-        <div className="field small" id="overrideColumns">
-          <label>Guests</label>
-          <input 
-            type="text" 
-            name="guests" 
-            placeholder="5 guests" 
-            onChange={this.changeHandler} 
-            value={this.state.form.guests}
-          />
-        </div>
-      </div>
-      <div className={`field filterDrop ${this.state.dateOpen ? '' : 'dispNone'}`}>
-        <label>Please select a range</label>
-        <Calendar
-          selectRange 
-          returnValue="range" 
-          onChange={this.calendarChangeHandler}
-        />
-        <div className="space12px"></div>
-        <button 
-          type='button' 
-          className='ui button positive'
-          onClick={this.confirmBtnHandler}
-        >Confirm</button>
-        <button 
-          type='button' 
-          className='ui button'
-          onClick={() => {
-            this.setState({
-              form: {
-                ...this.state.form, 
-                dateStart: null,
-                dateEnd: null
-              },
-              pre: {
-                ...this.state.pre,
-                dateStart: null,
-                dateEnd: null
-              }
-          })}}
-        >Clear</button>
-        <button 
-          type='button' 
-          className='ui button'
-          onClick={() => {this.setState({dateOpen: false})}}
-        >Cancel</button>
-        <div className="space24px"></div>
-      </div>
-      <button className="fluid ui button positive" type="submit">Search</button>
-    </form>
-  );
-
-  default = () => (
-    <form id='search' className="ui left icon input" onSubmit={this.submitBtnHandler}>
-      <i className="search link icon" />
-      <input 
-        type="text" 
-        name="cityjob" 
-        placeholder="Osaka, Japan" 
-        onChange={this.changeHandler} 
-        value={this.state.form.cityjob}
-      />
-    </form>
-  );
 
   render() {
     switch(this.props.version) {
       case 'landing':
-        return this.landing();
+        return (<Landing 
+          submit={this.submitBtnHandler}
+          change={this.changeHandler}
+          val={this.state.form}
+          
+          confirm={this.confirmBtnHandler}
+          clear={this.clearBtnHandler}
+          open={() => {this.setState({dateOpen: true})}}
+          close={() => {this.setState({dateOpen: false})}}
+          
+          dateOpen={this.state.dateOpen}
+          calVal={this.state.calendarValue}
+          calChange={this.calendarChangeHandler}
+        />);
+
       case 'search':
-        return this.search();
+        return (<SearchV 
+          submit={this.submitBtnHandler}
+          change={this.changeHandler}
+          val={this.state.form}
+          pre={this.state.pre}
+
+          filter={this.filterBtnHandler}
+          filterOpen={this.state.filterOpen}
+          filterChange={this.filterChangeHandler}
+
+          sort={this.sortBtnHandler}
+          sortOpen={this.state.sortOpen}
+          sortItemHandler={this.sortItemHandler}
+
+          apply={this.applyBtnHandler}
+          clear={this.clearBtnHandler}
+          cancel={this.cancelBtnHandler}
+
+          dateOpen={this.state.dateOpen}
+          openDate={() => {this.setState({dateOpen: true})}}
+          calVal={this.state.calendarValue}
+          calChange={this.calendarChangeHandler}
+        />);
+
       default:
-        return this.default();
+        return (<Default
+          submit={this.submitBtnHandler}
+          change={this.changeHandler}
+          val={this.state.form.cityjob}
+        />);
     }
   }
 }

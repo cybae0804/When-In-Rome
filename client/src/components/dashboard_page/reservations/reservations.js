@@ -172,7 +172,7 @@ class Reservations extends Component {
   }
   render(){
     return(
-      <div className="topMargin">
+      <div className="topMargin24px">
         <h2 className="ui header horizontal divider container">Reservations</h2>
         <Calendar 
           onChange={ (date) => {

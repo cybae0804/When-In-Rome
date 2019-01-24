@@ -25,7 +25,7 @@ class App extends Component {
         <Route path={'/experience/:experience_id'} component={ExperiencePage} />
         <Route path={'/dashboard'} component={DashboardPage}/>
         <Route path={'/create_experience'} render={() => <ExperienceFormPage title="Host Experience" />} />
-        <Route path={'/edit_experience/:experience_id'} render={() => <ExperienceFormPage title="Edit Experience" />} />
+        <Route path={'/edit_experience/:experience_id'} render={() => <ExperienceFormPage title="Edit Experience" noImage />} />
       </div>
     );
   }

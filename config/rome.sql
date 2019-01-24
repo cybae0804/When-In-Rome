@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
--- https://www.phpmyadmin.net/
+-- version 4.4.15.5
+-- http://www.phpmyadmin.net
 --
--- Host: localhost:3306
--- Generation Time: Jan 18, 2019 at 10:43 PM
+-- Host: 127.0.0.1:3306
+-- Generation Time: Jan 21, 2019 at 12:11 AM
 -- Server version: 5.6.34-log
--- PHP Version: 7.2.1
+-- PHP Version: 7.0.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -32,13 +30,13 @@ USE `rome`;
 -- Table structure for table `dates`
 --
 
-CREATE TABLE `dates` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `experience_id` int(10) UNSIGNED NOT NULL,
-  `user_id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `dates` (
+  `id` int(10) unsigned NOT NULL,
+  `experience_id` int(10) unsigned NOT NULL,
+  `user_id` int(10) unsigned NOT NULL,
   `date` date NOT NULL,
-  `guests` int(2) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `guests` int(2) unsigned NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `dates`
@@ -62,19 +60,19 @@ INSERT INTO `dates` (`id`, `experience_id`, `user_id`, `date`, `guests`) VALUES
 -- Table structure for table `experiences`
 --
 
-CREATE TABLE `experiences` (
-  `id` int(11) UNSIGNED NOT NULL,
-  `activity` varchar(50) CHARACTER SET ucs2 COLLATE ucs2_unicode_ci NOT NULL,
-  `occupation` varchar(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `city` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `country` varchar(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `price` int(5) UNSIGNED NOT NULL,
-  `guests` int(3) UNSIGNED NOT NULL,
-  `host_id` int(11) UNSIGNED NOT NULL,
-  `host_info` varchar(300) CHARACTER SET utf32 COLLATE utf32_unicode_ci NOT NULL,
-  `activity_info` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+CREATE TABLE IF NOT EXISTS `experiences` (
+  `id` int(11) unsigned NOT NULL,
+  `activity` varchar(50) NOT NULL,
+  `occupation` varchar(30) NOT NULL,
+  `city` varchar(30) NOT NULL,
+  `country` varchar(30) NOT NULL,
+  `price` int(5) unsigned NOT NULL,
+  `guests` int(3) unsigned NOT NULL,
+  `host_id` int(11) unsigned NOT NULL,
+  `host_info` varchar(300) NOT NULL,
+  `activity_info` varchar(500) NOT NULL,
   `imagePath` varchar(70) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `experiences`
@@ -93,14 +91,14 @@ INSERT INTO `experiences` (`id`, `activity`, `occupation`, `city`, `country`, `p
 -- Table structure for table `reviews`
 --
 
-CREATE TABLE `reviews` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `experience_id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `reviews` (
+  `id` int(10) unsigned NOT NULL,
+  `experience_id` int(10) unsigned NOT NULL,
   `user_id` int(11) NOT NULL,
   `date` date NOT NULL,
-  `rating` int(1) UNSIGNED NOT NULL,
+  `rating` int(1) unsigned NOT NULL,
   `description` varchar(600) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `reviews`
@@ -111,7 +109,7 @@ INSERT INTO `reviews` (`id`, `experience_id`, `user_id`, `date`, `rating`, `desc
 (2, 1, 4, '2018-12-24', 5, 'First off, let me preface by saying that I love fishing.  However, commercial fishing is a whole other ballgame.  Sakuragi is a master at his craft-he has to be, considering this is his livelihood.  Great experience, I would highly recommend it to anyone who wants to know more about commercial fishing and the seafood industry in Japan'),
 (3, 2, 3, '2018-12-24', 3, 'The Burnett Ranch offered me an authentic experience working as a ranch hand.  It is not glamorous and it is not easy but overall, I learned a lot from my time here and enjoyed the experience.'),
 (4, 2, 2, '2018-12-24', 5, 'What an incredible look into life on a real cattle ranch.  So much blood, sweat and tears goes into this job in order to make things run smoothly on the ranch.  It was back-breaking work but so worth it in order to experience life as a Ranch Hand'),
-(5, 3, 1, '2018-12-24', 3, 'Patrick is a very intense guy, as I\'m sure is necessary for this type of fast-paced stressful work.  I had sensory overload out of the floor of the stock exchange.  It was so loud and chaotic it was hard to really understand everything that was going on.  The authenticity was there, however, I really did not know what was going on most of the time.'),
+(5, 3, 1, '2018-12-24', 3, 'Patrick is a very intense guy, as I''m sure is necessary for this type of fast-paced stressful work.  I had sensory overload out of the floor of the stock exchange.  It was so loud and chaotic it was hard to really understand everything that was going on.  The authenticity was there, however, I really did not know what was going on most of the time.'),
 (6, 3, 2, '2018-12-24', 4, 'Life as a broker on the floor of the NYSE is definitely not as glamorous as Hollywood makes it out to be. I had a great time with Patrick and learned a lot from my time with him.'),
 (7, 4, 3, '2018-12-24', 5, 'I had a great time with Jiro, he has a great sense of humor and was very patient with me as I attempted to make sushi rice and prepare different sushi ingredients.  The best part of the experience was watching him work, he truly is a master sushi chef.'),
 (8, 4, 2, '2018-12-24', 5, 'Jiro is a revelation.  As many other reviewers have stated.  Watching him work is the best part of the experience.  Of course I had a good time making sushi rice and trying to prepare ingredients to his specifications, but the best part of the experience was certainly watching him work.'),
@@ -124,19 +122,19 @@ INSERT INTO `reviews` (`id`, `experience_id`, `user_id`, `date`, `rating`, `desc
 -- Table structure for table `users`
 --
 
-CREATE TABLE `users` (
-  `id` int(11) UNSIGNED NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `password` varchar(70) NOT NULL,
-  `firstname` varchar(50) NOT NULL,
-  `lastname` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) unsigned NOT NULL,
+  `email` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `google_id` varchar(70) CHARACTER SET utf8 NOT NULL,
+  `firstname` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `lastname` varchar(50) CHARACTER SET utf8 NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `password`, `firstname`, `lastname`) VALUES
+INSERT INTO `users` (`id`, `email`, `google_id`, `firstname`, `lastname`) VALUES
 (1, 'Sakuragi @gmail.com', '', 'Sakuragi ', 'Hanamichi'),
 (2, 'Burnett@gmail.com', '', 'Burnett ', 'Ranches'),
 (3, 'Patrick@gmail.com', '', 'Patrick', 'Bateman'),
@@ -181,23 +179,22 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `dates`
 --
 ALTER TABLE `dates`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `experiences`
 --
 ALTER TABLE `experiences`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;COMMIT;
-
+  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

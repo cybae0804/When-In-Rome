@@ -6,6 +6,25 @@ const db = require('../db');
 
 const s3 = new S3({ accessKeyId, secretAccessKey, region });
 
+exports.getImages = async (req, res) => {
+  try {
+    const { experience_id } = req.params;
+    const prepared = `SELECT * 
+                      FROM images
+                      WHERE experience_id = ?`
+    const inserts = [experience_id];
+    const query = mysql.format(prepared, inserts);
+    const images = await db.query(query);
+
+    res.send({
+      success: true,
+      images
+    });
+  } catch(err) {
+    res.status(422).send('Error getting images');
+  }
+}
+
 exports.prepUpload = (req, res) => {
   const { query: { fileType, name } } = req;
 
