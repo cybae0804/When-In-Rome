@@ -6,9 +6,9 @@
   background: teal;
 } 
 
-.calendar .react-calendar__tile--active{
+/* .calendar .react-calendar__tile--active{
   background: lightseagreen
-}
+} */
 
 .calendar .react-calendar__tile{
   border: 0.5px solid lightgrey;
@@ -20,10 +20,6 @@
 }
 .calendar .react-calendar__month-view__days__day--weekend {
   color: black;
-}
-
-.calendar .react-calendar__month-view__days{
-  /* height: 45px; */
 }
 
 .calendar .active{

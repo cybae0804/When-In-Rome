@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
 import Calendar from '../../shared/calendar/calendar';
-import './reservations.css'
+import './reservations.css';
 
 class Reservations extends Component {
 
@@ -9,39 +9,64 @@ class Reservations extends Component {
     this.state = {
       currentDate: "",
       version: "",
-      toggle: [],
-      dates: [
-        {
-          date: '2019-0-20',
-          name: "jimbob",
-          guests: 3
-        },
-        {
-          date: '2019-0-27',
-          name: "Joebob",
-          guests: 2
-        },
-        {
-          date: '2019-0-18',
-          name: '',
-          guests: null
-        },
-        {
-          date: '2019-0-26',
-          name: '',
-          guests: null
-        }
-      ] 
+      // originalDates: [
+      //   {
+      //     date: '2019-0-24',
+      //     name: "jimbob",
+      //     guests: 3,
+      //   },
+      //   {
+      //     date: '2019-0-27',
+      //     name: "Joebob",
+      //     guests: 2,
+      //   },
+      //   {
+      //     date: '2019-0-23',
+      //     name: '',
+      //     guests: null,
+      //   },
+      //   {
+      //     date: '2019-0-26',
+      //     name: '',
+      //     guests: null,
+      //   }
+      // ],
+      // dates: [
+      //   {
+      //     date: '2019-0-24',
+      //     name: "jimbob",
+      //     guests: 3,
+      //   },
+      //   {
+      //     date: '2019-0-27',
+      //     name: "Joebob",
+      //     guests: 2,
+      //   },
+      //   {
+      //     date: '2019-0-23',
+      //     name: '',
+      //     guests: null,
+      //   },
+      //   {
+      //     date: '2019-0-26',
+      //     name: '',
+      //     guests: null,
+      //   }
+      // ] 
     }
   } 
 
   displayDates = (datesArray, date) => {
+  
     const currentDate = this.getDate(date);
     for (let booking of datesArray) {
       let matchingDates = currentDate === booking.date;
       if (matchingDates && booking.name) {
         return "booked";
       } else if (matchingDates) {
+        if(booking.status){
+          return ""
+        }
         return "active";
       }
     }
@@ -56,43 +81,67 @@ class Reservations extends Component {
     const currentDate = this.getDate(date);
     this.setState({
       currentDate
+    }, () => {
+      for (let booking of this.state.dates) {
+        var version = ""
+        let matchingDates = currentDate === booking.date;
+        if (matchingDates && booking.name){
+          version = "booked"
+          break;
+        }
+      }
+      var dates = this.toggleAvailableCalendar();
+
+      this.setState({
+        version,
+        dates
+      })  
     })
-    for (let booking of this.state.dates) {
-      var version = ""
+  }
+
+
+  handleConfirmButtonClicked = () => {
+    const {dates} = this.state
+    this.setState({
+      dates,
+      version: ""
+    })
+  }
+
+  handleClearButtonClicked = () => {
+    const {originalDates} = this.state;
+    const clearDates = originalDates.slice()
+    this.setState({
+      dates: clearDates,
+      version: ""
+    })
+  }
+
+  toggleAvailableCalendar = () => {
+    const {dates, currentDate } = this.state;
+    for (let booking of dates) {
       let matchingDates = currentDate === booking.date;
-      if (matchingDates && booking.name){
-        version = "booked"
-        break;
-      }else{
-        version = "toggle"
+      if(matchingDates && !booking.name) {
+        booking.status = "delete";
+        return dates;
       }
     }
-    this.setState({
-      version
-    })
+    const available = {
+      date: currentDate,
+      name: "",
+      guests: null,
+    }
+    dates.push(available)
+    return dates;
   }
 
-  toggleActive = () => {
-    return(
-      <div id="toggle">
-        <button className="ui primary button topMargin">
-          Make (Un)Available
-        </button>
-      </div>
-    )
-  }
-
-  handleClickAvailable = () => {
-    console.log(this.state.toggle)
-  }
-
-  viewDetails = () => {
+  viewBookedDetails = () => {
     const {currentDate, dates} = this.state
     for (let booking of dates) {
       let matchingDates = currentDate === booking.date;
       if (matchingDates && booking.name){
         return(
-          <table className="ui collapsing table topMargin" id="details">
+          <table className="ui collapsing unstackable table" id="details">
             <thead>
               <tr>
                 <th>Date</th>
@@ -115,30 +164,46 @@ class Reservations extends Component {
 
   displayDropDown = () => {
     switch (this.state.version){
-      case "toggle":
-        return this.toggleActive()
       case "booked":
-        return this.viewDetails()
+        return this.viewBookedDetails()
       default:
         return ""
     }
   }
   render(){
-    console.log(this.props);
-
     return(
       <div className="topMargin24px">
         <h2 className="ui header horizontal divider container">Reservations</h2>
         <Calendar 
-          onChange={(date) => {
-            console.log(this.getDate(date));
-            this.handleDateClicked(date)
+          onChange={ (date) => {
+            this.handleDateClicked(date);
           }}
           tileClassName={(date) => this.displayDates(this.state.dates, date.date)}
           />
-          {/* {this.viewDetails(this.state.dates[0])} */}
-          {/* {this.toggleActive()} */}
+          <div className="center">
+            <div className="ui horizontal list center-aligned topMargin">
+              <div className="item center">
+                <div className="content legend" id="booked">
+                </div>
+                <span>Booked</span>
+              </div>
+              <div className="item center">
+                <div className="content legend" id="available">
+                </div>
+                <span>Available</span>
+              </div>
+              <div className="item center">
+                <div className="content legend" id="unavailable">
+                </div>
+                <span>Unavailable</span>
+              </div>
+          </div>
           {this.displayDropDown(this.state.currentDate, this.state.dates)}
+          <div className="center">
+            <button className="ui primary button center" onClick = {this.handleConfirmButtonClicked}>Confirm</button>
+            <button className="ui negative red button center" onClick = {this.handleClearButtonClicked}>Clear</button>
+          </div>
+      </div>
       </div>
       
     )
