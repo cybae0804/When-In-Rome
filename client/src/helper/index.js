@@ -15,3 +15,13 @@ export function getCookieValue(a) {
   var b = document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
   return b ? b.pop() : '';
 }
+
+// credit: https://stackoverflow.com/a/1349426
+export function keygen(len = 15) {
+  let text = "";
+  const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+  for (let i = 0; i < len; i++) text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+  return text;
+}

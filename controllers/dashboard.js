@@ -65,7 +65,6 @@ exports.getDashboard = async (req, res) => {
       result,
     })
   } catch (err) {
-    console.log(err)
     res.status(422).send('Error getting dashboard');
   }
 };

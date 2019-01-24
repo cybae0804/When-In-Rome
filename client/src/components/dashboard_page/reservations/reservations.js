@@ -124,9 +124,10 @@ class Reservations extends Component {
     }
   }
   render(){
-    console.log(this.state);
+    console.log(this.props);
+
     return(
-      <div className="topMargin">
+      <div className="topMargin24px">
         <h2 className="ui header horizontal divider container">Reservations</h2>
         <Calendar 
           onChange={(date) => {
