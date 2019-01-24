@@ -22,7 +22,7 @@ export default props => {
   
   return (
     <div className="experience-preview">
-      <div className="image">
+      <div className="image smallBottomMargin">
         <Link to={"/experience/" + id}>
           <div className='experience-preview-item' style={{'backgroundImage': `url(${image_url})` }}></div>
         </Link>

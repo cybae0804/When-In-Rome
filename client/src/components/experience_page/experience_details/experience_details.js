@@ -100,7 +100,7 @@ class ExperienceDetails extends Component {
       <div>
         <Carousel images={images}/>
         <div className="ui container bottomMargin">
-          <h1 className="detailsHeading-1 center bottomMargin20px">{title}</h1>
+          <h1 className="detailsHeading-1 center bottomMargin30px">{title}</h1>
           <div className="overview ui relaxed list container">
             <div className="item">
               <i className="icon map marker alternate large" id="detailsIcon"></i>
