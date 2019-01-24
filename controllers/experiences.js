@@ -97,7 +97,8 @@ exports.getOne = async (req, res) => {
       throw new Error('experience_id missing');
     }
 
-    let prepared = `SELECT e.*, u.firstname AS host,
+    let prepared = `SELECT e.*, 
+                    u.firstname AS host,
                     COUNT(r.rating) AS total_ratings, 
                     AVG(r.rating) AS average_rating
                     FROM experiences AS e
@@ -111,7 +112,11 @@ exports.getOne = async (req, res) => {
     let query = mysql.format(prepared, inserts);
     const [experience] = await db.query(query);
 
-    prepared = `SELECT r.id, date, rating, description, u.firstname AS reviewer
+    prepared = `SELECT r.id, 
+                date, 
+                rating, 
+                description, 
+                u.firstname AS reviewer
                 FROM reviews AS r
                 LEFT JOIN users AS u
                 ON r.user_id = u.id
@@ -160,16 +165,24 @@ exports.getCreated = async (req, res) => {
 
 exports.post = async (req, res) => {
   try {
-    const { activity, occupation, city, country, price, guests, host_info, activity_info, imagePath} = req.body;
+    const { activity, occupation, city, country, price, guests, host_info, activity_info, imagePath } = req.body;
     const { id: host_id } = req.user;
-    const prepared = `INSERT INTO experiences (activity, occupation, city, country, price,
-                                               guests, host_info, activity_info, imagePath, host_id)
-                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-    const inserts = [activity, occupation, city, country, price, guests, host_info, activity_info, imagePath, host_id];
-    const query = mysql.format(prepared, inserts);
-    
-    await db.query(query);
 
+    let prepared = `INSERT INTO experiences 
+                      (activity, occupation, city, country, price, guests, host_info, activity_info, host_id)
+                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    let inserts = [activity, occupation, city, country, price, guests, host_info, activity_info, host_id];
+    let query = mysql.format(prepared, inserts);
+
+    const { insertId: experience_id } = await db.query(query);
+
+    prepared = `INSERT INTO images (experience_id, imagePath)
+                VALUES (?, ?)`;
+    inserts = [experience_id, imagePath];
+    query = mysql.format(prepared, inserts);
+
+    await db.query(query);
+    
     res.send({
       success: true,
     });
@@ -184,16 +197,17 @@ exports.put = async (req, res) => {
     const { activity, occupation, city, country, price, guests, host_info, activity_info } = req.body;
     const { id: host_id } = req.user;
     const { experience_id } = req.params;
-    const prepared = `UPDATE experiences SET activity = ?,
-                                              occupation = ?,
-                                              city = ?,
-                                              country = ?,
-                                              price = ?,
-                                              guests = ?,
-                                              host_info = ?,
-                                              activity_info = ?
-                                              WHERE id = ?
-                                              AND host_id = ?`;
+    const prepared = `UPDATE experiences 
+                      SET activity = ?,
+                      occupation = ?,
+                      city = ?,
+                      country = ?,
+                      price = ?,
+                      guests = ?,
+                      host_info = ?,
+                      activity_info = ?
+                      WHERE id = ?
+                      AND host_id = ?`;
     const inserts = [activity, occupation, city, country, price, guests, host_info, activity_info, experience_id, host_id];
     const query = mysql.format(prepared, inserts);
 
