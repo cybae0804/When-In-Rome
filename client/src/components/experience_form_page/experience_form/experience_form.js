@@ -121,7 +121,7 @@ class ExperienceForm extends Component {
         {this.props.noImage ? '' : this.renderImageStatus()}
         <div className="spaceBetween">
           <button type="button" className="ui button ">Cancel</button>
-          <button className="ui button positive">Submit</button>
+          <button className="ui button positive noMarginButton">Submit</button>
         </div>
       </form>
     );

@@ -86,8 +86,8 @@ class Carousel extends Component {
             >
               <img key={src} src={src} className="carousel-img center-vertical" />
             </Transition>
-              <i className="huge angle left icon overlay center-vertical white" onClick={this.changeImg.bind(this, 'previous')}></i>
-              <i className="huge angle right icon overlay center-vertical white" onClick={this.changeImg.bind(this, 'next')}></i>
+              <i className="huge angle left leftpush icon overlay center-vertical white" onClick={this.changeImg.bind(this, 'previous')}></i>
+              <i className="huge angle right rightpush icon overlay center-vertical white" onClick={this.changeImg.bind(this, 'next')}></i>
           </div>
         </div>
         <Indicators onClick={this.directToImage.bind(this)} count={images.length} current={currentIndex} />

@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import './history.css';
 
 export default ({ data }) => {
   if (data[0]) {
@@ -17,7 +18,7 @@ export default ({ data }) => {
         <div className="ui middle aligned list container history">
           <div className="item">
             <div className="right floated content">
-              <h4 className="content">${data.earnings ? data.earnings : 0}</h4>
+              <h4 className="content manualWeight">${data.earnings ? data.earnings : 0}</h4>
             </div>
             <div className="content">
               <h4>Total Earnings</h4>
@@ -25,7 +26,7 @@ export default ({ data }) => {
           </div>
           <div className="item">
             <div className="right floated content">
-              <h4 className="content">{data.average_rating ? data.average_rating : 0} out of 5</h4>
+              <h4 className="content manualWeight">{data.average_rating ? data.average_rating : 0} out of 5</h4>
             </div>
             <div className="content">
               <h4>Overall Rating</h4>
@@ -33,7 +34,7 @@ export default ({ data }) => {
           </div>
           <div className="item">
             <div className="right floated content">
-              <h4 className="content">{data.total_ratings ? data.total_ratings : 0}</h4>
+              <h4 className="content manualWeight">{data.total_ratings ? data.total_ratings : 0}</h4>
             </div>
             <div className="content">
               <h4>Total Reviews</h4>
