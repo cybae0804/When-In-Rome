@@ -34,7 +34,8 @@ class Carousel extends Component {
   }
 
   changeImg(nextDirection = 'next') {
-    const { canClick, currentIndex, images: { length }, transitionTime } = this.state;
+    const { canClick, currentIndex, transitionTime } = this.state;
+    const length = this.props.images.length;
     if (!canClick) return;
 
     if (nextDirection !== 'next' && nextDirection !== 'previous') {
@@ -48,7 +49,7 @@ class Carousel extends Component {
     } else if (nextIndex < 0) {
       nextIndex = length - 1;
     }
-
+    
     this.setState({
       currentIndex: nextIndex,
       direction: nextDirection,
@@ -85,8 +86,8 @@ class Carousel extends Component {
             >
               <img key={src} src={src} className="carousel-img center-vertical" />
             </Transition>
-              <i className="huge angle left icon overlay center-vertical" onClick={this.changeImg.bind(this, 'previous')}></i>
-              <i className="huge angle right icon overlay center-vertical" onClick={this.changeImg.bind(this, 'next')}></i>
+              <i className="huge angle left icon overlay center-vertical white" onClick={this.changeImg.bind(this, 'previous')}></i>
+              <i className="huge angle right icon overlay center-vertical white" onClick={this.changeImg.bind(this, 'next')}></i>
           </div>
         </div>
         <Indicators onClick={this.directToImage.bind(this)} count={images.length} current={currentIndex} />

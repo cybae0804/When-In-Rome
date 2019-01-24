@@ -49,6 +49,7 @@ exports.getAll = async (req, res) => {
     }
 
     const prepared = `SELECT er.*, 
+                      im.imagePath, 
                       MIN(d.date) AS date
                       FROM (
                         SELECT e.*, 
@@ -59,6 +60,12 @@ exports.getAll = async (req, res) => {
                         ON e.id = r.experience_id
                         GROUP BY e.id
                       ) AS er
+                      LEFT JOIN ( 
+                      SELECT * 
+                      FROM images 
+                      GROUP BY experience_id
+                      ) AS im
+                      ON er.id = im.experience_id
                       LEFT JOIN dates AS d
                       ON d.experience_id = er.id
                       WHERE er.guests >= ?
