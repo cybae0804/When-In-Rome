@@ -143,10 +143,12 @@ function validate({ occupation, activity, city, country, price, guests, host_inf
   return errors;
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, props) {
+  const initialValues = props.noInitialValues ? {} : state.experience.details;
+  
   return {
     status: state.images.uploadStatus,
-    initialValues: state.experience.details,
+    initialValues,
   }
 }
 
@@ -154,7 +156,7 @@ ExperienceForm = reduxForm({
   form: 'experience-form',
   enableReinitialize: true,
   validate,
-})(ExperienceForm)
+})(ExperienceForm);
 
 export default connect(mapStateToProps, {
   postExperience,
