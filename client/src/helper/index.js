@@ -25,3 +25,7 @@ export function keygen(len = 15) {
 
   return text;
 }
+
+export function convertDateObjToCalendarVal(dateObj) {
+  return `${dateObj.getMonth() + 1}/${dateObj.getDate()}/${dateObj.getFullYear()}`;
+}
