@@ -16,7 +16,9 @@ class Reservations extends Component {
   } 
 
   componentDidUpdate(prevProps){
-    if(prevProps.data.length === 0 && this.props.data.length !== 0){
+    debugger;
+    console.log("component updated", this.props)
+    if((prevProps.data.length === 0 && this.props.data.length !== 0) || (prevProps.asUser !== this.props.asUser)){
       this.setState({
         dates: this.props.data.slice()
       })
@@ -27,11 +29,8 @@ class Reservations extends Component {
     return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
   } 
 
-  formatDate = (date) => {
-    return date.substring(0, 10)
-  }
-
   displayDates = (datesArray, date) => {
+    console.log("dates changed", datesArray)
     const currentDate = date
     for (let booking of datesArray) {
       let matchingDates = this.getDate(new Date(currentDate)) === this.getDate(new Date(booking.date));
@@ -179,8 +178,6 @@ class Reservations extends Component {
     />
   }
   render(){  
-    console.log(this.props)
-
     return(
       <div className="topMargin24px">
         <h2 className="ui header horizontal divider container">Reservations</h2>
