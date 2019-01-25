@@ -34,10 +34,9 @@ export default props => {
       </div>
       <div className="content">
         <p>${price}</p>
-        <p>{duration}</p>
         <p>
           {starsDisplay}
-          <span>{total_ratings}</span>
+          <span>{total_ratings ? '' : 'No reviews'}</span>
         </p>
       </div>
     </div>
