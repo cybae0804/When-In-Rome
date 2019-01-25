@@ -22,7 +22,9 @@ class Header extends Component {
   render() {
     return (
       <div id='header' className="ui container posRelative vertMargin16px">
-        {this.props.title ? <h1 className='headerText'>{this.props.title}</h1> : undefined}
+        <div className='logoTextContainer'>
+          <div className="logo"></div>{this.props.title ? <h1 className='headerText'>{this.props.title}</h1> : undefined}
+        </div>
         <HamburgerMenu
           open={this.state.menuOpen}
           toggle={this.toggleMenu}
