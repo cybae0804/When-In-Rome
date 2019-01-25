@@ -59,3 +59,14 @@ typings/
 
 # next.js build output
 .next
+
+# Editors
+.idea
+.DS_Store
+.vscode
+
+# Server config
+db.js
+s3.js
+config/oauth.js
+keys.js

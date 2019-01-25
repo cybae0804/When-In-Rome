@@ -1,0 +1,19 @@
+.experience-preview-container-header {
+  margin: 1rem 0;
+}
+
+.experience-previews {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-gap: 15px;
+}
+
+.noResult {
+  height: 20vh;
+}
+
+.noResult h3 {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}

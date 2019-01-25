@@ -1,0 +1,43 @@
+#detailsTable.ui.collapsing.table{
+  margin: auto;
+}
+
+#details{
+  text-align: center;
+  margin: auto;
+  margin-bottom: 1em;
+}
+
+.confirm{
+  text-align: center;
+}
+
+#booked {
+  height: 15px;
+  width: 15px;
+  background-color:  orangered;
+}
+
+#available{
+  height: 15px;
+  width: 15px;
+  background-color:  #008080;
+}
+
+#unavailable{
+  height: 15px;
+  width: 15px;
+  border: 1px solid black;
+}
+
+.legend{
+  margin: auto;
+}
+
+.center{
+  text-align: center;
+}
+
+
+
+

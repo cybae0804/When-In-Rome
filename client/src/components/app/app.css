@@ -1,0 +1,110 @@
+h1, h2, h3, h4, h5, h6, p, label, span, a {
+  font-family: 'Nunito Sans', 'Helvetica' !important;
+}
+
+.topMargin4px {
+  margin-top: 4px !important;
+}
+
+.topMargin8px {
+  margin-top: 8px !important;
+}
+
+.topMargin24px {
+  margin-top: 24px !important;
+}
+
+.bigTopMargin {
+  margin-top: 2.8em !important;
+}
+
+.topMargin {
+  margin-top: 1.5em !important;
+}
+
+.smallBottomMargin {
+  margin-bottom: 0.5rem !important;
+}
+
+.bottomMargin {
+  margin-bottom: 1rem !important;
+}
+
+.bottomMargin20px {
+  margin-bottom: 20px !important;
+}
+
+.bottomMargin30px {
+  margin-bottom: 30px !important;
+}
+
+.center {
+  text-align: center;
+}
+
+.right {
+  text-align: right;
+}
+
+.spaceBetween {
+  display: flex;
+  justify-content: space-between;
+}
+
+.vertMargin16px {
+  padding-top: 16px;
+  margin-bottom: 16px;
+}
+
+.dispNone {
+  display: none !important;
+}
+
+.menu {
+  transition: 1s;
+}
+
+.shadow {
+  box-shadow: 0 16px 24px 2px rgba(0,0,0,0.14), 
+    0 6px 30px 5px rgba(0,0,0,0.12), 
+    0 8px 10px -7px rgba(0,0,0,0.2) !important;
+}
+
+.posRelative {
+  position: relative !important;
+}
+
+.marginRight7px {
+  margin-right: 7px !important;
+}
+
+.marginRight14px {
+  margin-right: 14px !important;
+}
+
+.marginRight5px {
+  margin-right: 5px;
+}
+
+.space10vh {
+  height: 10vh;
+}
+
+.space12px {
+  margin: 7px 0 !important;
+}
+
+.space24px {
+  height: 24px;
+}
+
+.padRight1em {
+  padding-right: 1em !important;
+}
+
+.truncate {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -1,0 +1,17 @@
+#footer .mainContent {
+  height: 15vh;
+  width: 100%;
+  background-color: rgba(0,0,0,.87);
+  color: white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  bottom: 0;
+}
+
+.footerSpace {
+  height: 20vh;
+}

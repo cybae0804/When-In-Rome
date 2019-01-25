@@ -1,0 +1,28 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Server for When In Rome",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm-run-all --parallel dev:*",
+    "dev:client": "npm start --prefix client",
+    "dev:server": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Cy Bae, Ben Levine, Erick Brownfield",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.387.0",
+    "cookie-session": "^2.0.0-beta.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "mysql": "^2.16.0",
+    "npm-run-all": "^4.1.5",
+    "passport": "^0.4.0",
+    "passport-google-oauth": "^1.0.0",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  }
+}

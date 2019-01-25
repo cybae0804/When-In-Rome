@@ -1,0 +1,10 @@
+.headerText {
+  display: inline-block; 
+}
+
+#hamburger-button {
+  position: absolute;
+  top: 24px;
+  right: 0px;
+  margin: 0 !important;
+}

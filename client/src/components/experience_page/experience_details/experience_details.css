@@ -1,0 +1,32 @@
+.react-calendar {
+  margin: auto;
+  margin-top: 1em;
+}
+
+.detailsHeading-1 {
+  font-size: 1.75rem;
+}
+
+.detailsHeading-2 {
+  font-size: 1.5rem;
+}
+
+#detailsIcon {
+  margin-right: 5px;
+}
+
+.reviews {
+  margin-top: 1em; 
+}
+
+.active:hover, .calendar .react-calendar__tile--active:enabled:hover, .react-calendar__tile--active:enabled:focus{
+  background-color: #1087ff !important;
+}
+
+#guests {
+  right: 48px;
+}
+  
+.rounded {
+    border-radius: .28571429rem;
+}

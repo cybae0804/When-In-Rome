@@ -1,0 +1,23 @@
+a {
+  color: black;
+}
+
+.experience-preview * {
+  font-size: 1rem;
+}
+
+.content > p {
+  margin-bottom: 0px;
+}
+
+.star {
+  color: orange;
+}
+
+div.image div {
+  border-radius: .28571429rem;
+  background-position: center;
+  background-size: cover;
+  height: 165px;
+  width: 100%;
+}
