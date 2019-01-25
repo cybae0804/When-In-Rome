@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
-import { postReview } from '../../../../../actions';
+import { postReview, getExperienceDetails } from '../../../../../actions';
 import Input from '../../../../shared/input/input';
 
 class ReviewForm extends Component {
@@ -19,9 +19,9 @@ class ReviewForm extends Component {
     
     await this.props.postReview(values, experience_id);
 
-    // setTimeout(() => {
-    //   this.props.history.push('/dashboard');
-    // }, 2000);
+    await this.props.getExperienceDetails(experience_id);
+
+    this.props.reset();
   }
 
   render() {
@@ -37,8 +37,12 @@ class ReviewForm extends Component {
   }
 }
 
-function validate({ }) {
+function validate({review, rating}) {
   const errors = {};
+
+  if (!review) errors.review = 'Please enter a review';
+
+  if (!rating || rating < 1 || rating > 5) errors.rating = 'Please enter valid rating between 1 and 5';
 
   return errors;
 }
@@ -56,4 +60,5 @@ ReviewForm = reduxForm({
 
 export default connect(mapStateToProps, {
   postReview,
+  getExperienceDetails,
 })(withRouter(ReviewForm));
