@@ -118,8 +118,8 @@ class ExperienceForm extends Component {
         <Field component={Input} id="activity" name="activity" label="Activity" />
         <Field component={Input} id="city" name="city" label="City" />
         <Field component={Input} id="country" name="country" label="Country" />
-        <Field component={Input} id="price" name="price" label="Price" />
-        <Field component={Input} id="guests" name="guests" label="Max Guests" />
+        <Field component={Input} type="number" id="price" name="price" label="Price" />
+        <Field component={Input} type="number" id="guests" name="guests" label="Max Guests" />
         <Field component={Input} id="host_info" type="textarea" name="host_info" label="Host Info" />
         <Field component={Input} id="activity_info" type="textarea" name="activity_info" label="Activity Info" />
         {this.props.noImage ? '' : this.renderImageStatus()}
@@ -152,9 +152,7 @@ function validate({ occupation, activity, city, country, price, guests, host_inf
   if (!city) errors.city = 'Please enter city';
   if (!country) errors.country = 'Please enter country';
   if (!price) errors.price = 'Please enter price';
-  if (isNaN(price) || !Number.isInteger(price)) errors.price = 'Please enter valid number for price';
   if (!guests) errors.guests = 'Please enter maximum number of guests';
-  if (isNaN(guests) || !Number.isInteger(guests)) errors.guests = 'Please enter valid number of guests';
   if (!host_info) errors.host_info = 'Please enter host info';
   if (!activity_info) errors.activity_info = 'Please enter activity info';
 

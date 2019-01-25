@@ -24,7 +24,7 @@ class Reservations extends Component {
   }
 
   getDate = (date) => {
-    return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
+    return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()+1}`
   } 
 
   displayDates = (datesArray, date) => {
