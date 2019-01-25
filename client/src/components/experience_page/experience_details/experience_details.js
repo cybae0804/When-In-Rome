@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import Calendar from '../../shared/calendar/calendar';
-import './experience_details.css';
 import ReviewsContainer from './reviews_container/reviews_container'
 import Carousel from '../../shared/carousel';
+import { convertDateObjToCalendarVal } from '../../../helper';
+import './experience_details.css';
 
 class ExperienceDetails extends Component {
   constructor(props){
@@ -62,11 +63,13 @@ class ExperienceDetails extends Component {
   }
 
   render() {
+
     const { id, 
             activity, 
             occupation, 
             city, 
             country, 
+            dates,
             price, 
             guests, 
             host, 
@@ -91,11 +94,10 @@ class ExperienceDetails extends Component {
       starsDisplay.push(<i key={4} className="star half icon"></i>);
     }
 
-    const image_url = 'https://s3-us-west-1.amazonaws.com/when-in-rome/' + imagePath;
+    const dateArray = dates ? 
+      dates.map( value => convertDateObjToCalendarVal(new Date(value.date))) : 
+      [];
 
-    //dummy dates for calendar
-    const dateArray = ['1/20/2019', '1/23/2019'];
-    
     return (
       <div>
         <Carousel images={images}/>
