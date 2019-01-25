@@ -9,7 +9,7 @@ export default ({
 }) => (
   <form id='search' className='ui form posRelative' onSubmit={submit}>
     <div className="ui fluid left icon input" onSubmit={submit}>
-      <i className="search link icon"/>
+      <i className="search link icon" onClick={submit}/>
       <input 
         type="text" 
         name="cityjob" 
@@ -106,7 +106,7 @@ export default ({
         />
         <button 
             type='button' 
-            className='ui button '
+            className='ui button orange'
             onClick={clear}
           >Clear</button>
         <div className={dateOpen ? '' : 'dispNone'}>

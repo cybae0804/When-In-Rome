@@ -8,8 +8,6 @@ import Upcoming from '../upcoming/upcoming';
 import Reservations from '../reservations/reservations';
 import History from '../history/history';
 
-import './dashboard.css'
-
 class Dashboard extends Component {
   state = {
     asUser: true,
@@ -30,23 +28,29 @@ class Dashboard extends Component {
     });
   }
 
-  toggleStatus = () => {
+  toUser = () => {
     this.setState({
-      asUser: !this.state.asUser
+      asUser: true
+    });
+  }
+
+  toHost = () => {
+    this.setState({
+      asUser: false
     });
   }
 
   render() {
     const dateData = this.state.asUser ? this.state.user.dates : this.state.host.dates;
-
+    const {asUser} = this.state
     return (
       <div>
         <div className="ui equal width grid container topMargin">
-          <button onClick={this.toggleStatus} className={`ui column button ${this.state.asUser ? '' : 'positive'}`}><h3>As Host</h3></button>
-          <button onClick={this.toggleStatus} className={`ui column button ${this.state.asUser ? 'positive' : ''}`}><h3>As User</h3></button>
+          <button onClick={this.toHost} className={`ui column button ${this.state.asUser ? '' : 'positive'}`}><h3>As Host</h3></button>
+          <button onClick={this.toUser} className={`ui column button ${this.state.asUser ? 'positive' : ''}`}><h3>As User</h3></button>
         </div>
-        <Upcoming data={dateData} />
-        <Reservations data={dateData}/>
+        <Upcoming data={dateData} asUser={asUser} />
+        <Reservations data={dateData} asUser={asUser} />
         {this.state.asUser ? undefined : <History data={this.state.host.history}/> }
       </div>
     );

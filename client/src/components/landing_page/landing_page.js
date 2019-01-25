@@ -15,7 +15,11 @@ class LandingPage extends Component {
 	render() {
 		return (
 			<div id='landingPage'>
-				<Header version="landing" title="When in Rome..." />
+				<Header 
+					version="landing" 
+					title="When in Rome..." 
+					logo
+				/>
 				<ExperiencePreviewContainer
 					heading='Explore'
 				/>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jan 24, 2019 at 05:03 AM
+-- Generation Time: Jan 24, 2019 at 09:38 PM
 -- Server version: 5.6.34-log
 -- PHP Version: 7.2.1
 
@@ -35,9 +35,9 @@ USE `rome`;
 CREATE TABLE `dates` (
   `id` int(10) UNSIGNED NOT NULL,
   `experience_id` int(10) UNSIGNED NOT NULL,
-  `user_id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED DEFAULT NULL,
   `date` date NOT NULL,
-  `guests` int(2) UNSIGNED NOT NULL
+  `guests` int(2) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -45,16 +45,25 @@ CREATE TABLE `dates` (
 --
 
 INSERT INTO `dates` (`id`, `experience_id`, `user_id`, `date`, `guests`) VALUES
-(1, 1, 3, '2019-01-15', 2),
-(2, 1, 2, '2019-01-22', 1),
-(3, 2, 4, '2019-01-10', 3),
-(4, 4, 5, '2019-01-16', 3),
-(5, 4, 1, '2018-12-26', 3),
-(6, 5, 2, '2018-12-22', 1),
-(7, 5, 3, '2018-12-29', 1),
-(8, 2, 1, '2019-01-11', 3),
+(0, 1, NULL, '2019-01-28', NULL),
+(1, 1, 3, '2019-01-31', 2),
+(2, 1, 2, '2019-01-29', 1),
+(3, 2, 4, '2019-02-01', 3),
+(4, 4, 5, '2019-02-11', 3),
+(5, 4, 1, '2019-01-28', 3),
+(6, 5, 2, '2019-02-05', 1),
+(7, 5, 3, '2019-02-18', 1),
+(8, 2, 1, '2019-01-30', 3),
 (9, 3, 5, '2019-01-29', 2),
-(10, 3, 4, '2019-01-16', 1);
+(10, 3, 4, '2019-02-02', 1),
+(16, 2, NULL, '2019-01-26', NULL),
+(17, 1, NULL, '2019-02-12', NULL),
+(18, 1, NULL, '2019-02-21', NULL),
+(20, 3, NULL, '2019-02-21', NULL),
+(21, 4, NULL, '2019-02-12', NULL),
+(22, 4, NULL, '2019-02-21', NULL),
+(23, 5, NULL, '2019-02-12', NULL),
+(24, 5, NULL, '2019-02-21', NULL);
 
 -- --------------------------------------------------------
 
@@ -169,7 +178,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `email`, `google_id`, `firstname`, `lastname`) VALUES
 (1, 'Sakuragi @gmail.com', '', 'Sakuragi ', 'Hanamichi'),
-(2, 'Burnett@gmail.com', '', 'Burnett ', 'Ranches'),
+(2, 'Burnett@gmail.com', '', 'Burnett', 'Ranches'),
 (3, 'Patrick@gmail.com', '', 'Patrick', 'Bateman'),
 (4, 'Jiro@gmail.com', '', 'Jiro', 'Ono'),
 (5, 'Oliver@gmail.com', '', 'Oliver', 'Williams'),
@@ -219,12 +228,12 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `dates`
 --
 ALTER TABLE `dates`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT for table `experiences`
 --
 ALTER TABLE `experiences`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `images`
 --
