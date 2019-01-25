@@ -10,6 +10,10 @@ h1, h2, h3, h4, h5, h6, p, label, span, a {
   margin-top: 8px !important;
 }
 
+.topMargin16px {
+  margin-top: 16px !important;
+}
+
 .topMargin24px {
   margin-top: 24px !important;
 }

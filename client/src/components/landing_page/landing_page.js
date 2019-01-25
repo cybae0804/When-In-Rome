@@ -17,7 +17,7 @@ class LandingPage extends Component {
 			<div id='landingPage'>
 				<Header 
 					version="landing" 
-					title="When in Rome..." 
+					title="When in Rome" 
 					logo
 				/>
 				<ExperiencePreviewContainer
