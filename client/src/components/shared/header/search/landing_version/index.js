@@ -48,22 +48,24 @@ export default ({
         onChange={calChange}
       />
       <div className="space12px"></div>
-      <button 
-        type='button' 
-        className='ui button positive'
-        onClick={confirm}
-      >Confirm</button>
-      <button 
-        type='button' 
-        className='ui button'
-        onClick={clear}
-      >Clear</button>
-      <button 
-        type='button' 
-        className='ui button'
-        onClick={close}
-      >Cancel</button>
-      <div className="space24px"></div>
+      <div className='ui align right container topMargin24px'>
+        <button 
+          type='button' 
+          className='ui button'
+          onClick={close}
+        >Cancel</button>
+        <button 
+          type='button' 
+          className='ui button orange'
+          onClick={clear}
+        >Clear</button>
+        <button 
+          type='button' 
+          className='ui button positive noMarginButton'
+          onClick={confirm}
+        >Confirm</button>
+      </div>
+      <div className="space12px"></div>
     </div>
     <button className="fluid ui button positive" type="submit">Search</button>
   </form>

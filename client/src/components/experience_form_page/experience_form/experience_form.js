@@ -96,7 +96,10 @@ class ExperienceForm extends Component {
 
     await this.props.postExperience(values, file);
 
-    this.props.history.push('/dashboard');
+    setTimeout(() => {
+      console.log(this);
+      this.props.history.push('/dashboard');
+    }, 2000);
   }
 
   handleEditExperience = async values => {
@@ -121,7 +124,16 @@ class ExperienceForm extends Component {
         {this.props.noImage ? '' : this.renderImageStatus()}
         <div className="spaceBetween">
           <button type="button" className="ui button ">Cancel</button>
-          <button className="ui button positive noMarginButton">Submit</button>
+          <div 
+            onClick={noImage ? handleSubmit(handleEditExperience) : handleSubmit(handleAddExperience)} 
+            className="ui click button positive" tabIndex="0"
+          >
+            <div className="visible content">Submit</div>
+            <div className="hidden content">
+              Success!
+            </div>
+          </div>
+
         </div>
       </form>
     );
@@ -136,17 +148,21 @@ function validate({ occupation, activity, city, country, price, guests, host_inf
   if (!city) errors.city = 'Please enter city';
   if (!country) errors.country = 'Please enter country';
   if (!price) errors.price = 'Please enter price';
+  if (isNaN(price) || !Number.isInteger(price)) errors.price = 'Please enter valid number for price';
   if (!guests) errors.guests = 'Please enter maximum number of guests';
+  if (isNaN(guests) || !Number.isInteger(guests)) errors.guests = 'Please enter valid number of guests';
   if (!host_info) errors.host_info = 'Please enter host info';
   if (!activity_info) errors.activity_info = 'Please enter activity info';
 
   return errors;
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, props) {
+  const initialValues = props.noInitialValues ? {} : state.experience.details;
+  
   return {
     status: state.images.uploadStatus,
-    initialValues: state.experience.details,
+    initialValues,
   }
 }
 
@@ -154,7 +170,7 @@ ExperienceForm = reduxForm({
   form: 'experience-form',
   enableReinitialize: true,
   validate,
-})(ExperienceForm)
+})(ExperienceForm);
 
 export default connect(mapStateToProps, {
   postExperience,
