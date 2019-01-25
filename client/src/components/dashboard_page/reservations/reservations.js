@@ -72,11 +72,12 @@ class Reservations extends Component {
 
   handleConfirmButtonClicked = async () => {
     const {dates} = this.state
+    console.log(dates)
     for(let booking of dates){
       booking.date = this.getDate(new Date(booking.date))
     }
     try {
-      await axios.post('/api/dashboard', dates)
+      await axios.post('/api/dates', dates)
       this.setState({
         dates,
         version: ""
