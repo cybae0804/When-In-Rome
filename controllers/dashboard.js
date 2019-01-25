@@ -22,7 +22,7 @@ exports.getDashboard = async (req, res) => {
                     ON d.experience_id = e.id
                     LEFT JOIN users AS u
                     ON d.user_id = u.id
-                    WHERE e.host_id = 1
+                    WHERE e.host_id = ?
                     AND d.guests > 0
                     ORDER BY d.date ASC`;
     const inserts = [id];
@@ -44,7 +44,7 @@ exports.getDashboard = async (req, res) => {
                   GROUP BY e.id) AS er
                   LEFT JOIN dates as d
                   on er.id = d.experience_id
-                  WHERE er.host_id = 1
+                  WHERE er.host_id = ?
                   AND d.date < NOW()
                   AND er.date < NOW()`;
     query = mysql.format(prepared, inserts);
@@ -59,7 +59,7 @@ exports.getDashboard = async (req, res) => {
                     FROM dates AS d
                     LEFT JOIN experiences AS e
                     ON d.experience_id = e.id
-                    WHERE d.user_id = 1
+                    WHERE d.user_id = ?
                     ORDER BY d.date ASC`;
     query = mysql.format(prepared, inserts);
     result.user.dates = await db.query(query);
