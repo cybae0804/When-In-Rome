@@ -97,7 +97,6 @@ class ExperienceForm extends Component {
     await this.props.postExperience(values, file);
 
     setTimeout(() => {
-      console.log(this);
       this.props.history.push('/dashboard');
     }, 2000);
   }
@@ -105,7 +104,9 @@ class ExperienceForm extends Component {
   handleEditExperience = async values => {
     await this.props.putExperience(values);
 
-    this.props.history.push('/dashboard');
+    setTimeout(() => {
+      this.props.history.push('/dashboard');
+    }, 2000);
   }
 
   render() {
