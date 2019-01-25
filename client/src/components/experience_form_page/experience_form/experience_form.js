@@ -143,6 +143,9 @@ class ExperienceForm extends Component {
 
 function validate({ occupation, activity, city, country, price, guests, host_info, activity_info }) {
   const errors = {};
+  
+  price = +price;
+  guests = +guests;
 
   if (!occupation) errors.occupation = 'Please enter occupation';
   if (!activity) errors.activity = 'Please enter activity';
