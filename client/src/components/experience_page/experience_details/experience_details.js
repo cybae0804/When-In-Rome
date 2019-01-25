@@ -8,7 +8,6 @@ import './experience_details.css';
 class ExperienceDetails extends Component {
   constructor(props){
     super(props);
-
     this.state = {
       show: false,
       date: "",
