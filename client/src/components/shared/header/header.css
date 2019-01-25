@@ -1,12 +1,15 @@
 .logo {
-  background-image: url('http://picsum.photos/200');
+  background-image: url('../../../assets/images/logo.png');
   background-position: center;
-  background-size: contain;
+  background-size: 55px 55px;
   background-repeat: no-repeat;
   
-  width: 36px;
+  width: 45px;
   height: 36px;
+  filter: invert(100%);
   display: inline-block;
+
+  margin-right: 5px;
 }
 
 .headerText {
