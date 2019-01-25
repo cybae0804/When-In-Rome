@@ -185,31 +185,28 @@ class Reservations extends Component {
       <div className="topMargin24px">
         <h2 className="ui header horizontal divider container">Reservations</h2>
           {this.calendarVersion()}
-        <div className="center">
-          <div className="ui horizontal list center-aligned topMargin">
+        <div className="topMargin8px ui container center">
+          <div className="ui container horizontal list topMargin">
             <div className="item center">
-              <div className="content legend" id="booked">
-              </div>
+              <div className="content legend" id="booked"></div>
               <span>Booked</span>
             </div>
             <div className="item center">
-              <div className="content legend" id="available">
-              </div>
+              <div className="content legend" id="available"></div>
               <span>Available</span>
             </div>
             <div className="item center">
-              <div className="content legend" id="unavailable">
-              </div>
+              <div className="content legend" id="unavailable"></div>
               <span>Unavailable</span>
             </div>
+          </div>
+          {this.displayDropDown(this.state.currentDate, this.state.dates)}
+          {this.props.asUser ? "" :
+          <div className="topMargin">
+            <button className="ui positive button " onClick={this.handleConfirmButtonClicked}>Confirm</button>
+            <button className="ui orange button" onClick={this.handleClearButtonClicked}>Clear</button>
+          </div>}
         </div>
-        {this.displayDropDown(this.state.currentDate, this.state.dates)}
-        {this.props.asUser ? "" : 
-        <div className="center">
-          <button className="ui primary button center" onClick = {this.handleConfirmButtonClicked}>Confirm</button>
-          <button className="ui negative red button center" onClick = {this.handleClearButtonClicked}>Clear</button>
-        </div>}
-      </div>
       </div>
       
     )

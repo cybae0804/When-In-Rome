@@ -10,6 +10,7 @@
   display: inline-block;
 
   margin-right: 5px;
+  position: absolute;
 }
 
 .headerText {
@@ -17,6 +18,5 @@
 }
 
 .logoTextContainer {
-  display: flex;
   align-items: center;
 }
