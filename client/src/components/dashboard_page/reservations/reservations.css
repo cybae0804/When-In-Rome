@@ -15,13 +15,13 @@
 #booked {
   height: 15px;
   width: 15px;
-  background-color:  orangered;
+  background-color:  #e8993a;
 }
 
 #available{
   height: 15px;
   width: 15px;
-  background-color:  #008080;
+  background-color:  #75a568;
 }
 
 #unavailable{
