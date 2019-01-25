@@ -130,6 +130,14 @@ exports.getOne = async (req, res) => {
     query = mysql.format(prepared, inserts);
     experience.images = await db.query(query);
 
+    prepared = `SELECT id, date
+                FROM dates
+                WHERE experience_id = ?
+                AND guests IS NULL
+                OR guests = 0`;
+    query = mysql.format(prepared, inserts);
+    experience.dates = await db.query(query);
+
     if (!experience) {
       throw new Error('No experience with provided experience_id');
     }

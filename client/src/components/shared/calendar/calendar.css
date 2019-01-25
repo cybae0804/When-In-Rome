@@ -10,10 +10,6 @@
   background: lightseagreen
 } */
 
-.calendar .react-calendar__tile{
-  border: 0.5px solid lightgrey;
-}
-
 .calendar .react-calendar__navigation__arrow.react-calendar__navigation__next2-button,
 .calendar .react-calendar__navigation__arrow.react-calendar__navigation__prev2-button{
   display: none;
@@ -23,14 +19,13 @@
 }
 
 .calendar .active{
-  background-color: #008080;
+  background-color: #75a568;
 }
 
 .calendar .booked{
-  background-color: orangered;
+  background-color: #e8993a;
 }
 
 .calendar .booked:hover{
-  background-color: darkorange !important;
+  background-color: orangered !important;
 }
-

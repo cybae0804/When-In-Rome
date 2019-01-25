@@ -97,7 +97,6 @@ class ExperienceForm extends Component {
     await this.props.postExperience(values, file);
 
     setTimeout(() => {
-      console.log(this);
       this.props.history.push('/dashboard');
     }, 2000);
   }
@@ -105,7 +104,9 @@ class ExperienceForm extends Component {
   handleEditExperience = async values => {
     await this.props.putExperience(values);
 
-    this.props.history.push('/dashboard');
+    setTimeout(() => {
+      this.props.history.push('/dashboard');
+    }, 2000);
   }
 
   render() {
@@ -148,7 +149,9 @@ function validate({ occupation, activity, city, country, price, guests, host_inf
   if (!city) errors.city = 'Please enter city';
   if (!country) errors.country = 'Please enter country';
   if (!price) errors.price = 'Please enter price';
+  if (isNaN(price) || !Number.isInteger(price)) errors.price = 'Please enter valid number for price';
   if (!guests) errors.guests = 'Please enter maximum number of guests';
+  if (isNaN(guests) || !Number.isInteger(guests)) errors.guests = 'Please enter valid number of guests';
   if (!host_info) errors.host_info = 'Please enter host info';
   if (!activity_info) errors.activity_info = 'Please enter activity info';
 

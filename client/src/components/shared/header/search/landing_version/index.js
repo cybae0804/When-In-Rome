@@ -5,7 +5,7 @@ export default ({
   submit, change, val, confirm, clear, 
   open, close, dateOpen, calVal, calChange
 }) => (
-  <form className="ui form" onSubmit={submit}>
+  <form className="ui form topMargin16px" onSubmit={submit}>
     <div className="field">
       <label>City or Job</label>
       <input 
