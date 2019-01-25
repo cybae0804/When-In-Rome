@@ -16,8 +16,6 @@ class Reservations extends Component {
   } 
 
   componentDidUpdate(prevProps){
-    debugger;
-    console.log("component updated", this.props)
     if((prevProps.data.length === 0 && this.props.data.length !== 0) || (prevProps.asUser !== this.props.asUser)){
       this.setState({
         dates: this.props.data.slice()
@@ -30,7 +28,6 @@ class Reservations extends Component {
   } 
 
   displayDates = (datesArray, date) => {
-    console.log("dates changed", datesArray)
     const currentDate = date
     for (let booking of datesArray) {
       let matchingDates = this.getDate(new Date(currentDate)) === this.getDate(new Date(booking.date));
@@ -71,7 +68,6 @@ class Reservations extends Component {
 
   handleConfirmButtonClicked = async () => {
     const {dates} = this.state
-    console.log(dates)
     for(let booking of dates){
       booking.date = this.getDate(new Date(booking.date))
     }
@@ -88,7 +84,6 @@ class Reservations extends Component {
   }
 
   handleClearButtonClicked = () => {
-    console.log(this.props.data)
     this.setState({
       dates: [...this.props.data],
       version: ""

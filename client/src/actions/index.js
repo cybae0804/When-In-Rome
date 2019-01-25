@@ -154,7 +154,7 @@ export function getUser() {
 export function postReview(values, id) {
   return async dispatch => {
     try {
-      const { data: { success } } = await axios.post((`${EXPERIENCES_ROUTE}/${id}/reviews`), { review, rating });
+      const { data: { success } } = await axios.post((`${EXPERIENCES_ROUTE}/${id}/reviews`), values);
 
       dispatch({
         type: types.POST_REVIEW,
