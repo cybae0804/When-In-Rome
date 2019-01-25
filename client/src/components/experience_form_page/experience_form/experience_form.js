@@ -96,7 +96,10 @@ class ExperienceForm extends Component {
 
     await this.props.postExperience(values, file);
 
-    this.props.history.push('/dashboard');
+    setTimeout(() => {
+      console.log(this);
+      this.props.history.push('/dashboard');
+    }, 2000);
   }
 
   handleEditExperience = async values => {
@@ -121,7 +124,16 @@ class ExperienceForm extends Component {
         {this.props.noImage ? '' : this.renderImageStatus()}
         <div className="spaceBetween">
           <button type="button" className="ui button ">Cancel</button>
-          <button className="ui button positive noMarginButton">Submit</button>
+          <div 
+            onClick={noImage ? handleSubmit(handleEditExperience) : handleSubmit(handleAddExperience)} 
+            className="ui click button positive" tabIndex="0"
+          >
+            <div className="visible content">Submit</div>
+            <div className="hidden content">
+              Success!
+            </div>
+          </div>
+
         </div>
       </form>
     );
