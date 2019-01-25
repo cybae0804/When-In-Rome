@@ -89,6 +89,7 @@ class Reservations extends Component {
   }
 
   handleClearButtonClicked = () => {
+    console.log(this.props.data)
     this.setState({
       dates: [...this.props.data],
       version: ""
@@ -178,6 +179,8 @@ class Reservations extends Component {
     />
   }
   render(){  
+    console.log(this.props)
+
     return(
       <div className="topMargin24px">
         <h2 className="ui header horizontal divider container">Reservations</h2>
