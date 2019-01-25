@@ -1,6 +1,7 @@
-import React, {Component} from 'react';
-import Calendar from '../../shared/calendar/calendar';
 import './reservations.css';
+import React, {Component} from 'react';
+import axios from 'axios';
+import Calendar from '../../shared/calendar/calendar';
 
 class Reservations extends Component {
 
@@ -11,25 +12,32 @@ class Reservations extends Component {
       version: "",
       originalDates: [],
       dates: []
-      
     }
   } 
 
-  getDate = (date) => {
-    return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
-  } 
-
-  formatDate = (date) => {
-    return date.substring(0, 10)
+  componentDidUpdate(prevProps){
+    debugger;
+    console.log("component updated", this.props)
+    if((prevProps.data.length === 0 && this.props.data.length !== 0) || (prevProps.asUser !== this.props.asUser)){
+      this.setState({
+        dates: this.props.data.slice()
+      })
+    }
   }
 
+  getDate = (date) => {
+    return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
+  } 
+
   displayDates = (datesArray, date) => {
-    const currentDate = this.getDate(new Date(date))
+    console.log("dates changed", datesArray)
+    const currentDate = date
     for (let booking of datesArray) {
-      let matchingDates = currentDate === this.getDate(new Date(booking.date));
+      let matchingDates = this.getDate(new Date(currentDate)) === this.getDate(new Date(booking.date));
       if (matchingDates && booking.guests) {
         return "booked";
       } else if (matchingDates) {
+        debugger;
         if(booking.status){
           return ""
         }
@@ -40,26 +48,19 @@ class Reservations extends Component {
   }
 
   handleDateClicked = (date) => {
-    console.log(this.props)
-    const currentDate = this.getDate(new Date(date));
-    const originalDates = this.props.data.slice();
-    const dates = this.props.data
-
+    const currentDate = date;
     this.setState({
-      currentDate,
-      originalDates,
-      dates,
+      currentDate
     }, () => {
       for (let booking of this.state.dates) {
         var version = ""
-        let matchingDates = currentDate === this.getDate(new Date(booking.date))
+        let matchingDates = this.getDate(new Date(currentDate)) === this.getDate(new Date(booking.date))
         if (matchingDates && booking.guests){
           version = "booked"
           break;
         }
       }
-      var dates = this.toggleAvailableCalendar();
-
+      const dates = this.toggleAvailableCalendar();
       this.setState({
         version,
         dates,
@@ -68,28 +69,41 @@ class Reservations extends Component {
   }
 
 
-  handleConfirmButtonClicked = () => {
+  handleConfirmButtonClicked = async () => {
     const {dates} = this.state
-    this.setState({
-      dates,
-      version: ""
-    })
+    console.log(dates)
+    for(let booking of dates){
+      booking.date = this.getDate(new Date(booking.date))
+    }
+    try {
+      await axios.post('/api/dates', dates)
+      this.setState({
+        dates,
+        version: ""
+      })
+    }
+    catch (err) {
+      console.log('Error Setting new available dates')
+    }
   }
 
   handleClearButtonClicked = () => {
-    const {originalDates} = this.state;
-    const clearDates = originalDates.slice()
+    console.log(this.props.data)
     this.setState({
-      dates: clearDates,
+      dates: [...this.props.data],
       version: ""
     })
   }
 
   toggleAvailableCalendar = () => {
-    const {dates, currentDate } = this.state;
+    let {dates, currentDate } = this.state;
     for (let booking of dates) {
-      let matchingDates = currentDate === this.formatDate(booking.date);
+      let matchingDates = this.getDate(new Date (currentDate)) === this.getDate(new Date(booking.date));
       if(matchingDates && !booking.guests) {
+        if(booking.status){
+          delete booking.status
+          return dates
+        }
         booking.status = "delete";
         return dates;
       }
@@ -99,14 +113,13 @@ class Reservations extends Component {
       name: "",
       guests: null,
     }
-    dates.push(available)
-    return dates;
+    return [...dates, available];
   }
 
   viewBookedDetails = () => {
     const {currentDate, dates} = this.state
     for (let booking of dates) {
-      let matchingDates = currentDate === this.formatDate(booking.date);
+      let matchingDates = this.getDate(new Date (currentDate)) === this.getDate(new Date(booking.date))
       if (matchingDates && booking.guests){
         return(
           <table className="ui collapsing unstackable table" id="details">
@@ -119,7 +132,7 @@ class Reservations extends Component {
             </thead>
             <tbody>
               <tr>
-                <td>{booking.date}</td>
+                <td>{this.getDate(new Date(booking.date))}</td>
                 <td>{booking.name}</td>
                 <td>{booking.guests}</td>
               </tr>
@@ -140,17 +153,10 @@ class Reservations extends Component {
   }
 
   calendarVersion = () => {
-    // console.log(this.props)
     const {asUser, data = []} = this.props
-    
     return asUser ? 
     <Calendar
-      onChange= {(date) => {
-        
-        console.log("display booked details", date)
-      }}
       tileDisabled={({date}) => {
-        // console.log(date)
         for (let booking of data) {
           let matchingDates = this.getDate(date) === this.getDate(new Date(booking.date));
           if(matchingDates){
@@ -162,18 +168,16 @@ class Reservations extends Component {
         }
           return disabled
       }}
-      tileClassName={(date) => this.displayDates(this.props.data, date.date)}
+      tileClassName={(date) => this.displayDates(this.state.dates, date.date)}
     /> : 
     <Calendar 
       onChange={ (date) => {
         this.handleDateClicked(date);
       }}
-      tileClassName={(date) => this.displayDates(this.props.data, date.date)}
+      tileClassName={(date) => this.displayDates(this.state.dates, date.date)}
     />
   }
-  render(){
-    console.log(this.props, this.state)
-    
+  render(){  
     return(
       <div className="topMargin24px">
         <h2 className="ui header horizontal divider container">Reservations</h2>

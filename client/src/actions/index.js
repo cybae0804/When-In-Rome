@@ -77,9 +77,7 @@ export function postExperience(parameters, image) {
 
       parameters.imagePath = key;
 
-      const { data: { success } } = await axios.post(EXPERIENCES_ROUTE, 
-        parameters,
-      );
+      const { data: { success } } = await axios.post(EXPERIENCES_ROUTE, parameters);
 
       dispatch({ type: types.IMAGE_UPLOAD_COMPLETE });
 
@@ -149,6 +147,21 @@ export function getUser() {
       // sign in error
       
       return false;
+    }
+  }
+}
+
+export function postReview(values, id) {
+  return async dispatch => {
+    try {
+      const { data: { success } } = await axios.post((`${EXPERIENCES_ROUTE}/${id}/reviews`), { review, rating });
+
+      dispatch({
+        type: types.POST_REVIEW,
+        payload: success,
+      });
+    } catch (err) {
+      console.log('Post Review Error:', err);
     }
   }
 }

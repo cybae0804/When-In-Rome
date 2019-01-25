@@ -1,6 +1,7 @@
 import React from 'react'
 import './reviews_container.css'
 import Review from './review/review'
+import ReviewForm from './review_form/review_form';
 
 export default props => {
   const{avg, total, reviews} = props
@@ -26,10 +27,11 @@ export default props => {
   }
 
   return(
-    <div className = "ui container" id='reviewsContainer'>
+    <div className = "ui container" id="reviewsContainer">
       <h2>{total} Reviews</h2>
       <p>{starsDisplay}  {avg ? avg.toFixed(1) : ''}</p>
       {newReview}
+      <ReviewForm />
     </div>
   );
 }

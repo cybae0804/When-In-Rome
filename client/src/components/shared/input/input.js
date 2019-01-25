@@ -7,7 +7,7 @@ export default ({id, label, input, type, meta: { touched, error}}) => {
       <label htmlFor={id}>{label}</label>
       {type === 'textarea' ? 
       <textarea {...input} type="text" autoComplete="off" /> : 
-      <input {...input} type="text" autoComplete="off" />}
+      <input {...input} type={type || "text"} autoComplete="off" />}
       <p className="errorMessage">{touched && error}</p>
     </div>
   );
