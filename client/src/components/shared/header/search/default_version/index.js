@@ -2,7 +2,7 @@ import React from 'react';
 
 export default ({submit, change, val}) => (
   <form id='search' className="ui left icon input" onSubmit={submit}>
-    <i className="search link icon" />
+    <i className="search link icon" onClick={submit} />
     <input 
       type="text" 
       name="cityjob" 
