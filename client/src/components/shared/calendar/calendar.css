@@ -19,14 +19,13 @@
 }
 
 .calendar .active{
-  background-color: #39A744;
+  background-color: #75a568;
 }
 
 .calendar .booked{
-  background-color: orangered;
+  background-color: #e8993a;
 }
 
 .calendar .booked:hover{
-  background-color: darkorange !important;
+  background-color: orangered !important;
 }
-
