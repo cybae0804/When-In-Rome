@@ -17,13 +17,12 @@ exports.getDashboard = async (req, res) => {
                     CONCAT(e.activity, " with a ", e.occupation) AS title,
                     e.id AS experience_id,
                     CONCAT(u.firstname, " ", u.lastname) AS name
-                    FROM dates AS d
-                    LEFT JOIN experiences AS e
+                    FROM experiences AS e
+                    LEFT JOIN dates AS d
                     ON d.experience_id = e.id
                     LEFT JOIN users AS u
                     ON d.user_id = u.id
                     WHERE e.host_id = ?
-                    AND d.guests > 0
                     ORDER BY d.date ASC`;
     const inserts = [id];
     let query = mysql.format(prepared, inserts);
