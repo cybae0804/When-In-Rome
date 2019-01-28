@@ -11,20 +11,21 @@ class Reservations extends Component {
       currentDate: "",
       version: "",
       originalDates: [],
-      dates: []
+      dates: [],
+      experience_id: null
     }
   } 
 
   componentDidUpdate(prevProps){
     if((prevProps.data.length === 0 && this.props.data.length !== 0) || (prevProps.asUser !== this.props.asUser)){
       this.setState({
-        dates: this.props.data.slice()
+        dates: this.props.data.slice(),
       })
     }
   }
 
   getDate = (date) => {
-    return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()+1}`
+    return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
   } 
 
   displayDates = (datesArray, date) => {
@@ -34,7 +35,6 @@ class Reservations extends Component {
       if (matchingDates && booking.guests) {
         return "booked";
       } else if (matchingDates) {
-        debugger;
         if(booking.status){
           return ""
         }
@@ -69,6 +69,10 @@ class Reservations extends Component {
   handleConfirmButtonClicked = async () => {
     const {dates} = this.state
     for(let booking of dates){
+      if(booking.title){
+        dates.splice(booking, 1);
+        break;
+      }
       booking.date = this.getDate(new Date(booking.date))
     }
     try {
@@ -173,6 +177,7 @@ class Reservations extends Component {
     />
   }
   render(){  
+    console.log(this.state)
     return(
       <div className="topMargin24px">
         <h2 className="ui header horizontal divider container">Reservations</h2>

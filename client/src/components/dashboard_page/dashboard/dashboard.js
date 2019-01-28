@@ -13,7 +13,7 @@ class Dashboard extends Component {
     asUser: true,
     host: {
       dates: [],
-      history: []
+      history: [],
     },
     user: {
       dates: []
@@ -41,6 +41,7 @@ class Dashboard extends Component {
   }
 
   render() {
+    console.log(this.props)
     const dateData = this.state.asUser ? this.state.user.dates : this.state.host.dates;
     const {asUser} = this.state;
     return (
