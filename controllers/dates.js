@@ -30,10 +30,11 @@ exports.get = async (req, res) => {
 exports.post = async (req, res) => {
   try {
     const { id: host_id } = req.user;
+    const { experience_id } = req.params;
     let prepared = `SELECT host_id
                     FROM experiences
-                    WHERE experience_id = ?`;
-    let inserts = [host_id];
+                    WHERE id = ?`;
+    let inserts = [experience_id];
     let query = mysql.format(prepared, inserts);
 
     const id = await db.query(query);
@@ -42,9 +43,13 @@ exports.post = async (req, res) => {
       return res.status(422).send('You do not have permission');
     }
 
-    const { experience_id } = req.params;
     const { dates } = req.body;
-    const preparedInserts = Array(dates.length).fill('(?, ?, ?, ?)').join(',');
+
+    const deleteDates = dates.filter(date => date.status === 'delete');
+    const insertDates = dates.filter(date => !date.status);
+
+    // insert dates
+    let preparedInserts = Array(insertDates.length).fill('(?, ?, ?, ?)').join(',');
     prepared = `INSERT INTO dates (experience_id, user_id, date, guests)
                 VALUES ${preparedInserts}
                 ON DUPLICATE KEY UPDATE 
@@ -52,13 +57,29 @@ exports.post = async (req, res) => {
                 guests = VALUES(guests)`;
     inserts = [];
     
-    for (let date of dates) {
-      const fields = { user_id, date, guests } = date;
-      inserts.push(experience_id, ...Object.values(fields));
+    for (let date of insertDates) {
+      const { user_id, date, guests } = date;
+
+      inserts.push(experience_id, user_id, date, guests);
     }
     
     query = mysql.format(prepared, inserts);
     
+    await db.query(query);
+
+    // delete dates
+    preparedInserts = Array(deleteDates.length).fill('date = ?').join(' OR ');
+    prepared = `DELETE FROM dates
+                WHERE experience_id = ?
+                AND (${preparedInserts})`;
+    insert = [];
+
+    for (let date of deleteDates) {
+      inserts.push(date.date);
+    }
+    
+    query = mysql.format(prepared, inserts);
+
     await db.query(query);
 
     res.send({
