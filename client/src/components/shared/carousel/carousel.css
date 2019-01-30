@@ -9,14 +9,14 @@
   margin: auto;
 }
 
-.white {
-  color: white;
-  opacity: 0.5;
-}
-
 .carousel-container > i:hover{
   color: #21ba45;
   cursor: pointer;
+}
+
+.white {
+  color: white;
+  opacity: 0.5;
 }
 
 .image-center {
@@ -128,14 +128,13 @@
   background-color: #21ba45;
   opacity: 0.4;
   border-radius: 50%;
-  cursor: pointer;
   display: inline-block;
   height: 10px;
   width: 10px;
   margin: 0 4px;
 }
 
-.indicators .dot.active {
+.indicators .dot.current {
   background-color: #21ba45;
   opacity: 1;
 }
