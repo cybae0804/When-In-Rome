@@ -178,16 +178,16 @@ class Reservations extends Component {
         <h2 className="ui header horizontal divider container">Reservations</h2>
           {this.calendarVersion()}
         <div className="topMargin8px ui container center">
-          <div className="ui container horizontal list topMargin">
-            <div className="item center">
+          <div className="ui container topMargin calendar-legend">
+            <div className="center">
               <div className="content legend" id="booked"></div>
               <span>Booked</span>
             </div>
-            <div className="item center">
+            <div className="center">
               <div className="content legend" id="available"></div>
               <span>Available</span>
             </div>
-            <div className="item center">
+            <div className="center">
               <div className="content legend" id="unavailable"></div>
               <span>Unavailable</span>
             </div>
