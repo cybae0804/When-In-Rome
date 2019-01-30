@@ -109,6 +109,10 @@ class ExperienceForm extends Component {
     }, 2000);
   }
 
+  handleCancel = () => {
+    this.props.history.push('/dashboard');
+  }
+
   render() {
     const { props: { handleSubmit, noImage }, handleAddExperience, handleEditExperience } = this;
 
@@ -124,7 +128,7 @@ class ExperienceForm extends Component {
         <Field component={Input} id="activity_info" type="textarea" name="activity_info" label="Activity Info" />
         {this.props.noImage ? '' : this.renderImageStatus()}
         <div className="spaceBetween">
-          <button type="button" className="ui button ">Cancel</button>
+          <button onClick={this.handleCancel} type="button" className="ui button">Cancel</button>
           <div 
             onClick={noImage ? handleSubmit(handleEditExperience) : handleSubmit(handleAddExperience)} 
             className="ui click button positive" tabIndex="0"
@@ -134,7 +138,6 @@ class ExperienceForm extends Component {
               Success!
             </div>
           </div>
-
         </div>
       </form>
     );
