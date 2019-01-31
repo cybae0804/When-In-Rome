@@ -62,7 +62,6 @@ class ExperienceDetails extends Component {
   }
 
   render() {
-
     const { id, 
             activity, 
             occupation, 
@@ -74,7 +73,6 @@ class ExperienceDetails extends Component {
             host, 
             host_info,
             activity_info,
-            imagePath,
             reviews,
             average_rating, 
             total_ratings,
@@ -96,7 +94,7 @@ class ExperienceDetails extends Component {
     const dateArray = dates ? 
       dates.map( value => convertDateObjToCalendarVal(new Date(value.date))) : 
       [];
-
+    console.log(city);
     return (
       <div>
         <Carousel images={images}/>
