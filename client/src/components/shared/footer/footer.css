@@ -1,5 +1,5 @@
 #footer .mainContent {
-  height: 15vh;
+  height: 7.5vh;
   width: 100%;
   background-color: rgba(0,0,0,.87);
   color: white;
@@ -13,5 +13,5 @@
 }
 
 .footerSpace {
-  height: 20vh;
+  height: 10vh;
 }
