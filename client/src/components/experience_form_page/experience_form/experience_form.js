@@ -104,6 +104,14 @@ class ExperienceForm extends Component {
   handleEditExperience = async values => {
     await this.props.putExperience(values);
 
+    const animation = document.querySelector('.submit-animation');
+    
+    if (this.props.success) {
+      animation.classList.add('activate');
+    } else {
+      animation.classList.add('error');
+    }
+
     setTimeout(() => {
       this.props.history.push('/dashboard');
     }, 2000);
@@ -129,13 +137,18 @@ class ExperienceForm extends Component {
         {this.props.noImage ? '' : this.renderImageStatus()}
         <div className="spaceBetween">
           <button onClick={this.handleCancel} type="button" className="ui button">Cancel</button>
-          <div 
-            onClick={noImage ? handleSubmit(handleEditExperience) : handleSubmit(handleAddExperience)} 
-            className="ui click button positive" tabIndex="0"
-          >
-            <div className="visible content">Submit</div>
-            <div className="hidden content">
-              Success!
+          <div className="submit-container">
+            <div className="submit-overlay" onClick={noImage ? handleSubmit(handleEditExperience) : handleSubmit(handleAddExperience)}></div>
+            <div
+              className="ui click button positive submit-animation" tabIndex="0"
+            >
+              <div className="visible content">Submit</div>
+              <div className="hidden content">
+                Success!
+              </div>
+              <div className="error content">
+                Error
+              </div>
             </div>
           </div>
         </div>
@@ -167,6 +180,7 @@ function mapStateToProps(state, props) {
   
   return {
     status: state.images.uploadStatus,
+    success: state.experience.success,
     initialValues,
   }
 }

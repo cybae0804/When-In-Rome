@@ -226,7 +226,9 @@ exports.put = async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    res.status(422).send('Error putting experience');
+    res.status(422).send({
+      success: false,
+    });
   }
 };
 
