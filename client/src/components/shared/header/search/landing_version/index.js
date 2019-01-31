@@ -1,12 +1,13 @@
 import React from 'react';
 import Calendar from '../../../calendar/calendar';
+import './landing.css';
 
 export default ({
   submit, change, val, confirm, clear, 
   open, close, dateOpen, calVal, calChange
 }) => (
-  <form className="ui form topMargin16px" onSubmit={submit}>
-    <div className="field">
+  <form id='landingSearch' className="ui form topMargin16px" onSubmit={submit}>
+    <div className="field field1">
       <label>City or Job</label>
       <input 
         type="text" 
@@ -17,7 +18,7 @@ export default ({
       />
     </div>
     <div className='two fields'>
-      <div className="field small" id="overrideColumns">
+      <div className="field small field2" id="overrideColumns">
         <label>Dates</label>
         <input readOnly 
           type="text" 
@@ -28,7 +29,7 @@ export default ({
           value={val.dateStart && val.dateEnd ? `${val.dateStart} to ${val.dateEnd}` : ''}
         />
       </div>
-      <div className="field small" id="overrideColumns">
+      <div className="field small field3" id="overrideColumns">
         <label>Guests</label>
         <input 
           type="text" 
@@ -67,6 +68,6 @@ export default ({
       </div>
       <div className="space12px"></div>
     </div>
-    <button className="fluid ui button positive" type="submit">Search</button>
+    <button id="searchButton" className="fluid ui button positive" type="submit">Search</button>
   </form>
 );

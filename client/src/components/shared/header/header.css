@@ -20,3 +20,31 @@
 .logoTextContainer {
   align-items: center;
 }
+
+#desktopHeader {
+  display: none;
+}
+
+@media only screen and (min-width: 768px) {
+  #header {
+    display: none;
+  }
+
+  #desktopHeader {
+    display: block;
+  }
+
+  #navBar {
+    height: 7.5vh;
+    background-color: rgba(0,0,0,.87);
+    color: white;
+  }
+
+  .desktopLandingText {
+    position: absolute;
+    z-index: 1;
+    margin: 20vh;
+    padding-top: 10vh;
+    font-size: 7.5vmin;
+  }
+}
