@@ -165,3 +165,9 @@ export function postReview(values, id) {
     }
   }
 }
+
+export function clearExperienceDetails() {
+  return ({
+    type: types.CLEAR_EXPERIENCE_DETAILS,
+  });
+}

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Header from '../shared/header/header';
 import Footer from '../shared/footer/footer';
 import ExperienceDetails from './experience_details/experience_details';
-import { getExperienceDetails } from '../../actions';
+import { getExperienceDetails, clearExperienceDetails } from '../../actions';
 import './experience_page.css';
 
 class ExperiencePage extends Component {
@@ -19,9 +19,13 @@ class ExperiencePage extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this.props.clearExperienceDetails();
+  }
+
 	render() {
 		return (
-			<div id='experiencePage'>
+			<div id="experiencePage">
 				<Header />
 				<ExperienceDetails 
           {...this.props.details}
@@ -32,7 +36,7 @@ class ExperiencePage extends Component {
 	}
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
   return {
     details: state.experience.details,
   };
@@ -40,4 +44,5 @@ function mapStateToProps(state, ownProps) {
 
 export default connect(mapStateToProps, {
   getExperienceDetails,
+  clearExperienceDetails,
 })(ExperiencePage);
