@@ -1,12 +1,25 @@
 import React from 'react';
 import Calendar from '../../../calendar/calendar';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import './landing.css';
 
-export default ({
+function mapStateToProps(state) {
+  return {
+    auth: state.user.auth,
+  }
+}
+
+export default connect(mapStateToProps)(({
   submit, change, val, confirm, clear, 
-  open, close, dateOpen, calVal, calChange
+  open, close, dateOpen, calVal, calChange, auth
 }) => (
   <form id='landingSearch' className="ui form topMargin16px" onSubmit={submit}>
+    {!auth ? <a 
+              id='desktopLoginLink' 
+              href='/oauth/login'
+              className='ui button primary'
+            >Log in / Sign Up</a> : undefined}
     <div className="field field1">
       <label>City or Job</label>
       <input 
@@ -70,4 +83,4 @@ export default ({
     </div>
     <button id="searchButton" className="fluid ui button positive" type="submit">Search</button>
   </form>
-);
+));
