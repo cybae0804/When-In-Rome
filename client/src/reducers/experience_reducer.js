@@ -20,6 +20,7 @@ const DEFAULT_STATE = {
     images: [],
   },
   experiences: [],
+  success: null,
 };
 
 function experienceReducer(state = DEFAULT_STATE, action) {
@@ -31,6 +32,8 @@ function experienceReducer(state = DEFAULT_STATE, action) {
     case types.GET_EXPERIENCES:
       return { ...state, experiences: action.payload };
     case types.POST_EXPERIENCE:
+      return { ...state, success: action.payload };
+    case types.PUT_EXPERIENCE:
       return { ...state, success: action.payload };
     default:
       return state;
