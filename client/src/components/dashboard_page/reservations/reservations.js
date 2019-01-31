@@ -17,9 +17,10 @@ class Reservations extends Component {
 
   componentDidUpdate(prevProps){
     if((prevProps.data.length === 0 && this.props.data.length !== 0) || (prevProps.asUser !== this.props.asUser)){
+      const experience_id = this.props.data[0].experience_id
       this.setState({
         dates: this.props.data.slice(),
-        experience_id: this.props.data[0].experience_id
+        experience_id
       })
     }
   }
@@ -70,18 +71,14 @@ class Reservations extends Component {
     debugger;
     const {dates, experience_id} = this.state
     for(let booking of dates){
-      // booking.date = this.getDate(new Date(booking.date))
-      if(booking.title){
+      if(!booking.date){
         dates.splice(booking, 1);
-        break;
       }
+      booking.date = this.getDate(new Date(booking.date))
     }
     try {
-      await axios.post(`/api/dates/${experience_id}`, dates)
-      this.setState({
-        dates,
-        version: ""
-      })
+      await axios.post(`/api/experiences/${experience_id}/dates`, {dates})
+      this.props.getServerData()
     }
     catch (err) {
       console.log('Error Setting new available dates', err)
@@ -100,7 +97,7 @@ class Reservations extends Component {
     for (let booking of dates) {
       let matchingDates = this.getDate(new Date(currentDate)) === this.getDate(new Date(booking.date));
       if(matchingDates && !booking.guests) {
-        if(booking.status){
+        if(booking.status === "delete"){
           delete booking.status
           return dates
         }

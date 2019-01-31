@@ -20,7 +20,11 @@ class Dashboard extends Component {
     }
   }
 
-  async componentDidMount() {
+  componentDidMount() {
+   this.getServerData();
+  }
+
+  getServerData = async () => {
     const { data : { result : { host, user} } } = await axios.get('/api/dashboard/');
     
     this.setState({
@@ -50,7 +54,7 @@ class Dashboard extends Component {
           <button onClick={this.toUser} className={`ui column button ${this.state.asUser ? 'positive' : ''}`}><h3>As User</h3></button>
         </div>
         <Upcoming data={dateData} asUser={asUser} />
-        <Reservations data={dateData} asUser={asUser} />
+        <Reservations data={dateData} asUser={asUser} getServerData={this.getServerData}/>
         {this.state.asUser ? undefined : <History data={this.state.host.history}/> }
       </div>
     );
