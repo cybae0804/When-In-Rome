@@ -10,21 +10,23 @@ class Reservations extends Component {
     this.state = {
       currentDate: "",
       version: "",
-      originalDates: [],
-      dates: []
+      dates: [],
+      experience_id: null
     }
   } 
 
   componentDidUpdate(prevProps){
     if((prevProps.data.length === 0 && this.props.data.length !== 0) || (prevProps.asUser !== this.props.asUser)){
+      const experience_id = this.props.data[0].experience_id
       this.setState({
-        dates: this.props.data.slice()
+        dates: this.props.data.slice(),
+        experience_id
       })
     }
   }
 
   getDate = (date) => {
-    return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()+1}`
+    return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
   } 
 
   displayDates = (datesArray, date) => {
@@ -34,7 +36,6 @@ class Reservations extends Component {
       if (matchingDates && booking.guests) {
         return "booked";
       } else if (matchingDates) {
-        debugger;
         if(booking.status){
           return ""
         }
@@ -67,19 +68,20 @@ class Reservations extends Component {
 
 
   handleConfirmButtonClicked = async () => {
-    const {dates} = this.state
+    debugger;
+    const {dates, experience_id} = this.state
     for(let booking of dates){
+      if(!booking.date){
+        dates.splice(booking, 1);
+      }
       booking.date = this.getDate(new Date(booking.date))
     }
     try {
-      await axios.post('/api/dates', dates)
-      this.setState({
-        dates,
-        version: ""
-      })
+      await axios.post(`/api/experiences/${experience_id}/dates`, {dates})
+      this.props.getServerData()
     }
     catch (err) {
-      console.log('Error Setting new available dates')
+      console.log('Error Setting new available dates', err)
     }
   }
 
@@ -93,9 +95,9 @@ class Reservations extends Component {
   toggleAvailableCalendar = () => {
     let {dates, currentDate } = this.state;
     for (let booking of dates) {
-      let matchingDates = this.getDate(new Date (currentDate)) === this.getDate(new Date(booking.date));
+      let matchingDates = this.getDate(new Date(currentDate)) === this.getDate(new Date(booking.date));
       if(matchingDates && !booking.guests) {
-        if(booking.status){
+        if(booking.status === "delete"){
           delete booking.status
           return dates
         }
@@ -104,7 +106,7 @@ class Reservations extends Component {
       }
     }
     const available = {
-      date: currentDate,
+      date: this.getDate(new Date(currentDate)),
       name: "",
       guests: null,
     }

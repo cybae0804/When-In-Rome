@@ -37,8 +37,8 @@ exports.post = async (req, res) => {
     let inserts = [experience_id];
     let query = mysql.format(prepared, inserts);
 
-    const id = await db.query(query);
-
+    const [result] = await db.query(query);
+    const {host_id: id} = result;
     if (id !== host_id) {
       return res.status(422).send('You do not have permission');
     }
@@ -46,41 +46,46 @@ exports.post = async (req, res) => {
     const { dates } = req.body;
 
     const deleteDates = dates.filter(date => date.status === 'delete');
-    const insertDates = dates.filter(date => !date.status);
-
-    // insert dates
-    let preparedInserts = Array(insertDates.length).fill('(?, ?, ?, ?)').join(',');
-    prepared = `INSERT INTO dates (experience_id, user_id, date, guests)
-                VALUES ${preparedInserts}
-                ON DUPLICATE KEY UPDATE 
-                user_id = VALUES(user_id),
-                guests = VALUES(guests)`;
-    inserts = [];
+    const insertDates = dates.filter(date => !date.status); 
+    let preparedInserts = null;
     
-    for (let date of insertDates) {
-      const { user_id, date, guests } = date;
+    if (insertDates.length) {
+      // insert dates
+      let preparedInserts = Array(insertDates.length).fill('(?, ?, ?, ?)').join(',');
+      prepared = `INSERT INTO dates (experience_id, user_id, date, guests)
+                  VALUES ${preparedInserts}
+                  ON DUPLICATE KEY UPDATE 
+                  user_id = VALUES(user_id),
+                  guests = VALUES(guests)`;
+      inserts = [];
+      
+      for (let entry of insertDates) {
+        const { user_id, date, guests } = entry;
 
-      inserts.push(experience_id, user_id, date, guests);
+        inserts.push(experience_id, user_id, date, guests);
+      }
+      
+      query = mysql.format(prepared, inserts);
+      
+      await db.query(query);
     }
-    
-    query = mysql.format(prepared, inserts);
-    
-    await db.query(query);
 
-    // delete dates
-    preparedInserts = Array(deleteDates.length).fill('date = ?').join(' OR ');
-    prepared = `DELETE FROM dates
-                WHERE experience_id = ?
-                AND (${preparedInserts})`;
-    insert = [];
+    if (deleteDates.length) {
+      // delete dates
+      preparedInserts = Array(deleteDates.length).fill('date = ?').join(' OR ');
+      prepared = `DELETE FROM dates
+                  WHERE experience_id = ?
+                  AND (${preparedInserts})`;
+      insert = [];
 
-    for (let date of deleteDates) {
-      inserts.push(date.date);
+      for (let date of deleteDates) {
+        inserts.push(date.date);
+      }
+      
+      query = mysql.format(prepared, inserts);
+      await db.query(query);
     }
-    
-    query = mysql.format(prepared, inserts);
 
-    await db.query(query);
 
     res.send({
       success: true,
