@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './nav_bar.css';
 import { withRouter } from 'react-router-dom';
+import Search from '../search/search';
 
 const user = [
   {
@@ -45,7 +46,8 @@ export default withRouter(connect(mapStateToProps)(props => (
   <div id="navBar">
     <div className="container ui posRelative">
       <div className='logo2' onClick={()=>{props.history.push('/')}}></div>
-      <span className='navBarTitle'>{props.title}</span>
+      {props.title ? <span className='navBarTitle'>{props.title}</span> : undefined}
+      {props.noSearch ? undefined : <Search version={props.version} view='desktop' />}
       <div className='navBarItems'>
         {
           props.auth ? 
