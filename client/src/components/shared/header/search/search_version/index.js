@@ -1,13 +1,14 @@
 import React from 'react';
 import Calendar from '../../../calendar/calendar';
+import './index.css';
 
 export default ({
   submit, change, val, pre, filter, 
   filterOpen, filterChange, sort, clear,
-  sortOpen, apply, cancel, dateOpen,
+  sortOpen, apply, cancel, dateOpen, view,
   calVal, calChange, openDate, sortItemHandler
 }) => (
-  <form id='search' className='ui form posRelative' onSubmit={submit}>
+  <form id='search' className={`ui form posRelative ${view === 'desktop' ? 'desktopSearchSearch' : ''}`} onSubmit={submit}>
     <div className="ui fluid left icon input" onSubmit={submit}>
       <i className="search link icon" onClick={submit}/>
       <input 

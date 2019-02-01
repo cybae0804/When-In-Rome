@@ -94,8 +94,8 @@ class ExperienceDetails extends Component {
     const dateArray = dates ? 
       dates.map( value => convertDateObjToCalendarVal(new Date(value.date))) : 
       [];
-    console.log(city);
-    return (
+
+      return (
       <div>
         <Carousel images={images}/>
         <div className="ui container bottomMargin">

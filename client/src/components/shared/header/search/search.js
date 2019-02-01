@@ -247,6 +247,7 @@ class Search extends Component {
           openDate={() => {this.setState({dateOpen: true})}}
           calVal={this.state.calendarValue}
           calChange={this.calendarChangeHandler}
+          view={this.props.view}
         />);
 
       default:
@@ -254,6 +255,7 @@ class Search extends Component {
           submit={this.submitBtnHandler}
           change={this.changeHandler}
           val={this.state.form.cityjob}
+          view={this.props.view}
         />);
     }
   }
