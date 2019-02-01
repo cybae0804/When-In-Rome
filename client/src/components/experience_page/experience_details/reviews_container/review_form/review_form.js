@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { postReview, getExperienceDetails } from '../../../../../actions';
 import Input from '../../../../shared/input/input';
+import './review_form.css';
 
 class ReviewForm extends Component {
   constructor(props) {
@@ -29,8 +30,17 @@ class ReviewForm extends Component {
 
     return (
       <form onSubmit={handleSubmit(handlePostReview)} className="ui form container">
-        <Field component={Input} id="review" name="review" label="Review" />
-        <Field component={Input} type="number" id="rating" name="rating" label="Rating" />
+        <Field component={Input} type="textarea" id="review" name="review" label="Review" />
+        <div className="field width60px">
+          <label htmlFor="rating">Rating</label>
+          <Field component="select" name="rating" id="rating">
+            <option value="5">5</option>
+            <option value="4">4</option>
+            <option value="3">3</option>
+            <option value="2">2</option>
+            <option value="1">1</option>
+          </Field>
+        </div>
         <button className="ui positive button">Submit</button>
       </form>
     );
