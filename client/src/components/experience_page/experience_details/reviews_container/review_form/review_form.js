@@ -31,7 +31,7 @@ class ReviewForm extends Component {
     return (
       <form onSubmit={handleSubmit(handlePostReview)} className="ui form container">
         <Field component={Input} type="textarea" id="review" name="review" label="Review" />
-        <div className="field drop-down">
+        <div className="field width60px">
           <label htmlFor="rating">Rating</label>
           <Field component="select" name="rating" id="rating">
             <option value="5">5</option>
