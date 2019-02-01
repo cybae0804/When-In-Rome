@@ -39,6 +39,7 @@ class ExperiencePage extends Component {
 function mapStateToProps(state) {
   return {
     details: state.experience.details,
+    auth: state.user.auth
   };
 }
 
