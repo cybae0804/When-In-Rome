@@ -126,12 +126,30 @@ class ExperienceForm extends Component {
 
     return (
       <form onSubmit={noImage ? handleSubmit(handleEditExperience) : handleSubmit(handleAddExperience)} className="ui form container">
-        <Field component={Input} id="occupation" name="occupation" label="Occupation" />
-        <Field component={Input} id="activity" name="activity" label="Activity" />
-        <Field component={Input} id="city" name="city" label="City" />
-        <Field component={Input} id="country" name="country" label="Country" />
-        <Field component={Input} type="number" id="price" name="price" label="Price" />
-        <Field component={Input} type="number" id="guests" name="guests" label="Max Guests" />
+        <div className="desktop-form">
+          <div className="two fields">
+            <Field component={Input} id="occupation" name="occupation" label="Occupation" />
+            <Field component={Input} id="activity" name="activity" label="Activity" />
+          </div>
+          <div className="two fields">
+            <Field component={Input} id="city" name="city" label="City" />
+            <Field component={Input} id="country" name="country" label="Country" />
+          </div>
+          <div className="two fields">
+            <Field component={Input} type="number" id="price" name="price" label="Price" />
+            <Field component={Input} type="number" id="guests" name="guests" label="Max Guests" />
+          </div>
+        </div>
+        
+        <div className="mobile-form">
+          <Field component={Input} id="occupation" name="occupation" label="Occupation" />
+          <Field component={Input} id="activity" name="activity" label="Activity" />
+          <Field component={Input} id="city" name="city" label="City" />
+          <Field component={Input} id="country" name="country" label="Country" />
+          <Field component={Input} type="number" id="price" name="price" label="Price" />
+          <Field component={Input} type="number" id="guests" name="guests" label="Max Guests" />
+        </div>
+
         <Field component={Input} id="host_info" type="textarea" name="host_info" label="Host Info" />
         <Field component={Input} id="activity_info" type="textarea" name="activity_info" label="Activity Info" />
         {this.props.noImage ? '' : this.renderImageStatus()}
