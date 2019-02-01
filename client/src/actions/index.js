@@ -19,6 +19,12 @@ export function getExperienceDetails(id) {
   }
 }
 
+export function clearExperienceDetails() {
+  return ({
+    type: types.CLEAR_EXPERIENCE_DETAILS,
+  });
+}
+
 export function getExperiences(parameters) {
   return async dispatch => {
     try {
@@ -97,6 +103,21 @@ export function resetImageUpload() {
   }
 };
 
+export function postReview(values, id) {
+  return async dispatch => {
+    try {
+      const { data: { success } } = await axios.post((`${EXPERIENCES_ROUTE}/${id}/reviews`), values);
+
+      dispatch({
+        type: types.POST_REVIEW,
+        payload: success,
+      });
+    } catch (err) {
+      console.log('Post Review Error:', err);
+    }
+  }
+}
+
 export function putExperience(parameters) {
   return async dispatch => {
     try {
@@ -144,30 +165,9 @@ export function getUser() {
       return true;
     } catch(err) {
       console.log('Get User Error:', err);
-      // sign in error
       
+      // sign in error
       return false;
     }
   }
-}
-
-export function postReview(values, id) {
-  return async dispatch => {
-    try {
-      const { data: { success } } = await axios.post((`${EXPERIENCES_ROUTE}/${id}/reviews`), values);
-
-      dispatch({
-        type: types.POST_REVIEW,
-        payload: success,
-      });
-    } catch (err) {
-      console.log('Post Review Error:', err);
-    }
-  }
-}
-
-export function clearExperienceDetails() {
-  return ({
-    type: types.CLEAR_EXPERIENCE_DETAILS,
-  });
 }
