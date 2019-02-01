@@ -8,6 +8,7 @@ import SearchPage from '../search_page/search_page';
 import ExperiencePage from '../experience_page/experience_page';
 import DashboardPage from '../dashboard_page/dashboard_page';
 import ExperienceFormPage from '../experience_form_page/experience_form_page';
+import auth from '../../hoc/auth';
 
 // etc
 import './app.css';
@@ -23,9 +24,9 @@ class App extends Component {
         <Route exact path={'/'} component={LandingPage} />
         <Route path={'/search'} component={SearchPage} />
         <Route path={'/experience/:experience_id'} component={ExperiencePage} />
-        <Route path={'/dashboard'} component={DashboardPage}/>
-        <Route path={'/create_experience'} render={() => <ExperienceFormPage title="Host Experience" noInitialValues />} />
-        <Route path={'/edit_experience/:experience_id'} render={() => <ExperienceFormPage title="Edit Experience" noImage />} />
+        <Route path={'/dashboard'} component={auth(DashboardPage)} />
+        <Route path={'/create_experience'} component={auth(ExperienceFormPage)} title="Host Experience" noInitialValues />
+        <Route path={'/edit_experience/:experience_id'} component={auth(ExperienceFormPage)} title="Edit Experience" noImage />
       </div>
     );
   }
