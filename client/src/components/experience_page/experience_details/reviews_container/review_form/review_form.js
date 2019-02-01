@@ -33,7 +33,7 @@ class ReviewForm extends Component {
       <form onSubmit={handleSubmit(handlePostReview)} className="ui form container">
         <Field component={Input} type="textarea" id="review" name="review" label="Review" />
         <Field component={Dropdown} values={[5, 4, 3, 2, 1]} id="rating" name="rating" label="Rating" />
-        <button className="ui positive button">Submit</button>
+        <a name="review-position"><button className="ui positive button">Submit</button></a>
       </form>
     );
   }
@@ -44,7 +44,9 @@ class ReviewForm extends Component {
         postReview: true,
       });
     } else {
-      window.location.assign(window.location.origin + '/oauth/login')
+      localStorage.setItem('redirectUrl', window.location.pathname);
+
+      window.location.assign(window.location.origin + '/oauth/login');
     }
   }
 

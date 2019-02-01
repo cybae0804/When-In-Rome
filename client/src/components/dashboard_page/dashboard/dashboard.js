@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { getUser } from '../../../actions';
 import axios from 'axios';
 
@@ -21,7 +22,15 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-   this.getServerData();
+    const redirectUrl = localStorage.getItem('redirectUrl');
+    
+    if (redirectUrl) {
+      localStorage.removeItem('redirectUrl');
+
+      this.props.history.push(redirectUrl);
+    } else {
+      this.getServerData();
+    }
   }
 
   getServerData = async () => {
@@ -61,4 +70,4 @@ class Dashboard extends Component {
   }
 }
 
-export default connect(null, { getUser })(Dashboard);
+export default connect(null, { getUser })(withRouter(Dashboard));
