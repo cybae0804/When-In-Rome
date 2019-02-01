@@ -43,7 +43,7 @@ function mapStateToProps(state) {
 }
 
 export default withRouter(connect(mapStateToProps)(props => (
-  <div id="navBar">
+  <div id="navBar" className={props.version === 'search' ? 'bottomMargin8rem' : ''}>
     <div className="container ui posRelative">
       <div className='logo2' onClick={()=>{props.history.push('/')}}></div>
       {props.title ? <span className='navBarTitle'>{props.title}</span> : undefined}
