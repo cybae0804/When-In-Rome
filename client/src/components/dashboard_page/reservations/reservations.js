@@ -68,7 +68,7 @@ class Reservations extends Component {
 
 
   handleConfirmButtonClicked = async () => {
-    debugger;
+    // debugger;
     const {dates, experience_id} = this.state
     for(let booking of dates){
       if(!booking.date){

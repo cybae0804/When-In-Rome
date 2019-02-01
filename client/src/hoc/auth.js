@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-export default (WrappedComponent, to = '/oauth/login', redirect = false) => {
+export default (WrappedComponent, props = {}, to = '/oauth/login', redirect = false) => {
   class Auth extends Component {
     checkAuth() {
       const { auth } = this.props;
@@ -14,7 +14,7 @@ export default (WrappedComponent, to = '/oauth/login', redirect = false) => {
     }
 
     render() {
-      if (this.checkAuth()) return <WrappedComponent {...this.props} />;
+      if (this.checkAuth()) return <WrappedComponent {...this.props} {...props} />;
     }
   }
 

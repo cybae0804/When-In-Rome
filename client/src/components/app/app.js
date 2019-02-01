@@ -25,8 +25,8 @@ class App extends Component {
         <Route path={'/search'} component={SearchPage} />
         <Route path={'/experience/:experience_id'} component={ExperiencePage} />
         <Route path={'/dashboard'} component={auth(DashboardPage)} />
-        <Route path={'/create_experience'} component={auth(ExperienceFormPage)} title="Host Experience" noInitialValues />
-        <Route path={'/edit_experience/:experience_id'} component={auth(ExperienceFormPage)} title="Edit Experience" noImage />
+        <Route path={'/create_experience'} component={auth(ExperienceFormPage, {title: "Host Experience", noInitialValues: true})} />
+        <Route path={'/edit_experience/:experience_id'} component={auth(ExperienceFormPage, { title: "Edit Experience", noImage: true })}  />
       </div>
     );
   }

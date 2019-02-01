@@ -94,3 +94,18 @@
 .submit-overlay:hover {
   cursor: pointer;
 }
+
+.desktop-form {
+  display: none;
+}
+
+@media only screen 
+and (min-width: 768px) {
+  .mobile-form {
+    display: none;
+  }
+
+  .desktop-form {
+    display: block;
+  }
+}
