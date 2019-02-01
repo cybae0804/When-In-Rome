@@ -94,3 +94,26 @@ exports.post = async (req, res) => {
     res.status(422).send('Error posting dates');
   }
 };
+
+exports.postOne = async (req, res) => {
+  try {
+    const { id: user_id } = req.user;
+    const { experience_id } = req.params;
+    const { date, guests } = req.body;
+    const prepared = `INSERT INTO dates (experience_id, user_id, date, guests)
+                      VALUES (?, ?, ?, ?)
+                      ON DUPLICATE KEY UPDATE 
+                      user_id = VALUES(user_id),
+                      guests = VALUES(guests)`;
+    const inserts = [experience_id, user_id, date, guests];
+    const query = mysql.format(prepared, inserts);
+
+    await db.query(query);
+
+    res.send({
+      success: true,
+    });
+  } catch (err) {
+    res.status(422).send('Error posting dates');
+  }
+};
