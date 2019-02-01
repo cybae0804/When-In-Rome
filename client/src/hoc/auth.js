@@ -4,13 +4,25 @@ import { connect } from 'react-redux';
 export default (WrappedComponent, to = '/oauth/login', redirect = false) => {
   class Auth extends Component {
     checkAuth() {
-      if (this.props.auth === redirect) window.location.assign(window.location.origin + to);
+      const { auth } = this.props;
+      
+      if (auth === redirect) {
+        window.location.assign(window.location.origin + to);
+      } else {
+        return true;
+      }
     }
 
-    render = () => this.checkAuth() ? <WrappedComponent {...this.props} /> : <div />;
+    render() {
+      if (this.checkAuth()) return <WrappedComponent {...this.props} />;
+    }
   }
 
   return connect(mapStateToProps)(Auth);
 }
 
-const mapStateToProps = state => ({ auth: state.user.auth });
+function mapStateToProps(state) {
+  return {
+    auth: state.user.auth,
+  }
+}
