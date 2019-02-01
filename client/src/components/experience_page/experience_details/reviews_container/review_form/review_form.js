@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { postReview, getExperienceDetails } from '../../../../../actions';
 import Input from '../../../../shared/input/input';
-import './review_form.css';
+import Dropdown from '../../../../shared/dropdown/dropdown';
 
 class ReviewForm extends Component {
   constructor(props) {
@@ -12,6 +12,7 @@ class ReviewForm extends Component {
 
     this.state = {
       review: '',
+      postReview: false,
     }
   }
 
@@ -25,41 +26,50 @@ class ReviewForm extends Component {
     this.props.reset();
   }
 
-  render() {
+  renderPostReviewForm = () => {
     const { props: { handleSubmit }, handlePostReview } = this;
 
     return (
       <form onSubmit={handleSubmit(handlePostReview)} className="ui form container">
         <Field component={Input} type="textarea" id="review" name="review" label="Review" />
-        <div className="field width60px">
-          <label htmlFor="rating">Rating</label>
-          <Field component="select" name="rating" id="rating">
-            <option value="5">5</option>
-            <option value="4">4</option>
-            <option value="3">3</option>
-            <option value="2">2</option>
-            <option value="1">1</option>
-          </Field>
-        </div>
+        <Field component={Dropdown} values={[5, 4, 3, 2, 1]} id="rating" name="rating" label="Rating" />
         <button className="ui positive button">Submit</button>
       </form>
     );
   }
+
+  postReview = () => {
+    if (this.props.auth) {
+      this.setState({
+        postReview: true,
+      });
+    } else {
+      window.location.assign(window.location.origin + '/oauth/login')
+    }
+  }
+
+  render() {
+    const output = this.state.postReview ? 
+                   this.renderPostReviewForm() :
+                   <button onClick={this.postReview} className="ui positive button">Write a Review</button>; 
+  
+    return output;
+  }
 }
 
-function validate({review, rating}) {
+function validate({ review, rating }) {
   const errors = {};
 
   if (!review) errors.review = 'Please enter a review';
 
-  if (!rating || rating < 1 || rating > 5) errors.rating = 'Please enter valid rating between 1 and 5';
+  if (!rating) errors.rating = 'Please enter a rating';
 
   return errors;
 }
 
 function mapStateToProps(state) {
   return {
-    
+    auth: state.user.auth,
   };
 }
 
