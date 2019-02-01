@@ -3,6 +3,7 @@
   color: white;
   height: 3.8rem;
   margin-bottom: 2rem;
+  width: 100%;
 }
 
 #navBar .logo2 {
@@ -32,13 +33,18 @@
 
 .navBarItems {
   position: absolute;
-  right: 1rem;
+  right: 0;
   height: 3.8rem;
 }
 
 .navBarItem {
-  color: white;
+  color: white !important;
   position: relative;
   top: 50%;
   transform: translateY(-50%);
+  background-color: initial !important;
+}
+
+.navBarItem:hover {
+  color: #78CC98 !important;
 }

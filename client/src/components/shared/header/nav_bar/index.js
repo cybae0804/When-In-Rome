@@ -43,20 +43,22 @@ function mapStateToProps(state) {
 
 export default withRouter(connect(mapStateToProps)(props => (
   <div id="navBar">
-    <div className='logo2' onClick={()=>{props.history.push('/')}}></div>
-    <span className='navBarTitle'>{props.title}</span>
-    <div className='navBarItems'>
-      {
-        props.auth ? 
-          user.map((item, index) => {
-            if (item.link) return (<Link className='ui button navBarItem' to={item.to} key={index}>{item.text}</Link>);
-            return (<a className='ui button navBarItem' key={index} href={item.to}>{item.text}</a>);
-          }) : 
-          guest.map((item, index) => {
-            if (item.link) return (<Link className='ui button navBarItem' to={item.to} key={index}>{item.text}</Link>);
-            return (<a className='ui button navBarItem' key={index} href={item.to}>{item.text}</a>);
-          })
-      }
+    <div className="container ui posRelative">
+      <div className='logo2' onClick={()=>{props.history.push('/')}}></div>
+      <span className='navBarTitle'>{props.title}</span>
+      <div className='navBarItems'>
+        {
+          props.auth ? 
+            user.map((item, index) => {
+              if (item.link) return (<Link className='ui button navBarItem' to={item.to} key={index}>{item.text}</Link>);
+              return (<a className='ui button navBarItem' key={index} href={item.to}>{item.text}</a>);
+            }) : 
+            guest.map((item, index) => {
+              if (item.link) return (<Link className='ui button navBarItem' to={item.to} key={index}>{item.text}</Link>);
+              return (<a className='ui button navBarItem' key={index} href={item.to}>{item.text}</a>);
+            })
+        }
+      </div>
     </div>
   </div>
 )));
