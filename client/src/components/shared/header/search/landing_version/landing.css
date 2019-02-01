@@ -2,25 +2,44 @@
   display: none;
 }
 
-@media only screen and (min-width: 768px) {
+.dropDownClickContainer {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+}
+
+@media only screen and (max-width: 767px) {
   #landingSearch {
-    height: 90vh;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  #landingContainer {
+    height: 94vh;
+    width: 100vw;
     background-image: url('../../../../../assets/images/rome-background.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+  }
+  
+  #landingSearch {
     margin-top: 0 !important;
-    padding: 20vh;
+    padding-top: 20vh;
   }
   
   #landingSearch .field1 {
-    width: 35%;
+    width: 42%;
     display: inline-block;
   }
 
   #landingSearch .two.fields {
     display: inline-block;
-    width: 39%;
+    width: 42%;
     margin-left: 0.5rem;
   }
 
@@ -38,8 +57,8 @@
   } 
 
   #landingSearch .filterDrop {
+    margin-left: calc(50% - 150px);
     width: 350px;
-    margin-left: calc(50vw - 20vh - 175px);
   }
   
   #desktopLoginLink {

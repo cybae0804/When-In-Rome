@@ -216,8 +216,9 @@ class Search extends Component {
           
           confirm={this.confirmBtnHandler}
           clear={this.clearBtnHandler}
-          open={() => {this.setState({dateOpen: true})}}
-          close={() => {this.setState({dateOpen: false})}}
+          open={(e) => {
+            this.setState({dateOpen: true})}}
+          close={() => this.setState({dateOpen: false})}
           
           dateOpen={this.state.dateOpen}
           calVal={this.state.calendarValue}

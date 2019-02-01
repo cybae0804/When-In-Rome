@@ -38,7 +38,6 @@
     position: absolute;
     display: block;
     z-index: 1;
-    margin: 20vh;
     padding-top: 10vh;
     font-size: 7vmin;
   }
