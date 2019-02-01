@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import HamburgerButton from './hamburger_button/hamburger_button';
 import HamburgerMenu from '../hamburger_menu/hamburger_menu';
+import { connect } from 'react-redux';
 import NavBar from './nav_bar';
 import Search from './search/search';
 import './header.css';
@@ -23,6 +24,21 @@ class Header extends Component {
   render() {
     return (
       <div>
+        {
+          this.props.version === 'landing' ? 
+            this.props.auth ? (<a 
+              id='desktopLoginLink' 
+              href='/oauth/logout'
+              className='ui button primary'
+            >Log Out</a>)
+            :
+            (<a 
+              id='desktopLoginLink' 
+              href='/oauth/login'
+              className='ui button primary'
+            >Log In / Sign Up</a>)
+          : undefined
+        }
         <div id='header' className="ui container posRelative vertMargin16px">
           <div className='logoTextContainer'>
             <div className={this.props.logo ? 'logo' : 'dispNone'}/>
@@ -40,7 +56,9 @@ class Header extends Component {
         <div id="desktopHeader">
           {this.props.version === 'landing' ?
             <div>
-              <h1 className='desktopLandingText'>{this.props.title}</h1>
+              <div className='ui container'>
+                <h1 className='desktopLandingText'>{this.props.title}</h1>
+              </div>
               <Search version={this.props.version} />
             </div>
             :
@@ -53,4 +71,11 @@ class Header extends Component {
   }
 }
 
-export default Header;
+
+function mapStateToProps(state) {
+  return {
+    auth: state.user.auth,
+  }
+}
+
+export default connect(mapStateToProps)(Header);
