@@ -74,6 +74,13 @@ class Carousel extends Component {
     }
 
     const src = images[currentIndex];
+    const count = images.length > 1 ? images.length : 0;
+    const arrows = count ? (
+                    <Fragment>
+                      <i className="huge angle left leftpush icon overlay center-vertical white" onClick={this.changeImg.bind(this, 'previous')}></i>
+                      <i className="huge angle right rightpush icon overlay center-vertical white" onClick={this.changeImg.bind(this, 'next')}></i>
+                    </Fragment>
+                    ) : null;                  
 
     return (
       <Fragment>
@@ -86,11 +93,10 @@ class Carousel extends Component {
             >
               <img key={src} src={src} className="carousel-img center-vertical" />
             </Transition>
-              <i className="huge angle left leftpush icon overlay center-vertical white" onClick={this.changeImg.bind(this, 'previous')}></i>
-              <i className="huge angle right rightpush icon overlay center-vertical white" onClick={this.changeImg.bind(this, 'next')}></i>
+            {arrows}
           </div>
         </div>
-        <Indicators onClick={this.directToImage.bind(this)} count={images.length} current={currentIndex} />
+        <Indicators onClick={this.directToImage.bind(this)} count={count} current={currentIndex} />
       </Fragment>
     );
   }
