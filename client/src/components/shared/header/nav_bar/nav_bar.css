@@ -1,0 +1,44 @@
+#navBar {
+  background-color: rgba(0,0,0,.87);
+  color: white;
+  height: 3.8rem;
+  margin-bottom: 2rem;
+}
+
+#navBar .logo2 {
+  background-image: url('../../../../assets/images/logo2.png');
+  background-position: center;
+  background-size: 55px 55px;
+  background-repeat: no-repeat;
+  
+  height: 3.8rem;
+  width: 3.8rem;
+  display: inline-block;
+  filter: brightness(90%);
+  cursor: pointer;
+}
+
+.navBarTitle, .navBarItems {
+  display: inline-block !important;
+}
+
+.navBarTitle {
+  font-weight: 700;
+  font-size: 1.8rem;
+  margin: 1rem;
+  line-height: 1.8rem;
+  vertical-align: text-bottom;
+}
+
+.navBarItems {
+  position: absolute;
+  right: 1rem;
+  height: 3.8rem;
+}
+
+.navBarItem {
+  color: white;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}

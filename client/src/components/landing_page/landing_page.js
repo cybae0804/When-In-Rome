@@ -5,13 +5,6 @@ import Footer from '../shared/footer/footer';
 import './landing_page.css';
 
 class LandingPage extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-    };
-  }
-
 	render() {
 		return (
 			<div id='landingPage'>

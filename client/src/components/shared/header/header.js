@@ -38,13 +38,14 @@ class Header extends Component {
           {this.props.noSearch ? undefined : <Search version={this.props.version} />}
         </div>
         <div id="desktopHeader">
-          {this.props.title ? 
-            this.props.version === 'landing' ? 
-              <h1 className='desktopLandingText'>{this.props.title}</h1> :
-              <h1 className='desktopHeaderText'>{this.props.title}</h1>
-          : undefined}
-          {this.props.version === 'landing' ? undefined : <NavBar />}
-          {this.props.noSearch ? undefined : <Search version={this.props.version} />}
+          {this.props.version === 'landing' ?
+            <div>
+              <h1 className='desktopLandingText'>{this.props.title}</h1>
+              <Search version={this.props.version} />
+            </div>
+            :
+            <NavBar version={this.props.version} noSearch={this.props.noSearch} title={this.props.title}/>
+          }
         </div>
       </div>
      

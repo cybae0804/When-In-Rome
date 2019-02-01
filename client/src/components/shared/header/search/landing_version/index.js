@@ -1,7 +1,6 @@
 import React from 'react';
 import Calendar from '../../../calendar/calendar';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import './landing.css';
 
 function mapStateToProps(state) {
@@ -19,7 +18,11 @@ export default connect(mapStateToProps)(({
               id='desktopLoginLink' 
               href='/oauth/login'
               className='ui button primary'
-            >Log in / Sign Up</a> : undefined}
+            >Log In / Sign Up</a> : <a 
+              id='desktopLoginLink' 
+              href='/oauth/logout'
+              className='ui button primary'
+            >Log Out</a>}
     <div className="field field1">
       <label>City or Job</label>
       <input 

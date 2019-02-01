@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './hamburger_menu.css';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 class HamburgerMenu extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   user = [
     {
       text: 'Home',
