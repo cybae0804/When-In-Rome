@@ -1,6 +1,22 @@
-.image-container {
+label {
+  font-weight: bold;
+}
+
+.details-image-container {
   text-align: center;
   margin: 10px;
+}
+
+.details-image-container > img {
+  max-width: 100%;
+}
+
+.preview-image-container {
+  margin: 0 auto;                                                                                                                                              
+  width: 184px;
+  height: 165px;
+  background-size: cover;
+  border-radius: 4px;
 }
 
 .noMarginButton {

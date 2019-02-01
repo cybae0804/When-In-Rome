@@ -46,9 +46,18 @@ class ExperienceForm extends Component {
 
   renderImage(src) {
     return (
-      <div className="image-container">
-        {src && <img src={src} style={{ maxWidth: '100%' }} alt="Uploaded image preview" />}
-      </div>
+      <Fragment>
+        <div className="topMargin8px">
+          {src ? <label >Search Results Preview</label> : (null)}
+          <div className="preview-image-container topMargin8px" style={{ 'backgroundImage': `url(${src})` }}></div>
+        </div>
+        <div className="topMargin8px bottomMargin8px">
+          {src ? <label >Experience Page Preview</label> : (null)}
+          <div className="details-image-container">
+            {src && <img src={src} alt="Uploaded image preview - details" />}
+          </div>
+        </div>
+      </Fragment>
     );
   }
 
