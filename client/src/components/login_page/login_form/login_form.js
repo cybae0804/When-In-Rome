@@ -40,6 +40,10 @@ class LoginForm extends Component {
           <p className="errorMessage">{this.state.loginMessage}</p>
           <button className="fluid ui positive button">Sign In</button>
         </form>
+
+        <div className="maxWidth centerDiv topMargin24px">
+          <p>Don't have an account?</p>
+        </div>
       </div>
     );
   }
