@@ -26,8 +26,15 @@ class LoginForm extends Component {
     const { props: { handleSubmit }, handleLogin } = this;
 
     return (
-      <div id="loginForm" className="ui container topMargin72px ">
-        <form onSubmit={handleSubmit(handleLogin)} className="ui form maxWidth centerDiv">
+      <div id="loginForm" className="ui container topMargin96px">
+        <div className="centerDiv maxWidth">
+          <button className="fluid ui google button">
+            <i className="google icon"></i>
+            Login with Google
+          </button>
+        </div>
+
+        <form onSubmit={handleSubmit(handleLogin)} className="ui form maxWidth centerDiv topMargin24px">
           <Field component={Input} id="email" name="email" label="Email" />
           <Field component={Input} id="password" name="password" label="Password" />
           <p className="errorMessage">{this.state.loginMessage}</p>
