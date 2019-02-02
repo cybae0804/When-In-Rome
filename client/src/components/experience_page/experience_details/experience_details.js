@@ -33,8 +33,9 @@ class ExperienceDetails extends Component {
     await axios.post(`/api/experiences/${experience_id}/dates/book`, 
     {
       date,
-      guests
-    })
+      guests,
+    });
+    
     this.props.getDetails()
     // this.props.history.push('/');
   }

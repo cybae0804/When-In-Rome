@@ -18,6 +18,10 @@ h1, h2, h3, h4, h5, h6, p, label, span, a {
   margin-top: 24px !important;
 }
 
+.topMargin72px {
+  margin-top: 72px !important;
+}
+
 .bigTopMargin {
   margin-top: 2.8em !important;
 }

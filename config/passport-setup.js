@@ -1,5 +1,6 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const LocalStrategy = require('passport-local').Strategy;
 const config = require('./oauth');
 const db = require('../db');
 const mysql = require('mysql');
@@ -19,7 +20,7 @@ passport.deserializeUser(async (id, done) => {
   done(null, user);
 })
 
-const configuredPassport = passport.use(
+const googlePassport = passport.use(
   new GoogleStrategy(config, async (accessToken, refreshToken, profile, done) => {
     const { id: google_id } = profile;
 
@@ -51,9 +52,36 @@ const configuredPassport = passport.use(
       }
 
     } catch (err) {
-      console.log('Error getting/creating user', err);
+      console.log('Error getting/creating user with Google OAuth', err);
     }
   }
 ));
 
-module.exports = configuredPassport;
+const localPassport = passport.use(new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password'
+  },
+  async (username, password, done) => {
+    try {
+      const prepared = `SELECT * 
+                        FROM users 
+                        WHERE email = ?
+                        AND password = ?`;
+      const inserts = [username, password];
+      const query = mysql.format(prepared, inserts);
+      const [user] = await db.query(query);
+      
+      if (user) {
+        const { id } = user;
+        
+        done(null, id);
+      } else {
+        return done(null, false, { message: 'Incorrect username or password.'});
+      }
+    } catch (err) {
+      console.log('Error logging in locally', err);
+    }
+  }
+));
+
+module.exports = { googlePassport, localPassport };
