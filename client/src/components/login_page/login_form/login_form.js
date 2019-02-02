@@ -28,7 +28,7 @@ class LoginForm extends Component {
     return (
       <div id="loginForm" className="ui container topMargin96px">
         <div className="centerDiv maxWidth">
-          <a href="/oauth/login" className="fluid ui google button">
+          <a href="/oauth/login" className="fluid ui blue button">
             <i className="google icon"></i>
             Login with Google
           </a>
