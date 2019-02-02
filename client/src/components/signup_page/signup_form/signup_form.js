@@ -7,14 +7,14 @@ import Input from '../../shared/input/input';
 
 class SignUpForm extends Component {
   handleSignUp = async values => {
-
+    
   }
 
   render() {
     const { props: { handleSubmit }, handleSignUp } = this;
 
     return (
-      <div id="loginForm" className="ui container topMargin96px">
+      <div id="loginForm" className="ui container topMargin72px">
         <div className="centerDiv maxWidth">
           <a href="/oauth/login" className="fluid ui blue button">
             <i className="google icon"></i>

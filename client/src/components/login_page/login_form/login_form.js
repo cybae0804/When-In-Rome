@@ -11,7 +11,7 @@ class LoginForm extends Component {
   }
 
   handleLogin = async values => {
-    const { data: { success }} = await axios.post(`/api/auth-local`, values);
+    const { data: { success }} = await axios.post(`/auth-local`, values);
 
     if (success) {
       this.props.history.push(('/dashboard'));
@@ -26,7 +26,7 @@ class LoginForm extends Component {
     const { props: { handleSubmit }, handleLogin } = this;
 
     return (
-      <div id="loginForm" className="ui container topMargin96px">
+      <div id="loginForm" className="ui container topMargin72px">
         <div className="centerDiv maxWidth">
           <a href="/oauth/login" className="fluid ui blue button">
             <i className="google icon"></i>

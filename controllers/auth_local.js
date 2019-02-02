@@ -1,11 +1,5 @@
 const { localPassport } = require('../config/passport-setup');
 
-// exports.login = localPassport.authenticate('local', {
-//   successRedirect: '/dashboard',
-//   failureRedirect: '/',
-//   session: true,
-// });
-
 exports.login = (req, res, next) => {
   localPassport.authenticate('local', function (err, user, info) {
     

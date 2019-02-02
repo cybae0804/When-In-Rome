@@ -26,7 +26,7 @@ class LoginForm extends Component {
     const { props: { handleSubmit }, handleLogin } = this;
 
     return (
-      <div id="loginForm" className="ui container topMargin96px">
+      <div id="loginForm" className="ui container topMargin72px">
         <div className="centerDiv maxWidth">
           <a href="/oauth/login" className="fluid ui google button">
             <i className="google icon"></i>
