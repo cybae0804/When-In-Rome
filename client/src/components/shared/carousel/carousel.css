@@ -9,6 +9,10 @@
   margin: auto;
 }
 
+.carousel-container > * {
+  height: 100%;
+}
+
 .carousel-container > i:hover{
   color: #21ba45;
   cursor: pointer;
