@@ -68,7 +68,12 @@ class Carousel extends Component {
     if (!images.length) {
       return (
         <div className="center-all carousel-container">
-          <h1 className="center">Loading Images</h1>
+          <div class="ui segment">
+            <div class="ui active inverted dimmer">
+              <div class="ui massive text loader">Loading</div>
+            </div>
+            <p></p>
+          </div>
         </div>
       );
     }
