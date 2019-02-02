@@ -2,9 +2,9 @@
   font-size: 1.5em;
 }
 
-.calendar .react-calendar__tile--active:enabled:hover, .react-calendar__tile--active:enabled:focus{
+/* .calendar .react-calendar__tile--active:enabled:hover, .react-calendar__tile--active:enabled:focus{
   background: teal;
-} 
+}  */
 
 /* .calendar .react-calendar__tile--active{
   background: lightseagreen
@@ -28,4 +28,12 @@
 
 .calendar .booked:hover{
   background-color: orangered !important;
+}
+
+.calendar .react-calendar__tile:enabled:hover, .react-calendar__tile:enabled:focus{
+  background-color: none
+}
+
+.calendar .active:focus:active:hover{
+  background-color: #75a568 !important;
 }
