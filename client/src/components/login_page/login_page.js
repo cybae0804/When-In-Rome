@@ -7,7 +7,7 @@ class LoginPage extends Component {
   render() {
     return (
       <div id="loginPage">
-        <Header />
+        <Header title="Sign In" noSearch />
         <LoginForm />
         <Footer />
       </div>

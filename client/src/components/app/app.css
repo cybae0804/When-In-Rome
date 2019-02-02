@@ -50,8 +50,16 @@ h1, h2, h3, h4, h5, h6, p, label, span, a {
   margin-bottom: 30px !important;
 }
 
+.maxWidth {
+  max-width: 350px !important;
+}
+
 .center {
   text-align: center;
+}
+
+.centerDiv {
+  margin: 0 auto;
 }
 
 .right {
