@@ -13,6 +13,7 @@ class ExperienceForm extends Component {
 
     this.state = {
       file: null,
+      fileError: '',
     }
   }
 
@@ -92,6 +93,7 @@ class ExperienceForm extends Component {
         <div className="field">
           <label>Upload Image</label>
           <input type="file" accept="image/*" onChange={this.onFileChange} />
+          <p className="errorMessage">{this.state.fileError}</p>
           <div>
             {this.renderImage(src)}
           </div>
@@ -103,11 +105,25 @@ class ExperienceForm extends Component {
   handleAddExperience = async values => {
     const { file } = this.state;
 
-    await this.props.postExperience(values, file);
+    if (!file) {
+      this.setState({
+        fileError: 'Please upload an image',
+      });
+    } else {
+      await this.props.postExperience(values, file);
 
-    setTimeout(() => {
-      this.props.history.push('/dashboard');
-    }, 2000);
+      const animation = document.querySelector('.submit-animation');
+
+      if (this.props.success) {
+        animation.classList.add('activate');
+      } else {
+        animation.classList.add('error');
+      }
+
+      setTimeout(() => {
+        this.props.history.push('/dashboard');
+      }, 2000);
+    }
   }
 
   handleEditExperience = async values => {
