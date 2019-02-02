@@ -6,12 +6,20 @@ import axios from 'axios';
 import Input from '../../shared/input/input';
 
 class LoginForm extends Component {
-  handleLogin = async values => {
-    const res = await axios.post(`/api/auth-local`, values);
-    console.log(res);
-    // const { data: redirectUrl } = await axios.post(`/api/auth-local`, values);
+  state = {
+    loginMessage: '',
+  }
 
-    // this.props.history.push(redirectUrl);
+  handleLogin = async values => {
+    const { data: { success }} = await axios.post(`/api/auth-local`, values);
+
+    if (success) {
+      this.props.history.push(('/dashboard'));
+    } else {
+      this.setState({
+        loginMessage: 'Invalid email or password',
+      });
+    }
   }
 
   render() {
@@ -22,7 +30,8 @@ class LoginForm extends Component {
         <form onSubmit={handleSubmit(handleLogin)} className="ui form container">
           <Field component={Input} id="email" name="email" label="Email" />
           <Field component={Input} id="password" name="password" label="Password" />
-          <button className="ui positive button">Sign In</button>
+          <p className="errorMessage">{this.state.loginMessage}</p>
+          <button className="fluid ui positive button">Sign In</button>
         </form>
       </div>
     );

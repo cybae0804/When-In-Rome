@@ -5,9 +5,9 @@ const config = require('./oauth');
 const db = require('../db');
 const mysql = require('mysql');
 
-passport.serializeUser((id, done) => {
-  done(null, id);
-})
+passport.serializeUser((user, done) => {
+  done(null, user);
+});
 
 passport.deserializeUser(async (id, done) => {
   const prepared = `SELECT * 
@@ -18,18 +18,18 @@ passport.deserializeUser(async (id, done) => {
   const [user] = await db.query(query);
   
   done(null, user);
-})
+});
 
 const googlePassport = passport.use(
   new GoogleStrategy(config, async (accessToken, refreshToken, profile, done) => {
     const { id: google_id } = profile;
-
+    
     try {
-      let prepared = `SELECT * 
-                      FROM users AS u
-                      WHERE u.google_id = ?`;
-      let inserts = [google_id];
-      let query = mysql.format(prepared, inserts);
+      const prepared = `SELECT * 
+                        FROM users AS u
+                        WHERE u.google_id = ?`;
+      const inserts = [google_id];
+      const query = mysql.format(prepared, inserts);
       const [user] = await db.query(query);
       
       if (user) {
@@ -41,16 +41,15 @@ const googlePassport = passport.use(
         const { emails, name: { familyName: lastname, givenName: firstname } } = profile;
         const { value: email } = emails[0];
         
-        prepared = `INSERT INTO users (email, google_id, firstname, lastname)
-                    VALUES (?, ?, ?, ?)`;
-        inserts = [email, google_id, firstname, lastname];
-        query = mysql.format(prepared, inserts);
+        const prepared = `INSERT INTO users (email, google_id, firstname, lastname)
+                          VALUES (?, ?, ?, ?)`;
+        const inserts = [email, google_id, firstname, lastname];
+        const query = mysql.format(prepared, inserts);
         const result = await db.query(query);
         const { insertId: id } = result;
 
         done(null, id);
       }
-
     } catch (err) {
       console.log('Error getting/creating user with Google OAuth', err);
     }
@@ -73,7 +72,7 @@ const localPassport = passport.use(new LocalStrategy({
       
       if (user) {
         const { id } = user;
-        
+
         done(null, id);
       } else {
         return done(null, false, { message: 'Incorrect username or password.'});
