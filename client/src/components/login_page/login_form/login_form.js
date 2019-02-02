@@ -41,8 +41,11 @@ class LoginForm extends Component {
           <button className="fluid ui positive button">Sign In</button>
         </form>
 
-        <div className="maxWidth centerDiv topMargin24px">
-          <p>Don't have an account?</p>
+        <div className="maxWidth centerDiv topMargin24px center">
+          <span className="rightMargin16px">Don't have an account?</span>
+          <a href="/signup" className="ui green basic button">
+            Sign Up
+          </a>
         </div>
       </div>
     );

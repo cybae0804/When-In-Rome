@@ -18,6 +18,10 @@ h1, h2, h3, h4, h5, h6, p, label, span, a {
   margin-top: 24px !important;
 }
 
+.topMargin48px {
+  margin-top: 48px !important;
+}
+
 .topMargin96px {
   margin-top: 72px !important;
 }
@@ -48,6 +52,10 @@ h1, h2, h3, h4, h5, h6, p, label, span, a {
 
 .bottomMargin30px {
   margin-bottom: 30px !important;
+}
+
+.rightMargin16px {
+  margin-right: 16px !important;
 }
 
 .maxWidth {
