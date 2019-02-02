@@ -33,8 +33,9 @@ class ExperienceDetails extends Component {
     await axios.post(`/api/experiences/${experience_id}/dates/book`, 
     {
       date,
-      guests
-    })
+      guests,
+    });
+    
     this.props.getDetails()
     // this.props.history.push('/');
   }
@@ -67,7 +68,7 @@ class ExperienceDetails extends Component {
         >Log Out</a>)
         :
         (<a 
-          href='/oauth/login'
+          href='/login'
           className='ui button primary'
         >Log In / Sign Up</a>)
   );

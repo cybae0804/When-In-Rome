@@ -1,6 +1,6 @@
-const passport = require('../config/passport-setup');
+const { googlePassport } = require('../config/passport-setup');
 
-exports.login = passport.authenticate('google', {
+exports.login = googlePassport.authenticate('google', {
   scope: ['profile', 'email'],
 });
 
@@ -10,7 +10,7 @@ exports.logout = (req, res) => {
   res.redirect('/');
 };
 
-exports.redirect = passport.authenticate('google', {
+exports.redirect = googlePassport.authenticate('google', {
   failureRedirect: '/oauth/loginFailure',
   successRedirect: '/dashboard',
   session: true,

@@ -5,7 +5,7 @@ const { resolve } = require('path');
 const { cookieSessionKey } = require('./config').keys;
 const PORT = process.env.PORT || 9000;
 
-const passport = require('./config/passport-setup');
+const { googlePassport, localPassport } = require('./config/passport-setup');
 const app = express();
 
 // general express setup
@@ -22,8 +22,10 @@ app.use(cookieSession({
 }));
 
 // passport setup
-app.use(passport.initialize());
-app.use(passport.session());
+app.use(googlePassport.initialize());
+app.use(googlePassport.session());
+app.use(localPassport.initialize());
+app.use(localPassport.session());
 
 require('./routes')(app);
 

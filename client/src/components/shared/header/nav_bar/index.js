@@ -26,7 +26,7 @@ const user = [
 const guest = [
   {
     text: 'Log In / Sign Up',
-    to: '/oauth/login',
+    to: '/login',
     link: false,
   },
   {
