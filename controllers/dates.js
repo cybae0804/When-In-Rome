@@ -76,7 +76,7 @@ exports.post = async (req, res) => {
       prepared = `DELETE FROM dates
                   WHERE experience_id = ?
                   AND (${preparedInserts})`;
-      insert = [];
+      inserts = [experience_id];
 
       for (let date of deleteDates) {
         inserts.push(date.date);
