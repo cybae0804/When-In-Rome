@@ -34,8 +34,7 @@ const googlePassport = passport.use(
       
       if (user) {
         const { id } = user;
-          // error handling and user object from first login
-          // first time page visit
+        
         done(null, id);
       } else {
         const { emails, name: { familyName: lastname, givenName: firstname } } = profile;

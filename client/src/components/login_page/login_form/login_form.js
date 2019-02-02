@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import Input from '../../shared/input/input';
 
@@ -28,10 +28,10 @@ class LoginForm extends Component {
     return (
       <div id="loginForm" className="ui container topMargin96px">
         <div className="centerDiv maxWidth">
-          <button className="fluid ui google button">
+          <a href="/oauth/login" className="fluid ui google button">
             <i className="google icon"></i>
             Login with Google
-          </button>
+          </a>
         </div>
 
         <form onSubmit={handleSubmit(handleLogin)} className="ui form maxWidth centerDiv topMargin24px">

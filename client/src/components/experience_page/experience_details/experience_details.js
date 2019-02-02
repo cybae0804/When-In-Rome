@@ -68,7 +68,7 @@ class ExperienceDetails extends Component {
         >Log Out</a>)
         :
         (<a 
-          href='/oauth/login'
+          href='/login'
           className='ui button primary'
         >Log In / Sign Up</a>)
   );
