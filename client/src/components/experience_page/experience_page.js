@@ -12,6 +12,14 @@ class ExperiencePage extends Component {
   }
 
   componentDidMount() {
+    this.getDetails()
+  }
+
+  componentWillUnmount() {
+    this.props.clearExperienceDetails();
+  }
+
+  getDetails = () => {
     const { experience_id } = this.props.match.params;
     
     if (experience_id) {
@@ -19,16 +27,12 @@ class ExperiencePage extends Component {
     }
   }
 
-  componentWillUnmount() {
-    this.props.clearExperienceDetails();
-  }
-
 	render() {
 		return (
 			<div id="experiencePage">
 				<Header />
 				<ExperienceDetails 
-          {...this.props.details}
+          {...this.props.details} auth={this.props.auth} getDetails={this.getDetails}
         />
         <Footer />
 			</div>

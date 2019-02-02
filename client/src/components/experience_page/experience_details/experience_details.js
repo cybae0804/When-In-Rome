@@ -4,22 +4,39 @@ import ReviewsContainer from './reviews_container/reviews_container'
 import Carousel from '../../shared/carousel';
 import { convertDateObjToCalendarVal } from '../../../helper';
 import './experience_details.css';
+import axios from 'axios';
 
 class ExperienceDetails extends Component {
   constructor(props){
     super(props);
     this.state = {
+      experience_id: null,
       show: false,
       date: "",
-      signedIn: false,
+      auth: this.props.auth,
       guests: null
     }
   }
 
-  handleSubmit = e => {
+  componentDidUpdate(prevProps){
+    if(prevProps.id !== this.props.id){
+      this.setState({
+        experience_id: this.props.id
+      })
+    }
+  }
+
+  handleSubmit = async e => {
+    const {experience_id, date, guests} = this.state
     e.preventDefault();
 
-    this.props.history.push('/');
+    await axios.post(`/api/experiences/${experience_id}/dates/book`, 
+    {
+      date,
+      guests
+    })
+    this.props.getDetails()
+    // this.props.history.push('/');
   }
 
   getGuests = e => {
@@ -32,10 +49,10 @@ class ExperienceDetails extends Component {
 
   reserveModal = () => (
     <div className="ui one column stackable center aligned page grid">
-      <div className="column twelve wide">
+      <div className="column four wide">
         <form action="" className="ui form" onSubmit={this.handleSubmit}>
           <div id="guests" className="ui action input topMargin eleven wide field">
-            <input type="number" placeholder="Enter Number of Guests" onChange={this.getGuests}/>
+            <input type="number" placeholder="Enter # of Guests" onChange={this.getGuests}/>
             <button className="ui teal button" type="submit">Reserve</button>
           </div>
         </form>
@@ -44,24 +61,36 @@ class ExperienceDetails extends Component {
     );
   
   signInPrompt = () => (
-    <h1 className="ui center aligned header">Please Sign In</h1>
+        this.props.auth ? (<a 
+          href='/oauth/logout'
+          className='ui button primary'
+        >Log Out</a>)
+        :
+        (<a 
+          href='/oauth/login'
+          className='ui button primary'
+        >Log In / Sign Up</a>)
   );
 
   displayModal = () => {
-    if (this.state.signedIn) {
+    if (this.state.auth) {
       return this.reserveModal();
     } else {
       return this.signInPrompt();
     }
   }
 
-  handleDateClicked = () => {
+  handleDateClicked = (date) => {
+    date = new Date(date)
+    console.log(date)
     this.setState({
-      show: true
+      show: true,
+      date: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
     });
   }
 
   render() {
+    console.log(this.props.id, 'state', this.state)
     const { id, 
             activity, 
             occupation, 
@@ -140,7 +169,7 @@ class ExperienceDetails extends Component {
           <Calendar 
             tileClassName={({date}) => dateArray.includes(date.toLocaleDateString()) ? "active" : null }
             tileDisabled={({date}) => !dateArray.includes(date.toLocaleDateString())}
-            onClickDay={this.handleDateClicked}
+            onClickDay={(date)=>{this.handleDateClicked(date)}}
           />
         </div>
         <div className="center aligned bigTopMargin">

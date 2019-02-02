@@ -137,7 +137,7 @@ class Reservations extends Component {
             <tbody>
               <tr>
                 <td>{this.getDate(new Date(booking.date))}</td>
-                <td>{booking.name}</td>
+                <td>{booking.title}</td>
                 <td>{booking.guests}</td>
               </tr>
             </tbody>
@@ -154,6 +154,32 @@ class Reservations extends Component {
       default:
         return ""
     }
+  }
+
+  displayLegend() {
+    const {asUser} = this.props
+    return asUser ?
+      <div className="ui container topMargin calendar-legend">
+        <div className="center">
+          <div className="content legend" id="booked"></div>
+          <span>Booked</span>
+        </div>
+      </div>
+         : 
+         <div className="ui container topMargin calendar-legend">
+        <div className="center">
+          <div className="content legend" id="booked"></div>
+          <span>Booked</span>
+        </div>
+        <div className="center">
+          <div className="content legend" id="available"></div>
+          <span>Available</span>
+        </div>
+        <div className="center">
+          <div className="content legend" id="unavailable"></div>
+          <span>Unavailable</span>
+        </div>
+      </div>
   }
 
   calendarVersion = () => {
@@ -173,6 +199,9 @@ class Reservations extends Component {
           return disabled
       }}
       tileClassName={(date) => this.displayDates(this.state.dates, date.date)}
+      onChange={ (date) => {
+        this.handleDateClicked(date);
+      }}
     /> : 
     <Calendar 
       onChange={ (date) => {
@@ -187,20 +216,7 @@ class Reservations extends Component {
         <h2 className="ui header horizontal divider container">Reservations</h2>
           {this.calendarVersion()}
         <div className="topMargin8px ui container center">
-          <div className="ui container topMargin calendar-legend">
-            <div className="center">
-              <div className="content legend" id="booked"></div>
-              <span>Booked</span>
-            </div>
-            <div className="center">
-              <div className="content legend" id="available"></div>
-              <span>Available</span>
-            </div>
-            <div className="center">
-              <div className="content legend" id="unavailable"></div>
-              <span>Unavailable</span>
-            </div>
-          </div>
+          {this.displayLegend()}
           {this.displayDropDown(this.state.currentDate, this.state.dates)}
           {this.props.asUser ? "" :
           <div className="topMargin">
