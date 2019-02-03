@@ -11,7 +11,7 @@ class LoginForm extends Component {
   }
 
   handleLogin = async values => {
-    const { data: { success }} = await axios.post(`/api/auth-local`, values);
+    const { data: { success }} = await axios.post(`/api/auth-local/login`, values);
 
     if (success) {
       this.props.history.push(('/dashboard'));

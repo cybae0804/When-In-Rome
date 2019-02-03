@@ -10,7 +10,7 @@
     "/oauth/*": {
       "target": "http://localhost:9000"
     },
-    "/auth-local": {
+    "/auth-local/*": {
       "target": "http://localhost:9000"
     }
   },

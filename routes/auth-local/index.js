@@ -1,7 +1,7 @@
 const authLocalRouter = require('express').Router();
 const { authLocal } = require('../../controllers');
 
-authLocalRouter.route('/')
+authLocalRouter.route('/login')
   .post(authLocal.login);
 
 module.exports = authLocalRouter;
