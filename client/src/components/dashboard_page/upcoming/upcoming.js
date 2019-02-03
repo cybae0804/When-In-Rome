@@ -11,7 +11,7 @@ export default withRouter(({history, data, asUser}) => {
   
   for (let i = 0; i < data.length; i++){
     
-    if (new Date(data[i].date >= today)){
+    if (new Date(data[i].date >= today) && data[i].guests !== null){
       
       if (!uniqueExp.has(data[i].experience_id)){
 
@@ -64,24 +64,16 @@ export default withRouter(({history, data, asUser}) => {
 
       display.push((
         <div key={keygen()} className={`item indentedItem ${i === data.length - 1 ? 'bottomMargin20px' : ''}`}>
-          <div className="right floated content">
-            { asUser ?
-              undefined :
-              (<Fragment>
-                <button
-                  className="ui mini button basic green content desktop"
-                  onClick={() => { history.push(`/experience/${data[i].experience_id}`) }}
-                >View</button>
-                <button 
-                  className="ui mini icon button basic green content mobile"
-                  onClick={() => {history.push(`/experience/${data[i].experience_id}`)}}>
-                  <i className="eye icon"></i>
-                </button>
-              </Fragment>)
-            }
-          </div>
           <div className="content">
-            <h4 className='topMargin4px'>{data[i].date.substring(0, 10)}</h4>
+            <h4 className='topMargin4px'>
+              {
+                !asUser ? data[i].name ? <span className="ui label tiny marginRight7px verticalAlignTextBottom"><i className="users icon"></i>{data[i].guests}</span> : <span className="ui tiny label marginRight7px verticalAlignTextBottom">Open</span> : null
+              }
+              {`${data[i].date.substring(0, 10)}`} 
+              { 
+                !asUser ? data[i].name ? ` with ${data[i].name}` : null : null 
+              }
+            </h4>
           </div>
         </div>
       ));
