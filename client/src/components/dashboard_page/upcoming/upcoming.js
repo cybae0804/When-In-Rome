@@ -1,59 +1,91 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { keygen } from '../../../helper';
 import './upcoming.css';
 
 export default withRouter(({history, data, asUser}) => {
-  const organized = {};
   const display = [];
   const today = new Date();
-
+  const uniqueExp = new Set();
+  
   for (let i = 0; i < data.length; i++){
-    if (new Date(data[i].date) >= today || data[i].date === null) {
-      if (!organized[data[i].experience_id]){
-        organized[data[i].experience_id] = [data[i]];
-      } else {
-        organized[data[i].experience_id].push(data[i]);
-      }
-    }
-  }
+    
+    if (new Date(data[i].date >= today)){
+      
+      if (!uniqueExp.has(data[i].experience_id)){
 
-  for (let item in organized){
-    display.push((
-      <div className='item' key={keygen()}>
-        {asUser ? undefined : (
-          <div className="right floated content">
-            <button 
-              className="ui mini button basic green content fixedButton"
-              onClick={() => {history.push(`/edit_experience/${organized[item][0].experience_id}`)}}  
-            >Edit</button>
-          </div>
-        )}
-        <div className="content">
-          <Link to={`/experience/${organized[item][0].experience_id}`}>
-            <h3 className='truncate topMargin4px'>{organized[item][0].title}</h3>
-          </Link>
-        </div>
-      </div>
-    ));
-
-    for (let i = 0; i < organized[item].length; i++){
-      if (!organized[item][i].date === null){
+        uniqueExp.add(data[i].experience_id);
         display.push((
-          <div key={keygen()} className={`item indentedItem ${i === organized[item].length - 1 ? 'bottomMargin20px' : ''}`}>
+          <div className='item' key={keygen()}>
             <div className="right floated content">
-              <button
-                className="ui mini button basic green content "
-                onClick={() => { history.push(`/experience/${organized[item][i].experience_id}`) }}
-              >View</button>
+              { asUser ?
+               (<Fragment>
+                 <button 
+                    className="ui mini button basic green content fixedButton desktop"
+                    onClick={() => {history.push(`/experience/${data[i].experience_id}`)}}  
+                  >View</button>
+                  <button 
+                    className="ui mini icon button basic green content mobile"
+                    onClick={() => {history.push(`/experience/${data[i].experience_id}`)}}>
+                    <i className="eye icon"></i>
+                  </button>
+                </Fragment>) : 
+                (<Fragment>
+                  <button 
+                    className="ui mini button basic green content fixedButton desktop"
+                    onClick={() => {history.push(`/edit_experience/${data[i].experience_id}`)}}  
+                  >Edit</button>
+                  <button 
+                    className="ui mini icon button basic green content mobile"
+                    onClick={() => {history.push(`/edit_experience/${data[i].experience_id}`)}}>
+                    <i className="edit icon"></i>
+                  </button>
+                  <button 
+                    className="ui mini button basic green content fixedButton desktop"
+                    onClick={() => {history.push(`/experience/${data[i].experience_id}`)}}  
+                  >View</button>
+                  <button 
+                    className="ui mini icon button basic green content mobile"
+                    onClick={() => {history.push(`/experience/${data[i].experience_id}`)}}>
+                    <i className="eye icon"></i>
+                  </button>
+                </Fragment>)}
             </div>
             <div className="content">
-              <h4 className='topMargin4px'>{organized[item][i].date.substring(0, 10)}</h4>
+              <Link to={`/experience/${data[i].experience_id}`}>
+                <h3 className='truncate topMargin4px'>{data[i].title}</h3>
+              </Link>
             </div>
           </div>
         ));
+
       }
+
+      display.push((
+        <div key={keygen()} className={`item indentedItem ${i === data.length - 1 ? 'bottomMargin20px' : ''}`}>
+          <div className="right floated content">
+            { asUser ?
+              undefined :
+              (<Fragment>
+                <button
+                  className="ui mini button basic green content desktop"
+                  onClick={() => { history.push(`/experience/${data[i].experience_id}`) }}
+                >View</button>
+                <button 
+                  className="ui mini icon button basic green content mobile"
+                  onClick={() => {history.push(`/experience/${data[i].experience_id}`)}}>
+                  <i className="eye icon"></i>
+                </button>
+              </Fragment>)
+            }
+          </div>
+          <div className="content">
+            <h4 className='topMargin4px'>{data[i].date.substring(0, 10)}</h4>
+          </div>
+        </div>
+      ));
+
     }
   }
   
@@ -66,9 +98,9 @@ export default withRouter(({history, data, asUser}) => {
       <h3 className="container align center ui">
         {display.length ? null : 'You have no upcoming sessions.'}
       </h3>
-      {asUser ? undefined : <div className='ui center aligned container'>
+      {!asUser && !data.length ? <div className='ui center aligned container'>
                               <button className='ui button' onClick={() => {history.push('/create_experience')}}>Host Experience</button>
-                            </div>}
+                            </div> : undefined}
     </div>
   );
 });

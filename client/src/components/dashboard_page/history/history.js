@@ -11,7 +11,7 @@ export default ({ data }) => {
       'total_ratings': 0
     }
   }
-  console.log(data);
+  
   return (
     <div className="topMargin24px">
       <h2 className="ui header horizontal divider container">History</h2>
