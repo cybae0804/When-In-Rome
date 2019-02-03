@@ -4,6 +4,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const config = require('./oauth');
 const db = require('../db');
 const mysql = require('mysql');
+const bcrypt = require('bcrypt');
 
 passport.serializeUser((user, done) => {
   done(null, user);
@@ -59,20 +60,25 @@ const localPassport = passport.use(new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password'
   },
-  async (username, password, done) => {
+  async (email, password, done) => {
     try {
-      const prepared = `SELECT * 
+      const prepared = `SELECT *
                         FROM users 
-                        WHERE email = ?
-                        AND password = ?`;
-      const inserts = [username, password];
+                        WHERE email = ?`;
+      const inserts = [email];
       const query = mysql.format(prepared, inserts);
       const [user] = await db.query(query);
-      
-      if (user) {
-        const { id } = user;
 
-        done(null, id);
+      if (user) {
+        const { id, password: hashedPassword } = user;
+
+        const match = await bcrypt.compare(password, hashedPassword);
+
+        if (match) {
+          done(null, id);
+        } else {
+          return done(null, false, { message: 'Incorrect username or password.' });
+        }
       } else {
         return done(null, false, { message: 'Incorrect username or password.'});
       }

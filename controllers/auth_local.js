@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 const { localPassport } = require('../config/passport-setup');
 const db = require('../db');
 const mysql = require('mysql');
@@ -18,7 +19,8 @@ exports.login = (req, res, next) => {
 
 exports.signup = async (req, res) => {
   try {
-    let { email, password, firstname, lastname } = req.body;
+    const { email, password, firstname, lastname } = req.body;
+
     let inserts = [email];
     let prepared = `SELECT id FROM users
                     WHERE email = ?`;
@@ -31,7 +33,8 @@ exports.signup = async (req, res) => {
 
     prepared = `INSERT INTO users (email, password, firstname, lastname)
                 VALUES (?, ?, ?, ?)`;
-    inserts = [email, password, firstname, lastname];
+    const hashedPassword = bcrypt.hashSync(password, 10);
+    inserts = [email, hashedPassword, firstname, lastname];
     query = mysql.format(prepared, inserts);
 
     await db.query(query);
