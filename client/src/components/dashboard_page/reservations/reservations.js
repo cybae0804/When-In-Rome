@@ -16,9 +16,7 @@ class Reservations extends Component {
   } 
 
   componentDidUpdate(prevProps){
-    console.log(prevProps)
     if((prevProps.data.length === 0 && this.props.data.length !== 0) || (prevProps.asUser !== this.props.asUser)){
-      console.log(this.props.data)
       if(this.props.data.length !==0){
         const experience_id = this.props.data[0].experience_id
         this.setState({

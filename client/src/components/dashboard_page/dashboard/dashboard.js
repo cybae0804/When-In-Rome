@@ -56,6 +56,9 @@ class Dashboard extends Component {
   render() {
     const dateData = this.state.asUser ? this.state.user.dates : this.state.host.dates;
     const {asUser} = this.state;
+
+    console.log('dashboard state ', this.state);
+    
     return (
       <div>
         <div className="ui equal width grid container topMargin">
