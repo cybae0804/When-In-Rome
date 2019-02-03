@@ -10,25 +10,25 @@ const contributors = [
 	{
 		firstName: 'Cy',
 		lastName: 'Bae',
-		github: '',
-		linkedin: '',
-		portfolio: '',
-		imgUrl: 'http://picsum.photos/400'
+		github: 'https://github.com/cybae0804',
+		linkedin: 'https://www.linkedin.com/in/cybae0804/',
+		portfolio: 'http://cybae.co',
+		imgUrl: 'https://media.licdn.com/dms/image/C4D03AQHG3Q5PODKQAQ/profile-displayphoto-shrink_200_200/0?e=1554940800&v=beta&t=NGkKPhDAfw7M_URY016DlKYZ7cHaJw8qgdA3CrmgJD8'
 	},
 	{
 		firstName: 'Ben',
 		lastName: 'Levine',
-		github: '',
-		linkedin: '',
+		github: 'https://github.com/hapachino',
+		linkedin: 'https://www.linkedin.com/in/benjamin-levine-261b9361/',
 		portfolio: '',
 		imgUrl: 'http://picsum.photos/401'
 	},
 	{
 		firstName: 'Erick',
 		lastName: 'Brownfield',
-		github: '',
-		linkedin: '',
-		portfolio: '',
+		github: 'https://github.com/benlevine1',
+		linkedin: 'https://www.linkedin.com/in/erickbrownfield/',
+		portfolio: 'http://erickbrownfield.com',
 		imgUrl: 'http://picsum.photos/402'
 	}
 ];
@@ -64,14 +64,14 @@ const technology = [
 ];
 
 export default props => (
-	<div className='container ui aligned center'>
-		<h1 className='ui horizontal header topMargin'>When In Rome...</h1>
-		<div className='container ui text'>
+	<div className='container ui text aligned center'>
+		<h1 className='ui horizontal header'>When In Rome...</h1>
+		<div>
 			{description.map( (paragraph, index) => (<p key={index}>{paragraph}</p>))}
 		</div>
 
-		<h1 className='ui horizontal divider header topMargin'>Contributors</h1>
-		<div className='ui three stackable cards'>
+		<h3 className='ui horizontal divider header topMargin'>Contributors</h3>
+		<div className='ui three stackable cards topMargin'>
 			{contributors.map( (item, index) => (
 				<div key={index} className='ui card'>
 					<div className='image'>
@@ -81,21 +81,21 @@ export default props => (
 						<div className='header'>{`${item.firstName} ${item.lastName}`}</div>
 					</div>
 					<div className="ui bottom attached buttons">
-						<button className="ui icon circular button">
+						<a target="_blank" href={item.portfolio} className="ui icon circular button">
 							<i className="user icon"></i>
-						</button>
-  					<button className="ui icon linkedin circular button">
+						</a>
+  					<a target="_blank" href={item.linkedin} className="ui icon linkedin circular button">
 							<i className="linkedin icon"></i>
-						</button>
-  					<button className="ui icon circular black button">
+						</a>
+  					<a target="_blank" href={item.github} className="ui icon circular black button">
 							<i className="icon github"></i>
-						</button>
+						</a>
 					</div>
 				</div>
 			))}
 		</div>
 
-		<h1 className='ui horizontal divider header topMargin'>Built With</h1>
+		<h3 className='ui horizontal divider header topMargin'>Built With</h3>
 		<div className="ui middle aligned divided massive relaxed horizontal list">
 			{
 				technology.map( (item, index) => (
