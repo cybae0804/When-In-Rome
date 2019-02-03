@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
--- https://www.phpmyadmin.net/
+-- version 4.4.15.5
+-- http://www.phpmyadmin.net
 --
--- Host: localhost:3306
--- Generation Time: Feb 01, 2019 at 08:49 PM
+-- Host: 127.0.0.1:3306
+-- Generation Time: Feb 03, 2019 at 02:16 AM
 -- Server version: 5.6.34-log
--- PHP Version: 7.2.1
+-- PHP Version: 7.0.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -32,13 +30,13 @@ USE `rome`;
 -- Table structure for table `dates`
 --
 
-CREATE TABLE `dates` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `experience_id` int(10) UNSIGNED NOT NULL,
-  `user_id` int(10) UNSIGNED DEFAULT NULL,
+CREATE TABLE IF NOT EXISTS `dates` (
+  `id` int(10) unsigned NOT NULL,
+  `experience_id` int(10) unsigned NOT NULL,
+  `user_id` int(10) unsigned DEFAULT NULL,
   `date` date NOT NULL,
-  `guests` int(2) UNSIGNED DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `guests` int(2) unsigned DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `dates`
@@ -63,10 +61,7 @@ INSERT INTO `dates` (`id`, `experience_id`, `user_id`, `date`, `guests`) VALUES
 (21, 4, NULL, '2019-02-12', NULL),
 (22, 4, NULL, '2019-02-21', NULL),
 (23, 5, NULL, '2019-02-12', NULL),
-(54, 15, NULL, '2019-01-31', NULL),
-(55, 15, NULL, '2019-02-01', NULL),
-(56, 15, NULL, '2019-02-02', NULL),
-(57, 15, NULL, '2019-02-03', NULL);
+(24, 5, NULL, '2019-02-21', NULL);
 
 -- --------------------------------------------------------
 
@@ -74,18 +69,18 @@ INSERT INTO `dates` (`id`, `experience_id`, `user_id`, `date`, `guests`) VALUES
 -- Table structure for table `experiences`
 --
 
-CREATE TABLE `experiences` (
-  `id` int(11) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `experiences` (
+  `id` int(11) unsigned NOT NULL,
   `activity` varchar(50) NOT NULL,
   `occupation` varchar(30) NOT NULL,
   `city` varchar(30) NOT NULL,
   `country` varchar(30) NOT NULL,
-  `price` int(5) UNSIGNED NOT NULL,
-  `guests` int(3) UNSIGNED NOT NULL,
-  `host_id` int(11) UNSIGNED NOT NULL,
+  `price` int(5) unsigned NOT NULL,
+  `guests` int(3) unsigned NOT NULL,
+  `host_id` int(11) unsigned NOT NULL,
   `host_info` varchar(300) NOT NULL,
   `activity_info` varchar(500) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `experiences`
@@ -96,10 +91,7 @@ INSERT INTO `experiences` (`id`, `activity`, `occupation`, `city`, `country`, `p
 (2, 'Manual Labor', 'Ranch Hand', 'Corpus Christi, Texas', 'U.S.', 250, 10, 2, 'Currently owned by Anne Marion, the great-granddaughter of the four sixes hunting ranch founder Samuel Burnett, the Burnett ranches have been operational since 1868. The ranch has two locations, one in Guthrie and one in the panhandle, and the family breeds horses and black Angus cattle.', 'Meet at the stable at 6am. Shovel out the horse stables. Put fresh hay in the stables.  Lunch at noon.  Feed the animals.  General manual labor'),
 (3, 'Stock Trading', 'NYSE Floor Broker', 'Manhattan, NY', 'U.S.', 300, 2, 3, 'I have been a floor trader on Wall Street for 5 years.  I consider myself to be the eyes and ears for my clients and their portfolios.', 'Meet outside the NYSE building at 8, grab some coffee.  Hit the floor of the exchange by 9am. opening bell is rung at 930am and closing bell is at 4pm.  We stay on the floor the whole time, except to use the restroom.'),
 (4, 'Making Sushi', 'Itamae', 'Ginza, Tokyo', 'Japan', 200, 3, 4, 'Jiro Ono is a Japanese chef and owner of Sukiyabashi Jiro, a three-Michelin-starred Japanese sushi restaurant. Ono has been regarded by his contemporaries and peers as the greatest sushi craftsman alive and is credited with innovating methods used in modern sushi preparation.', 'Preparation of sushi rice, sharpening sushi knives. Preparing blocks of fish, grating ginger and slicing scallions.'),
-(5, 'Driving around London', 'London Black Cab Driver', 'London', 'England', 100, 4, 5, 'Oliver has been a London Black Cab Driver for 25 years.  He knows the city like the back of his hand since the cabby examination is possibly the most difficult test in the world — demanding years of study to memorize the labyrinthine city’s 25,000 streets and any business or landmark on them.', 'We will be driving around in the cab picking up fares from 6am until 8pm, breaking for lunch and dinner when we have time.  You will get to experience the city and I will provide historical info on all landmarks as we drive around.'),
-(15, '1', '1', '1', '1', 1, 1, 11, '1', '1'),
-(16, '2', '2', '2', '2', 2, 2, 11, '2', '2'),
-(17, 'r', 'r', 'r', 'r', 5, 6, 11, '5', '5');
+(5, 'Driving around London', 'London Black Cab Driver', 'London', 'England', 100, 4, 5, 'Oliver has been a London Black Cab Driver for 25 years.  He knows the city like the back of his hand since the cabby examination is possibly the most difficult test in the world — demanding years of study to memorize the labyrinthine city’s 25,000 streets and any business or landmark on them.', 'We will be driving around in the cab picking up fares from 6am until 8pm, breaking for lunch and dinner when we have time.  You will get to experience the city and I will provide historical info on all landmarks as we drive around.');
 
 -- --------------------------------------------------------
 
@@ -107,11 +99,11 @@ INSERT INTO `experiences` (`id`, `activity`, `occupation`, `city`, `country`, `p
 -- Table structure for table `images`
 --
 
-CREATE TABLE `images` (
-  `id` int(11) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `images` (
+  `id` int(11) unsigned NOT NULL,
   `experience_id` int(11) NOT NULL,
   `imagePath` varchar(70) CHARACTER SET utf8 NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `images`
@@ -131,16 +123,7 @@ INSERT INTO `images` (`id`, `experience_id`, `imagePath`) VALUES
 (16, 4, '07c91243-c205-4f05-acba-531ab57a6959.jpg\r\n\r\n'),
 (17, 4, '6bb4138f-e257-4551-ac7d-03fcb63f905e.jpg\r\n\r\n'),
 (18, 5, '196c2621-d8e9-4c78-bb4e-84e3e7ca95f5.jpg\r\n\r\n'),
-(19, 5, '91eeb95d-6f01-4e68-9c78-bc26ccdd147b.jpg\r\n\r\n'),
-(21, 9, 'fdc6f6c0-3074-48ce-8d6c-f2ebf2df1408.jpg'),
-(22, 10, '7a1e0e18-4200-42c8-9f9c-4f52812a458d.jpg'),
-(23, 11, 'e19c72d8-effe-4273-8d92-461b77ed5803.jpg'),
-(24, 12, '562993dc-fd37-4eb4-a7e9-9e24b2401121.jpg'),
-(25, 13, 'f175c6df-506f-41f6-a2ec-76734214e94f.jpg'),
-(26, 14, '8b56d670-11b5-400c-9d5e-3d4c4faa79fb.jpg'),
-(27, 15, '50529a60-ef03-4ce4-8b33-e877c7b24f4c.jpg'),
-(28, 16, '05215040-dba4-4aa1-bbd1-f4f99dc9a21b.png'),
-(29, 17, 'cc9462d1-98a5-452f-a054-b29e2ca95570.png');
+(19, 5, '91eeb95d-6f01-4e68-9c78-bc26ccdd147b.jpg\r\n\r\n');
 
 -- --------------------------------------------------------
 
@@ -148,14 +131,14 @@ INSERT INTO `images` (`id`, `experience_id`, `imagePath`) VALUES
 -- Table structure for table `reviews`
 --
 
-CREATE TABLE `reviews` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `experience_id` int(10) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `reviews` (
+  `id` int(10) unsigned NOT NULL,
+  `experience_id` int(10) unsigned NOT NULL,
   `user_id` int(11) NOT NULL,
   `date` date NOT NULL,
-  `rating` int(1) UNSIGNED NOT NULL,
+  `rating` int(1) unsigned NOT NULL,
   `description` varchar(600) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `reviews`
@@ -166,13 +149,19 @@ INSERT INTO `reviews` (`id`, `experience_id`, `user_id`, `date`, `rating`, `desc
 (2, 1, 4, '2018-12-24', 5, 'First off, let me preface by saying that I love fishing.  However, commercial fishing is a whole other ballgame.  Sakuragi is a master at his craft-he has to be, considering this is his livelihood.  Great experience, I would highly recommend it to anyone who wants to know more about commercial fishing and the seafood industry in Japan'),
 (3, 2, 3, '2018-12-24', 3, 'The Burnett Ranch offered me an authentic experience working as a ranch hand.  It is not glamorous and it is not easy but overall, I learned a lot from my time here and enjoyed the experience.'),
 (4, 2, 2, '2018-12-24', 5, 'What an incredible look into life on a real cattle ranch.  So much blood, sweat and tears goes into this job in order to make things run smoothly on the ranch.  It was back-breaking work but so worth it in order to experience life as a Ranch Hand'),
-(5, 3, 1, '2018-12-24', 3, 'Patrick is a very intense guy, as I\'m sure is necessary for this type of fast-paced stressful work.  I had sensory overload out of the floor of the stock exchange.  It was so loud and chaotic it was hard to really understand everything that was going on.  The authenticity was there, however, I really did not know what was going on most of the time.'),
+(5, 3, 1, '2018-12-24', 3, 'Patrick is a very intense guy, as I''m sure is necessary for this type of fast-paced stressful work.  I had sensory overload out of the floor of the stock exchange.  It was so loud and chaotic it was hard to really understand everything that was going on.  The authenticity was there, however, I really did not know what was going on most of the time.'),
 (6, 3, 2, '2018-12-24', 4, 'Life as a broker on the floor of the NYSE is definitely not as glamorous as Hollywood makes it out to be. I had a great time with Patrick and learned a lot from my time with him.'),
 (7, 4, 3, '2018-12-24', 5, 'I had a great time with Jiro, he has a great sense of humor and was very patient with me as I attempted to make sushi rice and prepare different sushi ingredients.  The best part of the experience was watching him work, he truly is a master sushi chef.'),
 (8, 4, 2, '2018-12-24', 5, 'Jiro is a revelation.  As many other reviewers have stated.  Watching him work is the best part of the experience.  Of course I had a good time making sushi rice and trying to prepare ingredients to his specifications, but the best part of the experience was certainly watching him work.'),
 (9, 5, 1, '2018-12-24', 5, 'What a great way to see the city and meet some interesting people! It seemed like Oliver knew just about everything about the city and I had a wonderful time chatting with him and his fares.  A great experience that I would definitely repeat.'),
 (10, 5, 4, '2018-12-24', 5, 'This is hands-down the best way to see the city.  Oliver was more knowledgeable than any tour guide could have been and I got to parts of London that are not in any of the tourist guidebooks.  He is a wonderful person with a great sense of humor.'),
-(13, 4, 11, '2019-02-01', 5, 'a');
+(11, 2, 11, '2019-01-31', 4, 'd'),
+(12, 2, 11, '2019-01-31', 5, 'h'),
+(13, 2, 11, '2019-01-31', 1, 'a'),
+(14, 2, 11, '2019-01-31', 3, 'df'),
+(15, 2, 11, '2019-01-31', 5, 'f'),
+(16, 2, 11, '2019-01-31', 1, 'a'),
+(17, 2, 11, '2019-01-31', 5, 'h');
 
 -- --------------------------------------------------------
 
@@ -180,25 +169,29 @@ INSERT INTO `reviews` (`id`, `experience_id`, `user_id`, `date`, `rating`, `desc
 -- Table structure for table `users`
 --
 
-CREATE TABLE `users` (
-  `id` int(11) UNSIGNED NOT NULL,
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) unsigned NOT NULL,
   `email` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `password` varchar(70) NOT NULL,
   `google_id` varchar(70) CHARACTER SET utf8 NOT NULL,
   `firstname` varchar(50) CHARACTER SET utf8 NOT NULL,
   `lastname` varchar(50) CHARACTER SET utf8 NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `google_id`, `firstname`, `lastname`) VALUES
-(1, 'Sakuragi @gmail.com', '', 'Sakuragi ', 'Hanamichi'),
-(2, 'Burnett@gmail.com', '', 'Burnett', 'Ranches'),
-(3, 'Patrick@gmail.com', '', 'Patrick', 'Bateman'),
-(4, 'Jiro@gmail.com', '', 'Jiro', 'Ono'),
-(5, 'Oliver@gmail.com', '', 'Oliver', 'Williams'),
-(11, 'erickwbrownfield@gmail.com', '111182943574181494274', 'Erick', 'Brownfield');
+INSERT INTO `users` (`id`, `email`, `password`, `google_id`, `firstname`, `lastname`) VALUES
+(1, '1', '1', '', 'Sakuragi ', 'Hanamichi'),
+(2, 'Burnett@gmail.com', '', '', 'Burnett', 'Ranches'),
+(3, 'Patrick@gmail.com', '', '', 'Patrick', 'Bateman'),
+(4, 'Jiro@gmail.com', '', '', 'Jiro', 'Ono'),
+(5, 'Oliver@gmail.com', '', '', 'Oliver', 'Williams'),
+(11, 'erickwbrownfield@gmail.com', '123', '111182943574181494274', 'Erick', 'Brownfield'),
+(13, 'w', 'w', '', 'w', 'w'),
+(14, 'e', 'e', '', 'e', 'e'),
+(15, 'wet', '$2b$10$r2vfgWkeJVXQqZD4mbGkLOUfV/0buBB.Up3Yr2tyE4i3kSKU0f9gS', '', 'w', 'w');
 
 --
 -- Indexes for dumped tables
@@ -228,8 +221,7 @@ ALTER TABLE `images`
 -- Indexes for table `reviews`
 --
 ALTER TABLE `reviews`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `experience_id` (`experience_id`,`user_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `users`
@@ -245,28 +237,27 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `dates`
 --
 ALTER TABLE `dates`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT for table `experiences`
 --
 ALTER TABLE `experiences`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;COMMIT;
-
+  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
