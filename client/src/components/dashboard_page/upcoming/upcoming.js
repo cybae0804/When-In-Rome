@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 import { keygen } from '../../../helper';
 import './upcoming.css';
 
@@ -30,7 +31,9 @@ export default withRouter(({history, data, asUser}) => {
           </div>
         )}
         <div className="content">
-          <h3 className='truncate topMargin4px'>{organized[item][0].title}</h3>
+          <Link to={`/experience/${organized[item][0].experience_id}`}>
+            <h3 className='truncate topMargin4px'>{organized[item][0].title}</h3>
+          </Link>
         </div>
       </div>
     ));
