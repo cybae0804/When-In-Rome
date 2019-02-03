@@ -35,12 +35,12 @@ class HamburgerMenu extends Component {
     },
     {
       text: 'Sign Up',
-      to: '/oauth/login',
+      to: '/signup',
       link: false,
     },
     {
       text: 'Login',
-      to: '/oauth/login',
+      to: '/login',
       link: false,
     },
     {

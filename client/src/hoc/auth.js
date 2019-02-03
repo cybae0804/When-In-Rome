@@ -14,7 +14,11 @@ export default (WrappedComponent, props = {}, to = '/oauth/login', redirect = fa
     }
 
     render() {
-      if (this.checkAuth()) return <WrappedComponent {...this.props} {...props} />;
+      if (this.checkAuth()) {
+        return <WrappedComponent {...this.props} {...props} />
+      } 
+
+      return null;
     }
   }
 

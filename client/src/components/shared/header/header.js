@@ -34,7 +34,7 @@ class Header extends Component {
             :
             (<a 
               id='desktopLoginLink' 
-              href='/oauth/login'
+              href='/login'
               className='ui button primary'
             >Log In / Sign Up</a>)
           : undefined
