@@ -9,6 +9,9 @@
     },
     "/oauth/*": {
       "target": "http://localhost:9000"
+    },
+    "/auth-local/*": {
+      "target": "http://localhost:9000"
     }
   },
   "scripts": {

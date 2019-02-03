@@ -11,7 +11,7 @@ class LoginForm extends Component {
   }
 
   handleLogin = async values => {
-    const { data: { success }} = await axios.post(`/auth-local/login`, values);
+    const { data: { success }} = await axios.post(`/api/auth-local/login`, values);
 
     if (success) {
       this.props.history.push(('/dashboard'));
@@ -28,7 +28,7 @@ class LoginForm extends Component {
     return (
       <div id="loginForm" className="ui container topMargin72px">
         <div className="centerDiv maxWidth">
-          <a href="/oauth/login" className="fluid ui blue button">
+          <a href="/oauth/login" className="fluid ui google button">
             <i className="google icon"></i>
             Login with Google
           </a>
@@ -41,11 +41,8 @@ class LoginForm extends Component {
           <button className="fluid ui positive button">Sign In</button>
         </form>
 
-        <div className="maxWidth centerDiv topMargin24px center">
-          <span className="rightMargin16px">Don't have an account?</span>
-          <a href="/signup" className="ui green basic button">
-            Sign Up
-          </a>
+        <div className="maxWidth centerDiv topMargin24px">
+          <p>Don't have an account?</p>
         </div>
       </div>
     );
