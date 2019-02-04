@@ -5,7 +5,6 @@ import { keygen } from '../../../helper';
 import './upcoming.css';
 
 export default withRouter(({history, data, asUser}) => {
-  console.log(data)
   const display = [];
   const today = new Date();
   const uniqueExp = new Set();
