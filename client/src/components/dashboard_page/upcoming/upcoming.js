@@ -5,13 +5,14 @@ import { keygen } from '../../../helper';
 import './upcoming.css';
 
 export default withRouter(({history, data, asUser}) => {
+  console.log(data)
   const display = [];
   const today = new Date();
   const uniqueExp = new Set();
   
   for (let i = 0; i < data.length; i++){
     
-    if (new Date(data[i].date >= today) && data[i].guests !== null){
+    if (new Date(data[i].date >= today)){
       
       if (!uniqueExp.has(data[i].experience_id)){
 
@@ -59,25 +60,30 @@ export default withRouter(({history, data, asUser}) => {
             </div>
           </div>
         ));
-
       }
 
-      display.push((
-        <div key={keygen()} className={`item indentedItem ${i === data.length - 1 ? 'bottomMargin20px' : ''}`}>
-          <div className="content">
-            <h4 className='topMargin4px'>
-              {
-                !asUser ? data[i].name ? <span className="ui label tiny marginRight7px verticalAlignTextBottom"><i className="users icon"></i>{data[i].guests}</span> : <span className="ui tiny label marginRight7px verticalAlignTextBottom">Open</span> : null
-              }
-              {`${data[i].date.substring(0, 10)}`} 
-              { 
-                !asUser ? data[i].name ? ` with ${data[i].name}` : null : null 
-              }
-            </h4>
+      if (data[i].guests !== null){
+        display.push((
+          <div key={keygen()} className={`item indentedItem ${i === data.length - 1 ? 'bottomMargin20px' : ''}`}>
+            <div className="content">
+              <h4 className='topMargin4px'>
+                {
+                  !asUser ? 
+                    data[i].name ? 
+                      <span className="ui label tiny marginRight7px verticalAlignTextBottom">
+                        <i className="users icon"></i>{data[i].guests}</span> : 
+                      <span className="ui tiny label marginRight7px verticalAlignTextBottom">Open</span> :
+                    null
+                }
+                {`${data[i].date.substring(0, 10)}`} 
+                { 
+                  !asUser ? data[i].name ? ` with ${data[i].name}` : null : null 
+                }
+              </h4>
+            </div>
           </div>
-        </div>
-      ));
-
+        ));
+      }
     }
   }
   
