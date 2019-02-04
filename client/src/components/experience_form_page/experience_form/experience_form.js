@@ -33,6 +33,10 @@ class ExperienceForm extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this.resetUpload();
+  }
+
   onFileChange = e => {
     const reader = new FileReader();
     const file = e.target.files[0];
