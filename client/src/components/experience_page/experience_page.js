@@ -12,7 +12,7 @@ class ExperiencePage extends Component {
   }
 
   componentDidMount() {
-    this.getDetails()
+    this.getDetails();
   }
 
   componentWillUnmount() {
@@ -43,7 +43,7 @@ class ExperiencePage extends Component {
 function mapStateToProps(state) {
   return {
     details: state.experience.details,
-    auth: state.user.auth
+    auth: state.user.auth,
   };
 }
 
