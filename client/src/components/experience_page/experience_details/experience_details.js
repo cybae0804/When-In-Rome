@@ -108,7 +108,7 @@ class ExperienceDetails extends Component {
             average_rating, 
             total_ratings,
             images } = this.props;
-    
+    console.log(dates);
     const title = `${activity} with a ${occupation}`;
     const starsDisplay = [];
     const averageRatingInteger = Math.floor(average_rating);
