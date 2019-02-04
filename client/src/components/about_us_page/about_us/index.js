@@ -1,6 +1,7 @@
 import React from 'react';
 import './index.css';
 
+// each entry is a paragraph
 const description = [
 	'When traveling we often only do the tourist activities. We walk away with a one dimensional experience that doesn’t reflect the rich local culture and daily life. On the other hand, many locals would love to meet foreign travelers, make new friends, and a little extra cash in the process.',
 	'When in Rome seeks to offer an authentic experience by connecting local hosts with travelers. Users can sign up for an experience and join a host in their daily life - commuting, working, or having drink at the local dive bar.'
@@ -33,6 +34,7 @@ const contributors = [
 	}
 ];
 
+// wrapped in an object for if we add icons or extra info down the road
 const technology = [
 	{
 		name: 'MySQL'

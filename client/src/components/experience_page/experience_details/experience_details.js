@@ -9,26 +9,28 @@ import axios from 'axios';
 class ExperienceDetails extends Component {
   constructor(props){
     super(props);
+
     this.state = {
       experience_id: null,
       show: false,
       date: "",
       auth: this.props.auth,
       guests: null
-    }
+    };
   }
 
   componentDidUpdate(prevProps){
-    if(prevProps.id !== this.props.id){
+    if (prevProps.id !== this.props.id) {
       this.setState({
         experience_id: this.props.id
-      })
+      });
     }
   }
 
   handleSubmit = async e => {
-    const {experience_id, date, guests} = this.state
     e.preventDefault();
+
+    const {experience_id, date, guests} = this.state;
 
     await axios.post(`/api/experiences/${experience_id}/dates/book`, 
     {
@@ -36,8 +38,7 @@ class ExperienceDetails extends Component {
       guests,
     });
     
-    this.props.getDetails()
-    // this.props.history.push('/');
+    this.props.getDetails();
   }
 
   getGuests = e => {
@@ -51,26 +52,27 @@ class ExperienceDetails extends Component {
   reserveModal = () => (
     <div className="ui one column stackable center aligned page grid">
       <div className="column four wide">
+        <h4>{`Reserving for ${this.state.date}`}</h4>
         <form action="" className="ui form" onSubmit={this.handleSubmit}>
-          <div id="guests" className="ui action input topMargin eleven wide field">
+          <div id="guests" className="ui action input eleven wide field">
             <input type="number" placeholder="Enter # of Guests" onChange={this.getGuests}/>
-            <button className="ui teal button" type="submit">Reserve</button>
+            <button className="ui positive button" type="submit">Reserve</button>
           </div>
         </form>
       </div>
     </div>
-    );
+  );
   
   signInPrompt = () => (
-        this.props.auth ? (<a 
-          href='/oauth/logout'
-          className='ui button primary'
-        >Log Out</a>)
-        :
-        (<a 
-          href='/login'
-          className='ui button primary'
-        >Log In / Sign Up</a>)
+    this.props.auth ? (<a 
+      href='/oauth/logout'
+      className='ui button primary'
+    >Log Out</a>)
+    :
+    (<a 
+      href='/login'
+      className='ui button primary'
+    >Log In / Sign Up</a>)
   );
 
   displayModal = () => {
@@ -82,8 +84,8 @@ class ExperienceDetails extends Component {
   }
 
   handleDateClicked = (date) => {
-    date = new Date(date)
-    console.log(date)
+    date = new Date(date);
+
     this.setState({
       show: true,
       date: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
@@ -91,7 +93,6 @@ class ExperienceDetails extends Component {
   }
 
   render() {
-    console.log(this.props.id, 'state', this.state)
     const { id, 
             activity, 
             occupation, 
@@ -126,60 +127,60 @@ class ExperienceDetails extends Component {
       [];
 
       return (
-      <div>
-        <Carousel images={images}/>
-        <div className="ui container bottomMargin">
-          <h1 className="detailsHeading-1 center bottomMargin30px">{title}</h1>
-          <div className="overview ui relaxed list container">
-            <div className="item">
-              <i className="icon map marker alternate large" id="detailsIcon"></i>
-              &nbsp; {`${city}, ${country}`}
+        <div>
+          <Carousel images={images}/>
+          <div className="ui container bottomMargin">
+            <h1 className="detailsHeading-1 center bottomMargin30px">{title}</h1>
+            <div className="overview ui relaxed list container">
+              <div className="item">
+                <i className="icon map marker alternate large" id="detailsIcon"></i>
+                &nbsp; {`${city}, ${country}`}
+              </div>
+              <div className="item">
+                <i className="icon dollar sign large" id="detailsIcon"></i>
+                &nbsp; {`$${price}`}
+              </div>
+              <div className="item">
+                <i className="icon clock outline large" id="detailsIcon"></i>
+                &nbsp; Full Day
             </div>
-            <div className="item">
-              <i className="icon dollar sign large" id="detailsIcon"></i>
-              &nbsp; {`$${price}`}
+              <div className="item">
+                <i className="icon users large" id="detailsIcon"></i>
+                &nbsp; {guests}
+              </div>
+              <div className="item">
+                <i className="icon id badge large" id="detailsIcon"></i>
+                &nbsp; {host}
+              </div>
             </div>
-            <div className="item">
-              <i className="icon clock outline large" id="detailsIcon"></i>
-              &nbsp; Full Day
           </div>
-            <div className="item">
-              <i className="icon users large" id="detailsIcon"></i>
-              &nbsp; {guests}
-            </div>
-            <div className="item">
-              <i className="icon id badge large" id="detailsIcon"></i>
-              &nbsp; {host}
-            </div>
+          <div className="ui container">
+            <h2 className="ui header horizontal divider container detailsHeading-2 topMargin">
+              Host Info
+            </h2>
+            <p>{host_info}</p>
+            <h2 className="ui header horizontal divider container detailsHeading-2 topMargin">
+              Activity
+            </h2>
+            <p>{activity_info}</p>
+          </div>
+          <div className="topMargin ui container">
+            <h2 className="ui header horizontal divider container detailsHeading-2 bottomMargin topMargin">
+                Dates
+            </h2>
+            <Calendar 
+              tileClassName={({date}) => dateArray.includes(date.toLocaleDateString()) ? "active" : null }
+              tileDisabled={({date}) => !dateArray.includes(date.toLocaleDateString())}
+              onClickDay={(date)=>{this.handleDateClicked(date)}}
+            />
+          </div>
+          <div className="center aligned bigTopMargin">
+            { this.state.show ? this.displayModal() : ''}
+          </div>
+          <div className="reviews bigTopMargin">
+            <ReviewsContainer avg={average_rating} total={total_ratings} reviews={reviews}/>
           </div>
         </div>
-        <div className="ui container">
-          <h2 className="ui header horizontal divider container detailsHeading-2 topMargin">
-            Host Info
-          </h2>
-          <p>{host_info}</p>
-          <h2 className="ui header horizontal divider container detailsHeading-2 topMargin">
-            Activity
-          </h2>
-          <p>{activity_info}</p>
-        </div>
-        <div className="topMargin ui container">
-          <h2 className="ui header horizontal divider container detailsHeading-2 bottomMargin topMargin">
-              Dates
-          </h2>
-          <Calendar 
-            tileClassName={({date}) => dateArray.includes(date.toLocaleDateString()) ? "active" : null }
-            tileDisabled={({date}) => !dateArray.includes(date.toLocaleDateString())}
-            onClickDay={(date)=>{this.handleDateClicked(date)}}
-          />
-        </div>
-        <div className="center aligned bigTopMargin">
-          { this.state.show ? this.displayModal() : ''}
-        </div>
-        <div className="reviews bigTopMargin">
-          <ReviewsContainer avg={average_rating} total={total_ratings} reviews={reviews}/>
-        </div>
-      </div>
     );
   }
 }

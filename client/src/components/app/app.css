@@ -58,6 +58,10 @@ h1, h2, h3, h4, h5, h6, p, label, span, a {
   margin-right: 16px !important;
 }
 
+.leftMargin10px {
+  margin-left: 10px !important;
+}
+
 .maxWidth {
   max-width: 350px !important;
 }
@@ -163,4 +167,8 @@ h1, h2, h3, h4, h5, h6, p, label, span, a {
   .mobile {
     display: none !important;
   }
+}
+
+.verticalAlignTextBottom {
+  vertical-align: text-bottom !important;
 }
