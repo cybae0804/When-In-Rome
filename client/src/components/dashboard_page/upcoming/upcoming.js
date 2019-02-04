@@ -72,7 +72,8 @@ export default withRouter(({history, data, asUser}) => {
                       <span className="ui label tiny marginRight7px verticalAlignTextBottom">
                         <i className="users icon"></i>{data[i].guests}</span> : 
                       <span className="ui tiny label marginRight7px verticalAlignTextBottom">Open</span> :
-                    null
+                      <span className="ui label tiny marginRight7px verticalAlignTextBottom">
+                      <i className="users icon"></i>{data[i].guests}</span>
                 }
                 {`${data[i].date.substring(0, 10)}`} 
                 { 
