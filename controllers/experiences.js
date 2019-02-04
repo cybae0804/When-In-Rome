@@ -91,8 +91,11 @@ exports.getAll = async (req, res) => {
 
 exports.getOne = async (req, res) => {
   const { experience_id } = req.params;
-  let { id: user_id } = req.user;
-  if (!user_id) user_id = -1;
+  let user_id = -1;
+
+  if (req.user) {
+    user_id = req.user.id;
+  }
   
   try {
     if (!experience_id) {
