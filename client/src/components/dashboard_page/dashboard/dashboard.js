@@ -22,6 +22,8 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
+    this.mounted = true;
+
     const redirectUrl = localStorage.getItem('redirectUrl');
     
     if (redirectUrl) {
@@ -33,12 +35,18 @@ class Dashboard extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this.mounted = false;
+  }
+
   getServerData = async () => {
     const { data : { result : { host, user} } } = await axios.get('/api/dashboard/');
     
-    this.setState({
-      host, user
-    });
+    if (this.mounted) {
+      this.setState({
+        host, user
+      });
+    }
   }
 
   toUser = () => {

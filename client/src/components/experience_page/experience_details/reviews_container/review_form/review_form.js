@@ -46,7 +46,7 @@ class ReviewForm extends Component {
     } else {
       localStorage.setItem('redirectUrl', window.location.pathname);
 
-      window.location.assign(window.location.origin + '/oauth/login');
+      window.location.assign(window.location.origin + '/login');
     }
   }
 

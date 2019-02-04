@@ -6,6 +6,9 @@ const datesRouter = require('./dates');
 experiencesRouter.route('/')
   .get(experiences.getAll)
   .post(experiences.post);
+
+experiencesRouter.route('/created')
+  .get(experiences.getCreated);
   
 experiencesRouter.route('/:experience_id')
   .get(experiences.getOne)

@@ -100,13 +100,30 @@ exports.postOne = async (req, res) => {
     const { id: user_id } = req.user;
     const { experience_id } = req.params;
     const { date, guests } = req.body;
-    const prepared = `INSERT INTO dates (experience_id, user_id, date, guests)
-                      VALUES (?, ?, ?, ?)
-                      ON DUPLICATE KEY UPDATE 
-                      user_id = VALUES(user_id),
-                      guests = VALUES(guests)`;
-    const inserts = [experience_id, user_id, date, guests];
-    const query = mysql.format(prepared, inserts);
+
+    let prepared = `SELECT id
+                    FROM dates
+                    WHERE user_id = ?
+                    AND date = ?`;
+    let inserts = [user_id, date];
+    let query = mysql.format(prepared, inserts);       
+    
+    const dates = await db.query(query);
+    
+    if (dates.length) {
+      return res.send({
+        success: false,
+        message: 'You already have an experience booked on that date',
+      });
+    }
+
+    prepared = `INSERT INTO dates (experience_id, user_id, date, guests)
+                VALUES (?, ?, ?, ?)
+                ON DUPLICATE KEY UPDATE 
+                user_id = VALUES(user_id),
+                guests = VALUES(guests)`;
+    inserts = [experience_id, user_id, date, guests];
+    query = mysql.format(prepared, inserts);
 
     await db.query(query);
 

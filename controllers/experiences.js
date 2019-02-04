@@ -151,6 +151,32 @@ exports.getOne = async (req, res) => {
   }
 };
 
+exports.getCreated = async (req, res) => {
+  try {
+    const { id: host_id } = req.user;
+
+    const prepared = `SELECT id 
+                    FROM experiences
+                    WHERE host_id = ?`;
+    const inserts = [host_id];
+    const query = mysql.format(prepared, inserts);
+    const experiences = await db.query(query);
+
+    const payload = {
+      success: true,
+    }
+
+    if (experiences.length) {
+      payload.existing = true;
+    }
+
+    res.send(payload);
+  } catch (err) {
+    console.log(err);
+    res.status(422).send('Error getting created experiences');
+  }
+}
+
 exports.post = async (req, res) => {
   try {
     const { activity, occupation, city, country, price, guests, host_info, activity_info, imagePath } = req.body;

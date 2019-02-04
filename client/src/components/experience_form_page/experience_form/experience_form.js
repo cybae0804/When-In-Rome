@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
+import axios from 'axios';
 import { getExperienceDetails, postExperience, putExperience } from '../../../actions';
 import Input from '../../shared/input/input';
 import { resetImageUpload } from '../../../actions';
@@ -14,15 +15,26 @@ class ExperienceForm extends Component {
     this.state = {
       file: null,
       fileError: '',
+      existing: false,
     }
   }
 
-  componentDidMount() {
-    const { experience_id } = this.props.match.params;
-    
-    if (experience_id) {
-      this.props.getExperienceDetails(experience_id);
+  async componentDidMount() {
+    if (await this.checkExistingExperiencesAndRedirect()) {
+      this.setState({
+        existing: true,
+      });
     }
+
+    const {noImage, match: { params: { experience_id }}, getExperienceDetails } = this.props;
+    
+    if (noImage && experience_id) {
+      getExperienceDetails(experience_id);
+    }
+  }
+
+  componentWillUnmount() {
+    this.resetUpload();
   }
 
   onFileChange = e => {
@@ -146,8 +158,29 @@ class ExperienceForm extends Component {
     this.props.history.push('/dashboard');
   }
 
+  async checkExistingExperiencesAndRedirect() {
+    const { data: { existing } } = await axios('/api/experiences/created');
+    const { noImage } = this.props;
+
+    return !noImage && existing;
+  }
+
   render() {
-    const { props: { handleSubmit, noImage }, handleAddExperience, handleEditExperience } = this;
+    const { props: { handleSubmit, noImage, history }, handleAddExperience, handleEditExperience } = this;
+
+    if (this.state.existing) {
+      setTimeout(() => {
+        history.push('/dashboard');
+      }, 2000);
+
+      return (
+        <div className="ui container center topMargin72px">
+          <div>
+            <h3>You may only host one experience at a time, returning to dashboard...</h3>
+          </div>
+        </div>
+      );
+    } 
 
     return (
       <form onSubmit={noImage ? handleSubmit(handleEditExperience) : handleSubmit(handleAddExperience)} className="ui form container">

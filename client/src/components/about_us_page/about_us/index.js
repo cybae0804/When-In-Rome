@@ -66,7 +66,7 @@ const technology = [
 ];
 
 export default props => (
-	<div className='container ui text aligned center'>
+	<div className='container ui text aligned'>
 		<h1 className='ui horizontal header'>When In Rome...</h1>
 		<div>
 			{description.map( (paragraph, index) => (<p key={index}>{paragraph}</p>))}
@@ -98,7 +98,7 @@ export default props => (
 		</div>
 
 		<h3 className='ui horizontal divider header topMargin'>Built With</h3>
-		<div className="ui middle aligned divided massive relaxed horizontal list">
+    <div className="ui middle aligned divided massive relaxed horizontal list center">
 			{
 				technology.map( (item, index) => (
 					<div key={index} className="item">
