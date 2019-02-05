@@ -104,7 +104,7 @@ class ExperienceForm extends Component {
       <Fragment>
         <div className="field">
           <label>Upload Image</label>
-          <input type="file" accept="image/*" onChange={this.onFileChange} />
+          <input type="file" accept=".jpg, .jpeg, .png" onChange={this.onFileChange} />
           <p className="errorMessage">{this.state.fileError}</p>
           <div>
             {this.renderImage(src)}
