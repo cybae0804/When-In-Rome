@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import Input from '../../shared/input/input';
+import { getUser } from '../../../actions';
 
 class LoginForm extends Component {
   state = {
@@ -12,9 +13,12 @@ class LoginForm extends Component {
 
   handleLogin = async values => {
     const { data: { success }} = await axios.post(`/auth-local/login`, values);
+    const { history, getUser } = this.props;
 
     if (success) {
-      this.props.history.push(('/dashboard'));
+      getUser();
+
+      history.push(('/dashboard'));
     } else {
       this.setState({
         loginMessage: 'Invalid email or password',
@@ -67,4 +71,5 @@ LoginForm = reduxForm({
 })(LoginForm);
 
 export default connect(null, {
+  getUser,
 })(withRouter(LoginForm));
