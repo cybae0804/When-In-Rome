@@ -164,7 +164,7 @@ class Reservations extends Component {
         </div>
       </div>
          : 
-         <div className="ui container topMargin calendar-legend">
+      <div className="ui container topMargin calendar-legend">
         <div className="center">
           <div className="content legend" id="booked"></div>
           <span>Booked</span>

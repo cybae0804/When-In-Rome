@@ -2,3 +2,15 @@
   min-height: 100vh;
   position: relative;
 }
+
+.success {
+  width: 350px;
+  height: 100px;
+  margin: auto;
+  border: 3px solid green;
+  border-radius: 10px;
+}
+
+.close{
+  cursor: pointer;
+}

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {withRouter} from 'react-router-dom';
 import Calendar from '../../shared/calendar/calendar';
 import ReviewsContainer from './reviews_container/reviews_container'
 import Carousel from '../../shared/carousel';
@@ -15,11 +16,13 @@ class ExperienceDetails extends Component {
       show: false,
       date: "",
       auth: this.props.auth,
-      guests: null
+      guests: null,
+      showModal: false
     };
   }
 
   componentDidUpdate(prevProps){
+    console.log(this.props)
     if (prevProps.id !== this.props.id) {
       this.setState({
         experience_id: this.props.id
@@ -29,15 +32,22 @@ class ExperienceDetails extends Component {
 
   handleSubmit = async e => {
     e.preventDefault();
-
     const {experience_id, date, guests} = this.state;
-
-    await axios.post(`/api/experiences/${experience_id}/dates/book`, 
+    this.setState({
+      guests: null
+    })
+    const resp = await axios.post(`/api/experiences/${experience_id}/dates/book`, 
     {
       date,
       guests,
     });
-    
+    console.log('response', resp)
+    if(resp.data.success){
+      this.setState({
+        show: false,
+        showModal: true
+      })
+    }
     this.props.getDetails();
   }
 
@@ -62,17 +72,17 @@ class ExperienceDetails extends Component {
       </div>
     </div>
   );
+
+  redirectToLogin = () => {
+    localStorage.setItem('redirectUrl', window.location.pathname)
+    this.props.history.push('/login')
+  }
   
   signInPrompt = () => (
-    this.props.auth ? (<a 
-      href='/oauth/logout'
+    (<button
+      onClick={this.redirectToLogin}
       className='ui button primary'
-    >Log Out</a>)
-    :
-    (<a 
-      href='/login'
-      className='ui button primary'
-    >Log In / Sign Up</a>)
+    >Log In / Sign Up</button>)
   );
 
   displayModal = () => {
@@ -81,6 +91,28 @@ class ExperienceDetails extends Component {
     } else {
       return this.signInPrompt();
     }
+  }
+
+  successModal = () => {
+    const {activity, 
+            occupation, 
+            city, 
+            country} = this.props
+    return(
+      <div className="success">
+        <i className="close icon" onClick={this.closeModal}></i>
+        <div className="ui header">
+          Successfully Booked!
+        </div>
+        <p>You are scheduled for {activity} with a {occupation} in {city}, {country} on {this.state.date}</p>
+      </div>
+    )
+  }
+
+  closeModal = e => {
+   this.setState({
+     showModal: false
+   })
   }
 
   handleDateClicked = (date) => {
@@ -108,7 +140,7 @@ class ExperienceDetails extends Component {
             average_rating, 
             total_ratings,
             images } = this.props;
-    
+    console.log(dates)
     const title = `${activity} with a ${occupation}`;
     const starsDisplay = [];
     const averageRatingInteger = Math.floor(average_rating);
@@ -173,9 +205,20 @@ class ExperienceDetails extends Component {
               tileDisabled={({date}) => !dateArray.includes(date.toLocaleDateString())}
               onClickDay={(date)=>{this.handleDateClicked(date)}}
             />
+            <div className="ui container topMargin calendar-legend">
+              <div className="center">
+                <div className="content legend" id="available"></div>
+                <span>Available</span>
+              </div>
+              <div className="center">
+                <div className="content legend" id="booked"></div>
+                <span>Booked</span>
+              </div>
+            </div>
           </div>
-          <div className="center aligned bigTopMargin">
+          <div className="center aligned topMargin">
             { this.state.show ? this.displayModal() : ''}
+            {this.state.showModal ? this.successModal(): ''}
           </div>
           <div className="reviews bigTopMargin">
             <ReviewsContainer avg={average_rating} total={total_ratings} reviews={reviews}/>
@@ -185,5 +228,5 @@ class ExperienceDetails extends Component {
   }
 }
 
-export default ExperienceDetails;
+export default withRouter(ExperienceDetails);
 

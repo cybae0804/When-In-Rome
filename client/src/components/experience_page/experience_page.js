@@ -25,6 +25,7 @@ class ExperiencePage extends Component {
     if (experience_id) {
       this.props.getExperienceDetails(experience_id);
     }
+    console.log(this.props)
   }
 
 	render() {
