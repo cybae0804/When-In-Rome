@@ -14,6 +14,7 @@ class ReviewForm extends Component {
       review: '',
       postReview: false,
     }
+
   }
 
   handlePostReview = async values => {
@@ -44,9 +45,9 @@ class ReviewForm extends Component {
         postReview: true,
       });
     } else {
-      localStorage.setItem('redirectUrl', window.location.pathname);
+      localStorage.setItem('redirectUrl', this.props.location.pathname);
 
-      window.location.assign(window.location.origin + '/login');
+      this.props.history.push('/login');
     }
   }
 

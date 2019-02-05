@@ -91,7 +91,12 @@ exports.getAll = async (req, res) => {
 
 exports.getOne = async (req, res) => {
   const { experience_id } = req.params;
+  let user_id = -1;
 
+  if (req.user) {
+    user_id = req.user.id;
+  }
+  
   try {
     if (!experience_id) {
       throw new Error('experience_id missing');
@@ -108,7 +113,7 @@ exports.getOne = async (req, res) => {
                     on e.host_id = u.id
                     WHERE e.id = ?
                     GROUP BY e.id`;
-    const inserts = [experience_id];
+    let inserts = [experience_id];
     let query = mysql.format(prepared, inserts);
     const [experience] = await db.query(query);
 
@@ -130,12 +135,16 @@ exports.getOne = async (req, res) => {
     query = mysql.format(prepared, inserts);
     experience.images = await db.query(query);
 
-    prepared = `SELECT id, date
+    prepared = `SELECT *
                 FROM dates
                 WHERE experience_id = ?
-                AND guests IS NULL
-                OR guests = 0`;
+                AND (
+                (guests IS NULL
+                OR guests = 0)
+                OR user_id = ?)`;
+    inserts = [experience_id, user_id];
     query = mysql.format(prepared, inserts);
+    
     experience.dates = await db.query(query);
 
     if (!experience) {
@@ -147,6 +156,7 @@ exports.getOne = async (req, res) => {
       experience,
     });
   } catch(err) {
+    console.log(err);
     res.status(422).send('Error getting experience');
   }
 };
@@ -156,8 +166,8 @@ exports.getCreated = async (req, res) => {
     const { id: host_id } = req.user;
 
     const prepared = `SELECT id 
-                    FROM experiences
-                    WHERE host_id = ?`;
+                      FROM experiences
+                      WHERE host_id = ?`;
     const inserts = [host_id];
     const query = mysql.format(prepared, inserts);
     const experiences = await db.query(query);
