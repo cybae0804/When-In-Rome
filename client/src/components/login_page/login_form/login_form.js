@@ -36,7 +36,7 @@ class LoginForm extends Component {
 
         <form onSubmit={handleSubmit(handleLogin)} className="ui form maxWidth centerDiv topMargin24px">
           <Field component={Input} id="email" name="email" label="Email" />
-          <Field component={Input} id="password" name="password" label="Password" />
+          <Field component={Input} type="password" id="password" name="password" label="Password" />
           <p className="errorMessage">{this.state.loginMessage}</p>
           <button className="fluid ui positive button">Sign In</button>
         </form>
