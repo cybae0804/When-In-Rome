@@ -62,7 +62,6 @@ class Dashboard extends Component {
   }
 
   render() {
-    console.log("state", this.state, "props", this.props)
     const dateData = this.state.asUser ? this.state.user.dates : this.state.host.dates;
     const { asUser } = this.state;
    
