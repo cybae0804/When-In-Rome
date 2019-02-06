@@ -42,7 +42,7 @@ class Upcoming extends Component {
                 { asUser ?
                  (<Fragment>
                    <button 
-                      className="ui mini button basic red content desktop"
+                      className="ui mini button basic green content desktop"
                       onClick={() => {history.push(`/experience/${data[i].experience_id}`)}}  
                     >View</button>
                     <button 
@@ -126,9 +126,10 @@ class Upcoming extends Component {
           header='Are you sure you want to delete this experience?' 
           body='This action cannot be undone.'  
           footer={[
-            <button className='ui button' onClick={this.closeModal}>Cancel</button>, 
-            <button className='ui button negative' onClick={() => {this.closeModal(); this.deleteExp();}}>Confirm</button>]}
-          open={this.state.modalOpen}/>
+            <button key={keygen()} className='ui button' onClick={this.closeModal}>Cancel</button>, 
+            <button key={keygen()} className='ui button negative' onClick={() => {this.closeModal(); this.deleteExp();}}>Confirm</button>]}
+          open={this.state.modalOpen}
+          close={this.closeModal}/>
       </div>
     );
   }
