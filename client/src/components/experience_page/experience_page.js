@@ -25,7 +25,6 @@ class ExperiencePage extends Component {
     if (experience_id) {
       this.props.getExperienceDetails(experience_id);
     }
-    console.log(this.props)
   }
 
 	render() {
@@ -33,7 +32,9 @@ class ExperiencePage extends Component {
 			<div id="experiencePage">
 				<Header />
 				<ExperienceDetails 
-          {...this.props.details} auth={this.props.auth} getDetails={this.getDetails}
+          {...this.props.details} 
+          auth={this.props.auth} 
+          getDetails={this.getDetails}
         />
         <Footer />
 			</div>

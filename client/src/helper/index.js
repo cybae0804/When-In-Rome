@@ -29,3 +29,7 @@ export function keygen(len = 15) {
 export function convertDateObjToCalendarVal(dateObj) {
   return `${dateObj.getMonth() + 1}/${dateObj.getDate()}/${dateObj.getFullYear()}`;
 }
+
+export function  getDate(date){
+  return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
+} 

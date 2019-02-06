@@ -62,7 +62,7 @@ exports.getDashboard = async (req, res) => {
                     ORDER BY d.date ASC`;
     query = mysql.format(prepared, inserts);
     result.user.dates = await db.query(query);
-
+    console.log(result.user.dates)
     res.send({
       success: true,
       result,
