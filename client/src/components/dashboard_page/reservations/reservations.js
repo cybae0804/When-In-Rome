@@ -76,12 +76,14 @@ class Reservations extends Component {
 
   handleConfirmButtonClicked = async () => {
     const {dates, experience_id} = this.state
+    
     for(let booking of dates){
       if(!booking.date){
         dates.splice(booking, 1);
       }
       booking.date = this.getDate(new Date(booking.date))
     }
+    console.log(dates)
     try {
       await axios.post(`/api/experiences/${experience_id}/dates`, {dates})
       this.props.getServerData()
