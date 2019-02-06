@@ -16,7 +16,8 @@ exports.getDashboard = async (req, res) => {
                     d.guests,
                     CONCAT(e.activity, " with a ", e.occupation) AS title,
                     e.id AS experience_id,
-                    CONCAT(u.firstname, " ", u.lastname) AS name
+                    CONCAT(u.firstname, " ", u.lastname) AS name,
+                    u.id AS user_id
                     FROM experiences AS e
                     LEFT JOIN dates AS d
                     ON d.experience_id = e.id
