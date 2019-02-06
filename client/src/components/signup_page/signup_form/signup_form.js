@@ -36,7 +36,7 @@ class SignUpForm extends Component {
 
         <form onSubmit={handleSubmit(handleSignUp)} className="ui form maxWidth centerDiv topMargin24px">
           <Field component={Input} id="email" name="email" label="Email" />
-          <Field component={Input} id="password" name="password" label="Password" />
+          <Field component={Input} type="password" id="password" name="password" label="Password" />
           <Field component={Input} id="firstname" name="firstname" label="First Name" />
           <Field component={Input} id="lastname" name="lastname" label="Last Name" />
           <p className="errorMessage">{this.state.signUpMessage}</p>

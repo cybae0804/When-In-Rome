@@ -66,7 +66,10 @@ exports.getAll = async (req, res) => {
                       GROUP BY experience_id
                       ) AS im
                       ON er.id = im.experience_id
-                      LEFT JOIN dates AS d
+                      JOIN (SELECT * 
+                      FROM dates
+                      WHERE guests IS NULL
+                      GROUP BY experience_id) as d
                       ON d.experience_id = er.id
                       WHERE er.guests >= ?
                       AND (activity LIKE CONCAT('%', ?,'%')
