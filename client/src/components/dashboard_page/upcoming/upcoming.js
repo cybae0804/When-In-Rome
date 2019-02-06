@@ -116,9 +116,12 @@ class Upcoming extends Component {
         <h3 className="container align center ui">
           {display.length ? null : 'You have no upcoming sessions.'}
         </h3>
-        {!asUser && !data.length ? <div className='ui center aligned container'>
-                                <button className='ui button' onClick={() => {history.push('/create_experience')}}>Host Experience</button>
-                              </div> : undefined}
+        {!asUser ? 
+          !data.length ? (<div className='ui center aligned container'>
+                          <button className='ui button' onClick={() => {history.push('/create_experience')}}>Host Experience</button>
+                        </div>) : (<div className='ui center aligned container'>
+                          <button className='ui button disabled' data-tooltip="You can only host one experience at a time.">Host Experience</button>
+                        </div>) : null }
         <Modal 
           header='Are you sure you want to delete this experience?' 
           body='This action cannot be undone.'  
