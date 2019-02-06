@@ -130,6 +130,10 @@ h1, h2, h3, h4, h5, h6, p, label, span, a {
   height: 24px;
 }
 
+.space9px {
+  height: 9px;
+}
+
 .padRight1em {
   padding-right: 1em !important;
 }
