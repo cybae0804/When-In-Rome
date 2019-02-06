@@ -6,9 +6,6 @@ import './index.css';
 // header, body, footer
 
 export default ({open, close, header, body, footer}) => {
-  if (open) document.body.style.overflow = "hidden";
-  else document.body.style.overflow = "auto";
-
   return (
   <div className={`modalContainer ${open ? '' : 'dispNone'}`} onClick={close}>
     <div className="modalWindow container ui" onClick={e => {e.stopPropagation()}}>
