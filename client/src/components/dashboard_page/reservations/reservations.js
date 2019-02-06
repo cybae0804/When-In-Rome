@@ -1,5 +1,6 @@
 import './reservations.css';
 import React, {Component} from 'react';
+import {displayDates} from '../../../helper';
 import axios from 'axios';
 import Calendar from '../../shared/calendar/calendar';
 
@@ -46,7 +47,7 @@ class Reservations extends Component {
           return ""
         }
         return "active";
-      }
+      } 
     }
     return "";
   }
@@ -128,14 +129,14 @@ class Reservations extends Component {
             <thead>
               <tr>
                 <th>Date</th>
-                <th>Name</th>
+                <th>{this.props.asUser ? 'Title' : 'Name'}</th>
                 <th>Guests</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>{this.getDate(new Date(booking.date))}</td>
-                <td>{booking.title}</td>
+                <td>{this.props.asUser ? booking.title : booking.name}</td>
                 <td>{booking.guests}</td>
               </tr>
             </tbody>
@@ -164,7 +165,7 @@ class Reservations extends Component {
         </div>
       </div>
          : 
-         <div className="ui container topMargin calendar-legend">
+      <div className="ui container topMargin calendar-legend">
         <div className="center">
           <div className="content legend" id="booked"></div>
           <span>Booked</span>

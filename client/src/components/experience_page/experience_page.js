@@ -32,7 +32,9 @@ class ExperiencePage extends Component {
 			<div id="experiencePage">
 				<Header />
 				<ExperienceDetails 
-          {...this.props.details} auth={this.props.auth} getDetails={this.getDetails}
+          {...this.props.details} 
+          auth={this.props.auth} 
+          getDetails={this.getDetails}
         />
         <Footer />
 			</div>

@@ -2,3 +2,21 @@
   min-height: 100vh;
   position: relative;
 }
+
+.failure, .success{
+  width: 350px;
+  margin: auto;
+  border: 1px solid grey;
+  border-radius: 10px;
+  box-shadow: 0 0 10px grey;
+  font-weight: bold;
+}
+
+.marginBottom{
+  margin-bottom: 1.5em !important;
+}
+
+.close{
+  cursor: pointer;
+}
+
