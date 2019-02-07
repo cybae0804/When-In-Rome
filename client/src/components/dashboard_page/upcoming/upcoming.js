@@ -129,7 +129,7 @@ class Upcoming extends Component {
             <button key={keygen()} className='ui button' onClick={this.closeModal}>Cancel</button>, 
             <button key={keygen()} className='ui button negative' onClick={async () => {this.closeModal(); await this.deleteExp(); this.props.getServerData();}}>Confirm</button>]}
           open={this.state.modalOpen}
-          close={this.closeModal}//>
+          close={this.closeModal} />
       </div>
     );
   }
