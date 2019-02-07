@@ -62,7 +62,6 @@ class Dashboard extends Component {
   }
 
   render() {
-    console.log("state", this.state, "props", this.props)
     const dateData = this.state.asUser ? this.state.user.dates : this.state.host.dates;
     const { asUser } = this.state;
    
@@ -72,7 +71,7 @@ class Dashboard extends Component {
           <button onClick={this.toHost} className={`ui column button ${this.state.asUser ? '' : 'positive'}`}><h3>As Host</h3></button>
           <button onClick={this.toUser} className={`ui column button ${this.state.asUser ? 'positive' : ''}`}><h3>As User</h3></button>
         </div>
-        <Upcoming data={dateData} asUser={asUser} />
+        <Upcoming data={dateData} asUser={asUser} getServerData={this.getServerData} />
         <Reservations data={dateData} asUser={asUser} getServerData={this.getServerData}/>
         {this.state.asUser ? undefined : <History data={this.state.host.history}/> }
       </div>

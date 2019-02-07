@@ -49,11 +49,16 @@ class SignUpForm extends Component {
 
 function validate({ email, password, firstname, lastname}) {
   const errors = {};
-
-  if (!email) errors.email = 'Please enter email';
-  if (!password) errors.password = 'Please enter password';
-  if (!firstname) errors.firstname = 'Please enter first name';
-  if (!lastname) errors.lastname = 'Please enter last name';
+  // credit: https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
+  const validEmail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+  // credit: https://stackoverflow.com/questions/12090077/javascript-regular-expression-password-validation-having-special-characters
+  const validPassword = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,32}$/;
+  const validName = /^([a-zA-Z ,.'-]{1,50})$/g;
+ 
+  if (!validEmail.test(email)) errors.email = 'Please enter a valid email';
+  if (!validPassword.test(password)) errors.password = 'Password must be between 6 and 32 characters, at least one number and special character';
+  if (!firstname || !validName.test(firstname)) errors.firstname = 'Please enter a valid first name less than 50 characters';
+  if (!lastname || !validName.test(lastname)) errors.lastname = 'Please enter a valid last name less than 50 characters';
 
   return errors;
 }

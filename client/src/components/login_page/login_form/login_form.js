@@ -58,8 +58,10 @@ class LoginForm extends Component {
 
 function validate({ email, password }) {
   const errors = {};
+  // credit: https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
+  const validEmail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
 
-  if (!email) errors.email = 'Please enter email';
+  if (!validEmail.test(email)) errors.email = 'Please enter a valid email';
   if (!password) errors.password = 'Please enter password';
 
   return errors;

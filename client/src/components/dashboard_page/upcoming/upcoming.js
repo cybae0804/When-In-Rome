@@ -9,7 +9,7 @@ import './upcoming.css';
 class Upcoming extends Component {
   state = {
     modalOpen: false,
-    expToDelete: null
+    expToDelete: null,
   }
 
   closeModal = () => {
@@ -124,7 +124,7 @@ class Upcoming extends Component {
           body='This action cannot be undone.'  
           footer={[
             <button className='ui button' onClick={this.closeModal}>Cancel</button>, 
-            <button className='ui button negative' onClick={() => {this.closeModal(); this.deleteExp();}}>Confirm</button>]}
+            <button className='ui button negative' onClick={async () => {this.closeModal(); await this.deleteExp(); this.props.getServerData();}}>Confirm</button>]}
           open={this.state.modalOpen}/>
       </div>
     );
