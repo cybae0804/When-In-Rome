@@ -13,7 +13,7 @@ class Reservations extends Component {
       currentDate: "",
       version: "",
       dates: [],
-      experience_id: null
+      experience_id: null,
     }
   } 
 
@@ -161,6 +161,10 @@ class Reservations extends Component {
   }
 
   displayDropDown = () => {
+    if (this.props.data.length === 0){
+      return '';
+    }
+
     switch (this.state.version){
       case "booked":
         return this.viewBookedDetails()
@@ -226,7 +230,6 @@ class Reservations extends Component {
       }}
     /> : 
     <Calendar
-      disabled
       onChange={ (date) => {
         this.handleDateClicked(date);
       }}
@@ -238,7 +241,7 @@ class Reservations extends Component {
     return (
       <div className="topMargin24px">
         <h2 className="ui header horizontal divider container">Reservations</h2>
-          {!this.props.asUser && this.state.dates.length === 0 ? this.calendarVersion( true ) : this.calendarVersion()}
+          {this.props.data.length === 0 ? this.calendarVersion( true ) : this.calendarVersion()}
         <div className="topMargin8px ui container center">
           {this.displayLegend()}
           {this.displayDropDown(this.state.currentDate, this.state.dates)}
