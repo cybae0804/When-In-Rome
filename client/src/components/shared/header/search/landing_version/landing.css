@@ -2,6 +2,10 @@
   display: none;
 }
 
+#desktopDashboardLink{
+  display: none;
+}
+
 .dropDownClickContainer {
   position: fixed;
   width: 100vw;
@@ -66,6 +70,14 @@
     z-index: 1;
     top: 1rem;
     right: 1rem;
+    display: inline-block;
+  }
+
+  #desktopDashboardLink {
+    position: absolute;
+    z-index: 1;
+    top: 1rem;
+    right: 8rem;
     display: inline-block;
   }
 }
