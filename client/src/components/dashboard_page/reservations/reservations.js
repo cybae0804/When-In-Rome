@@ -205,6 +205,7 @@ class Reservations extends Component {
     if (disabled) {
       return (
         <Calendar
+          name='disabledCalendar'
           tileDisabled={({date}) => (true)}
         />
       );

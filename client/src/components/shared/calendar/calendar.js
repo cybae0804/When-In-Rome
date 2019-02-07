@@ -5,7 +5,7 @@ import Calendar from 'react-calendar'
 export default props => {
    const activeDates = ['1/20/2019', '1/23/2019'];
   return(
-  <div className="calendar" id="calendarID">
+  <div className="calendar" id={props.name}>
     <Calendar 
       {...props}
       // tileClassName={({date}) => activeDates.includes(date.toLocaleDateString()) ? "active" : null}
