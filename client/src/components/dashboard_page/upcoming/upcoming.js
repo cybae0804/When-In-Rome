@@ -9,18 +9,34 @@ import './upcoming.css';
 class Upcoming extends Component {
   state = {
     modalOpen: false,
+    header: '',
+    footer: '',
     expToDelete: null,
+    dateToDrop: null,
   }
 
   closeModal = () => {
     this.setState({
       modalOpen: false,
-      expToDelete: null
+      header: '',
+      footer: '',
+      expToDelete: null,
+      dateToDrop: null,
     });
   }
 
-  deleteExp = () => {
-    axios.delete(`/api/experiences/${this.state.expToDelete}`);
+  deleteExp = async () => {
+    await axios.delete(`/api/experiences/${this.state.expToDelete}`);
+
+    this.props.getServerData();  
+  }
+
+  dropDate = async () => {
+    await axios.put('/api/experiences/0/dates/book', {
+      date_id: this.state.dateToDrop
+    });
+
+    this.props.getServerData();    
   }
 
   render() {
@@ -63,11 +79,37 @@ class Upcoming extends Component {
                     </button>
                     <button 
                       className="ui mini button basic red content desktop"
-                      onClick={() => {this.setState({modalOpen: true, expToDelete: data[i].experience_id})}}
+                      onClick={() => {this.setState({
+                        modalOpen: true,
+                        expToDelete: data[i].experience_id,
+                        header: 'Are you sure you want to delete this experience?',
+                        footer: [
+                          <button key={keygen()} className='ui button' onClick={this.closeModal}>Cancel</button>, 
+                          <button key={keygen()} 
+                            className='ui button negative' 
+                            onClick={async () => {
+                              await this.deleteExp(); 
+                              this.closeModal(); 
+                              this.props.getServerData();
+                            }}>Confirm</button>]
+                    })}}
                     >Delete</button>
                     <button 
                       className="ui mini icon button basic red content mobile"
-                      onClick={() => {this.setState({modalOpen: true, expToDelete: data[i].experience_id})}}>
+                      onClick={() => {this.setState({
+                        modalOpen: true,
+                        expToDelete: data[i].experience_id,
+                        header: 'Are you sure you want to delete this experience?',
+                        footer: [
+                          <button key={keygen()} className='ui button' onClick={this.closeModal}>Cancel</button>, 
+                          <button key={keygen()} 
+                            className='ui button negative' 
+                            onClick={async () => {
+                              await this.deleteExp(); 
+                              this.closeModal(); 
+                              this.props.getServerData();
+                            }}>Confirm</button>]
+                    })}}>
                       <i className="close red icon"></i>
                     </button>
                   </Fragment>)}
@@ -86,14 +128,24 @@ class Upcoming extends Component {
             <div key={keygen()} className={`item indentedItem ${i === data.length - 1 ? 'bottomMargin20px' : ''}`}>
               <div className="right floated content">
                 <button className="ui button mini basic orange" onClick={
-                  async () => {
-                    await axios.put('api/experiences/0/dates/book', {
-                      date_id: data[i].date_id
-                    });
-
-                    this.props.getServerData();                    
+                  () => {
+                    this.setState({
+                      modalOpen: true,
+                      dateToDrop: data[i].date_id,
+                      header: 'Are you sure you want to drop this date?',
+                      footer: [
+                        <button key={keygen()} className='ui button' onClick={this.closeModal}>Cancel</button>, 
+                        <button key={keygen()} 
+                          className='ui button negative' 
+                          onClick={async () => {
+                            await this.dropDate(); 
+                            this.closeModal(); 
+                          }}>Confirm</button>
+                      ]
+                    })
                   }
-                }>Drop</button>
+                  }
+                >Drop</button>
               </div>
               <div className="content">
                 <h4 className='topMargin4px'>
@@ -134,17 +186,9 @@ class Upcoming extends Component {
                           <span data-tooltip="You can only host one experience at a time."><button className='ui button disabled'>Host Experience</button></span>
                         </div>) : null }
         <Modal 
-          header='Are you sure you want to delete this experience?' 
+          header={this.state.header}
           body='This action cannot be undone.'  
-          footer={[
-            <button key={keygen()} className='ui button' onClick={this.closeModal}>Cancel</button>, 
-            <button key={keygen()} 
-              className='ui button negative' 
-              onClick={async () => {
-                this.closeModal(); 
-                await this.deleteExp(); 
-                this.props.getServerData();
-              }}>Confirm</button>]}
+          footer={this.state.footer}
           open={this.state.modalOpen}
           close={this.closeModal} />
       </div>
