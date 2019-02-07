@@ -84,6 +84,17 @@ class Upcoming extends Component {
         if (data[i].guests !== null){
           display.push((
             <div key={keygen()} className={`item indentedItem ${i === data.length - 1 ? 'bottomMargin20px' : ''}`}>
+              <div className="right floated content">
+                <button className="ui button mini basic orange" onClick={
+                  async () => {
+                    await axios.put('api/experiences/0/dates/book', {
+                      date_id: data[i].date_id
+                    });
+
+                    this.props.getServerData();                    
+                  }
+                }>Drop</button>
+              </div>
               <div className="content">
                 <h4 className='topMargin4px'>
                   {
@@ -127,7 +138,13 @@ class Upcoming extends Component {
           body='This action cannot be undone.'  
           footer={[
             <button key={keygen()} className='ui button' onClick={this.closeModal}>Cancel</button>, 
-            <button key={keygen()} className='ui button negative' onClick={async () => {this.closeModal(); await this.deleteExp(); this.props.getServerData();}}>Confirm</button>]}
+            <button key={keygen()} 
+              className='ui button negative' 
+              onClick={async () => {
+                this.closeModal(); 
+                await this.deleteExp(); 
+                this.props.getServerData();
+              }}>Confirm</button>]}
           open={this.state.modalOpen}
           close={this.closeModal} />
       </div>
