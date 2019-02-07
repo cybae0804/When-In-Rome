@@ -62,3 +62,7 @@
 .calendar .active.react-calendar__tile--active{
   background: darkgreen !important;
 }
+
+.react-calendar__navigation__label {
+  pointer-events: none;
+}
