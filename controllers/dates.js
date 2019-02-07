@@ -84,7 +84,6 @@ exports.post = async (req, res) => {
       }
       
       query = mysql.format(prepared, inserts);
-      console.log("delete dates", query)
       await db.query(query);
     }
 
@@ -108,10 +107,10 @@ exports.postOne = async (req, res) => {
                     WHERE user_id = ?
                     AND date = ?`;
     let inserts = [user_id, date];
-    let query = mysql.format(prepared, inserts);       
-    
+    let query = mysql.format(prepared, inserts);
+
     const dates = await db.query(query);
-    
+
     if (dates.length) {
       return res.send({
         success: false,
@@ -134,5 +133,28 @@ exports.postOne = async (req, res) => {
     });
   } catch (err) {
     res.status(422).send('Error posting dates');
+  }
+};
+
+exports.delete = async (req, res) => {
+  try {
+    const { id: user_id } = req.user;
+    const { date_id: id } = req.body;
+
+    const prepared = `UPDATE dates
+                      SET user_id = NULL,
+                      guests = NULL
+                      WHERE user_id = ?
+                      AND id = ?`;
+    const inserts = [user_id, id];
+    const query = mysql.format(prepared, inserts);
+
+    await db.query(query);
+
+    res.send({
+      success: true,
+    });
+  } catch (err) {
+    res.status(422).send('Error unbooking date');
   }
 };

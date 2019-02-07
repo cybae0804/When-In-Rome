@@ -6,6 +6,7 @@ datesRouter.route('/')
   .post(dates.post)
 
 datesRouter.route('/book')
-  .post(dates.postOne);
+  .post(dates.postOne)
+  .put(dates.delete);
 
 module.exports = datesRouter;
