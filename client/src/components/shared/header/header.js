@@ -26,11 +26,20 @@ class Header extends Component {
       <div>
         {
           this.props.version === 'landing' ? 
-            this.props.auth ? (<a 
-              id='desktopLoginLink' 
-              href='/oauth/logout'
-              className='ui button primary'
-            >Log Out</a>)
+            this.props.auth ? (
+              <div>
+                <a 
+                  id='desktopDashboardLink' 
+                  href='/dashboard'
+                  className='ui button primary'
+                >Dashboard</a>
+                <a 
+                  id='desktopLoginLink' 
+                  href='/oauth/logout'
+                  className='ui button primary'
+                >Log Out</a>
+              </div>
+           )
             :
             (<a 
               id='desktopLoginLink' 
