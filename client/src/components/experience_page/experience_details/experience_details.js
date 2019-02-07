@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import {withRouter} from 'react-router-dom';
 import Calendar from '../../shared/calendar/calendar';
-import ReviewsContainer from './reviews_container/reviews_container'
+import ReviewsContainer from './reviews_container/reviews_container';
 import Carousel from '../../shared/carousel';
-import { convertDateObjToCalendarVal, getDate } from '../../../helper';
+import { convertDateObjToCalendarVal, getDate, keygen } from '../../../helper';
 import './experience_details.css';
+import Modal from '../../shared/modal';
 import axios from 'axios';
 
 class ExperienceDetails extends Component {
@@ -15,7 +16,10 @@ class ExperienceDetails extends Component {
       date: "",
       auth: this.props.auth,
       guests: null,
-      version: ""
+      version: "",
+      header: '',
+      body: '',
+      footer: '',
     };
   }
 
@@ -30,36 +34,52 @@ class ExperienceDetails extends Component {
   handleSubmit = async e => {
     e.preventDefault();
     const {experience_id, date, guests, version} = this.state;
+    const {activity, 
+      occupation, 
+      city, 
+      country} = this.props;
+    
     if(version === "invalid"){
       return;
     }
+    
     this.setState({
       guests: null
-    })
+    });
+    
     const resp = await axios.post(`/api/experiences/${experience_id}/dates/book`, 
     {
       date,
       guests,
     });
-    if(resp.data.success){
+
+    if (resp.data.success) {
       this.setState({
         version: "success",
-      })
-    }else{
+        header: 'Successfully Booked!',
+        body: `You are scheduled for ${activity} with a ${occupation} in ${city}, ${country} on ${this.state.date}`,
+        footer: ''
+      });
+    } else {
       this.setState({
-        version: "failure"
-      })
+        version: "failure",
+        header: 'Failed to book.',
+        body: 'You already have an experience booked on this date. Please choose a different date.',
+        footer: ''
+      });
     }
+
     this.props.getDetails();
   }
 
   getGuests = e => {
     e.preventDefault();
-    if (e.target.value <=0 || e.target.value > this.props.guests){
+
+    if (e.target.value <= 0 || e.target.value > this.props.guests){
       this.setState({
         version: "invalid"
       })
-    }else{
+    } else {
       this.setState({
         guests: e.target.value,
         version: "reserve"
@@ -67,74 +87,58 @@ class ExperienceDetails extends Component {
     }
   }
 
-  reserveMessage = () => {
-    return (<div className="ui one column stackable center aligned page grid">
-      <div className="column five wide">
-        <h4>{`Reserving for ${this.state.date}`}</h4>
-        <form action="" className="ui form" onSubmit={this.handleSubmit}>
-          <div id="guests" className="ui action input eleven wide field">
-            <input type="number" placeholder="Enter # of Guests" onChange={this.getGuests}/>
-            <button className="ui positive button" type="submit">Reserve</button>
-          </div>
-          {this.state.version === "invalid" ? 
-          <div>
-            <p className="errorMessage">Please Enter a valid # of Guests</p>
-          </div> : ""} 
-        </form>
-      </div>
-    </div>)
-  };
-
   redirectToLogin = () => {
     localStorage.setItem('redirectUrl', window.location.pathname)
     this.props.history.push('/login')
   }
   
-  signInPrompt = () => (
-    (<button
-      onClick={this.redirectToLogin}
-      className='ui button primary'
-    >Log In / Sign Up</button>)
-  );
-
-  successMessage = () => {
-    const {activity, 
-            occupation, 
-            city, 
-            country} = this.props
-    return(
-      <div className="success">
-        <i className="close icon" onClick={this.closeMessage}></i>
-        <div className="ui header">
-          Successfully Booked!
-        </div>
-        <p className="marginBottom">You are scheduled for {activity} with a {occupation} in {city}, {country} on {this.state.date}</p>
-      </div>
-    )
-  }
-
-  failureMessage = () => {
-    return(
-      <div className="failure">
-        <i className="close icon" onClick={this.closeMessage}></i>
-        <p className="topMargin marginBottom">You already have an experience booked on this date. Please choose a different date.</p>
-      </div>
-    )
-  }
-
   closeMessage = () => {
    this.setState({
-     version: ""
-   })
+     header: '',
+     body: '',
+     footer: '',
+     version: "",
+   });
   }
 
   handleDateClicked = (date) => {
     date = new Date(date);
-    this.setState({
-      version: this.props.auth ? "reserve" : "noAuth",
-      date: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
-    }, () => {
-    });
+    this.props.auth ? 
+      this.setState({
+        version: 'reserve',
+        date: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`,
+        header: `Reserving for ${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`,
+        body: (<div className="ui one column stackable center aligned page grid">
+          <div className="column ten wide">
+            <form data-tooltip={`Up to ${this.props.guests} guests can join.`} action="" className="ui form" onSubmit={this.handleSubmit}>
+              <div id="guests" className="ui action input eleven wide field">
+                <input type="number" placeholder="Enter # of Guests" onChange={this.getGuests}/>
+                <button className="ui positive button" type="submit">Reserve</button>
+              </div>
+              {this.state.version === "invalid" ? 
+              <div>
+                <p className="errorMessage">Please Enter a valid # of Guests</p>
+              </div> : ""} 
+            </form>
+          </div>
+        </div>),
+        footer: <div></div>
+      }) : this.setState({
+        version: 'noAuth',
+        date: `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`,
+        header: 'Please sign in before reserving',
+        body: '',
+        footer: [(<button
+          key={keygen()}
+          onClick={this.closeMessage}
+          className='ui button'
+        >Cancel</button>), (<button
+          key={keygen()}
+          onClick={this.redirectToLogin}
+          className='ui button primary'
+        >Log In / Sign Up</button>)]
+      })
+
     for(let booking of this.props.dates){
       let matchingDates = getDate(new Date(booking.date)) === getDate(new Date(date))
       if (matchingDates && booking.guests){
@@ -144,14 +148,6 @@ class ExperienceDetails extends Component {
       }
     }
   }
-
-  // displayBooked = () => {
-  //   return(
-  //     <div className="ui header">
-  //       Already booked
-  //     </div>
-  //   )
-  // }
 
   displayCalendarDates = (date, dateArray) => {
     if(!dateArray){
@@ -164,25 +160,6 @@ class ExperienceDetails extends Component {
       }else if(matchingDates){
         return "booked"
       }
-    }
-  }
-
-  displayVersion(){
-    switch (this.state.version){
-      case "reserve":
-        return this.reserveMessage()
-      case "invalid":
-        return this.reserveMessage()
-      case "success":
-        return this.successMessage()
-      case "failure":
-        return this.failureMessage()
-      case "booked":
-        return this.displayBooked()
-      case "noAuth":
-        return this.signInPrompt()
-      default:
-        return ""
     }
   }
 
@@ -276,16 +253,18 @@ class ExperienceDetails extends Component {
               </div>
             </div>
           </div>
-          <div className="center aligned topMargin">
-            {this.displayVersion()}
-          </div>
           <div className="reviews bigTopMargin">
             <ReviewsContainer avg={average_rating} total={total_ratings} reviews={reviews}/>
           </div>
+          <Modal 
+            header={this.state.header}
+            body={this.state.body}
+            footer={this.state.footer || <button onClick={this.closeMessage} className='button ui positive'>Okay</button>}
+            open={this.state.version}
+            close={this.closeMessage}/>
         </div>
     );
   }
 }
 
 export default withRouter(ExperienceDetails);
-
