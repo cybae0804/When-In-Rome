@@ -66,7 +66,6 @@ exports.post = async (req, res) => {
       }
       
       query = mysql.format(prepared, inserts);
-      console.log("insert dates", query)
       
       await db.query(query);
     }
