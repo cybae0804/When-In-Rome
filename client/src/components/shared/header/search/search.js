@@ -44,7 +44,7 @@ class Search extends Component {
     this.setState({
       form: {
         ...this.state.form,
-        ...queryString(this.props.location.search)
+        ...queryString(decodeURIComponent(this.props.location.search))
       }
     });
   }
@@ -56,7 +56,7 @@ class Search extends Component {
       let narrowDownQuery = '?';
 
       for (let field in form){
-        if (form[field]) narrowDownQuery += `${field}=${form[field]}&`
+        if (form[field]) narrowDownQuery += `${field}=${encodeURIComponent(form[field].trim())}&`
       }
 
       const l = narrowDownQuery.length-1;

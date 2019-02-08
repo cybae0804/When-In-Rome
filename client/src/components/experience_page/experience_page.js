@@ -7,10 +7,6 @@ import { getExperienceDetails, clearExperienceDetails } from '../../actions';
 import './experience_page.css';
 
 class ExperiencePage extends Component {
-  submit = form => {
-    this.props.history.push(`/search?cityjob=${form.cityjob}`);
-  }
-
   componentDidMount() {
     this.getDetails();
   }
