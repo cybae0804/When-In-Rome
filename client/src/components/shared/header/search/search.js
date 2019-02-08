@@ -53,6 +53,8 @@ class Search extends Component {
   updateUrl = () => {
     if (this.inputValidation()){
       const { form } = this.state;
+      const { location, history } = this.props;
+
       let narrowDownQuery = '?';
 
       for (let field in form){
@@ -62,7 +64,12 @@ class Search extends Component {
       const l = narrowDownQuery.length-1;
       if (narrowDownQuery[l] === '&') narrowDownQuery = narrowDownQuery.substring(0, l);
 
-      this.props.history.replace(`/search${narrowDownQuery}`);
+      if (location.pathname === '/') {
+        history.push(`/search${narrowDownQuery}`);
+      } else {
+        history.replace(`/search${narrowDownQuery}`);
+      }
+
       this.props.getExperiences(queryString(narrowDownQuery));
     }
   }
