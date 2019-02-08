@@ -55,7 +55,7 @@ const technology = [
 		name: 'Semantic UI'
 	},
 	{
-		name: 'oAuth'
+		name: 'OAuth'
 	},
 	{
 		name: 'Passport'
