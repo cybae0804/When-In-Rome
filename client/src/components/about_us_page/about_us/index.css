@@ -2,3 +2,11 @@
     min-height: 100vh;
     position: relative;
 }
+
+.indivCard {
+    width: 212px !important;
+}
+
+.cardContainer {
+    justify-content: center;
+}
