@@ -19,7 +19,7 @@ const contributors = [
 	{
 		firstName: 'Ben',
 		lastName: 'Levine',
-		github: 'https://github.com/hapachino',
+    github: 'https://github.com/benlevine1',
 		linkedin: 'https://www.linkedin.com/in/benjamin-levine-261b9361/',
 		portfolio: '',
 		imgUrl: 'http://picsum.photos/401'
@@ -27,10 +27,10 @@ const contributors = [
 	{
 		firstName: 'Erick',
 		lastName: 'Brownfield',
-		github: 'https://github.com/benlevine1',
+		github: 'https://github.com/hapachino',
 		linkedin: 'https://www.linkedin.com/in/erickbrownfield/',
 		portfolio: 'http://erickbrownfield.com',
-		imgUrl: 'http://picsum.photos/402'
+    imgUrl: 'https://media.licdn.com/dms/image/C5603AQHH_L_tOhC7Hw/profile-displayphoto-shrink_200_200/0?e=1554940800&v=beta&t=o2Po8cn_C7Os7taQkjYtntyU2zbInTxtdRzFcQz5tjY'
 	}
 ];
 
