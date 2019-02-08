@@ -13,7 +13,7 @@ const contributors = [
 		lastName: 'Bae',
 		github: 'https://github.com/cybae0804',
 		linkedin: 'https://www.linkedin.com/in/cybae0804/',
-		portfolio: 'http://cybae.co',
+		portfolio: 'https://cybae.me',
 		imgUrl: 'https://media.licdn.com/dms/image/C4D03AQHG3Q5PODKQAQ/profile-displayphoto-shrink_200_200/0?e=1554940800&v=beta&t=NGkKPhDAfw7M_URY016DlKYZ7cHaJw8qgdA3CrmgJD8'
 	},
 	{
@@ -73,9 +73,9 @@ export default props => (
 		</div>
 
 		<h3 className='ui horizontal divider header topMargin'>Contributors</h3>
-		<div className='ui three stackable cards topMargin'>
+		<div className='ui three cards topMargin cardContainer'>
 			{contributors.map( (item, index) => (
-				<div key={index} className='ui card'>
+				<div key={index} className='ui card indivCard'>
 					<div className='image'>
 						<img src={item.imgUrl} />
 					</div>
