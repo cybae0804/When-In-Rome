@@ -97,8 +97,12 @@ export function postReview(values, id) {
         type: types.POST_REVIEW,
         payload: success,
       });
+
+      return true;
     } catch (err) {
       console.log('Post Review Error:', err);
+
+      return false;
     }
   }
 }
