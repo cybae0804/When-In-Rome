@@ -39,7 +39,7 @@ class ExperienceDetails extends Component {
       city, 
       country} = this.props;
     
-    if(version === "invalid"){
+    if (version === "invalid" ){
       return;
     }
     
@@ -112,7 +112,7 @@ class ExperienceDetails extends Component {
           <div className="column ten wide">
             <form data-tooltip={`Up to ${this.props.guests} guests can join.`} action="" className="ui form" onSubmit={this.handleSubmit}>
               <div id="guests" className="ui action input eleven wide field">
-                <input type="number" placeholder="Enter # of Guests" onChange={this.getGuests}/>
+                <input required type="number" placeholder="Enter # of Guests" onChange={this.getGuests}/>
                 <button className="ui positive button" type="submit">Reserve</button>
               </div>
               {this.state.version === "invalid" ? 
