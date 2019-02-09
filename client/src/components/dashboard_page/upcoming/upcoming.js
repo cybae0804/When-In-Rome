@@ -127,7 +127,7 @@ class Upcoming extends Component {
           display.push((
             <div key={keygen()} className={`item indentedItem ${i === data.length - 1 ? 'bottomMargin20px' : ''}`}>
               <div className="right floated content">
-                <button className="ui button mini basic orange" onClick={
+                <button className="ui button mini basic orange desktop" onClick={
                   () => {
                     this.setState({
                       modalOpen: true,
@@ -146,6 +146,25 @@ class Upcoming extends Component {
                   }
                   }
                 >Drop</button>
+                <button className="ui mini icon button basic orange content mobile" onClick={
+                  () => {
+                    this.setState({
+                      modalOpen: true,
+                      dateToDrop: data[i].date_id,
+                      header: 'Are you sure you want to drop this date?',
+                      footer: [
+                        <button key={keygen()} className='ui button' onClick={this.closeModal}>Cancel</button>, 
+                        <button key={keygen()} 
+                          className='ui button negative' 
+                          onClick={async () => {
+                            await this.dropDate(); 
+                            this.closeModal(); 
+                          }}>Confirm</button>
+                      ]
+                    })
+                  }
+                  }
+                ><i className="close red icon"></i></button>
               </div>
               <div className="content">
                 <h4 className='topMargin4px'>
