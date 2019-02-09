@@ -62,7 +62,7 @@ export default ({
         onClick={cancel}
       >Cancel</button>
     </div>
-    <form onSubmit={apply} className={`filterDrop ${filterOpen ? '' : 'dispNone'}`}>
+    <div className={`filterDrop ${filterOpen ? '' : 'dispNone'}`}>
       <button onClick={apply} className='dispNone'></button>
       <div className='two fields'>
         <div className="field small" id="overrideColumns">
@@ -120,7 +120,7 @@ export default ({
           />
         </div>
       </div>
-    </form>
+    </div>
     <input type="submit" className='dispNone'/>
   </form>
 );
