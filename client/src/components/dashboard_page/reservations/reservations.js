@@ -263,7 +263,7 @@ class Reservations extends Component {
             </div>
             : <div>
               <button className="ui positive button " onClick={this.handleConfirmButtonClicked}>Confirm</button>
-              <button className="ui orange button" onClick={this.handleClearButtonClicked}>Clear</button>
+              <button className="ui orange button" onClick={this.handleClearButtonClicked}>Cancel</button>
             </div>}
           </div>}
         </div>
