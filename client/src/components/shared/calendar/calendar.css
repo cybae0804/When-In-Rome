@@ -71,6 +71,6 @@
   background-color: #f0f0f0 !important;
 }
 
-.react-calendar__tile react-calendar__tile--active {
+.react-calendar__tile.react-calendar__tile--active {
   background-color: #75a568 !important;
 }
