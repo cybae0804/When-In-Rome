@@ -43,7 +43,7 @@ exports.signup = async (req, res) => {
       success: true,
     });
   } catch (err) {
-    res.status(422).send('Error signing up locally');
+    res.status(422).send(err);
     console.log(err)
   }
 };
