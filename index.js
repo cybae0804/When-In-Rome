@@ -3,7 +3,7 @@ const cors = require('cors');
 const cookieSession = require('cookie-session');
 const { resolve } = require('path');
 const { cookieSessionKey } = require('./config').keys;
-const PORT = process.env.PORT || 9000;
+const PORT = 443;
 
 const { googlePassport, localPassport } = require('./config/passport-setup');
 const app = express();
