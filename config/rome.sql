@@ -22,7 +22,7 @@ SET time_zone = "+00:00";
 
 DROP DATABASE IF EXISTS `rome`;
 CREATE DATABASE `rome`;
-USE `rome`
+USE `rome`;
 
 
 -- --------------------------------------------------------
