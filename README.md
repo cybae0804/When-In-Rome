@@ -4,7 +4,10 @@
 
 When in Rome is a mobile-first application that seeks to offer an authentic experience by connecting local hosts with travelers. Users can sign up for an experience and join a host in their daily life - commuting, working, or having drink at the local dive bar. 
 
-[Live Demo](https://wheninrome.live)
+Live Demo is currently down due to maintenance! 
+
+![example1](https://i.imgur.com/8o4bMDQ.png)
+![example2](https://i.imgur.com/vBypujq.png)
 
 ### Collaborators
 - Ben Levine
