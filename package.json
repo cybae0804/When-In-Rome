@@ -12,7 +12,7 @@
   "author": "Cy Bae, Ben Levine, Erick Brownfield",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.387.0",
+    "aws-sdk": "^2.814.0",
     "bcrypt": "^3.0.2",
     "cookie-session": "^2.0.0-beta.3",
     "cors": "^2.8.5",
